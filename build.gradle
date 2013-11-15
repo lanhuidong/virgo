@@ -1,0 +1,109 @@
+apply plugin: "idea"
+
+idea {
+    project {
+        jdkName = 1.7
+        languageLevel = 1.7
+    }
+}
+
+def springVersion = '3.2.5.RELEASE'
+def springSecurityVersion = '3.1.4.RELEASE'
+def tomcatVersion = '7.0.47'
+def logbackVersion = '1.0.13'
+def slf4jVersion = '1.7.5'
+def junitVersion = '4+'
+def c3p0Version = '0.9.1.2'
+def mysqlConnectorJavaVersion = '5.1.27'
+def hibernateVersion = '4.2.7.SP1'
+def hibernateValidatorVersion = '5.0.1.Final'
+def jacksonVersion = '2.2.3'
+def freemarkVersion = '2.3.20'
+def jsonpathVersion = '0.9.1'
+
+allprojects {
+    apply plugin: 'java'
+    group = 'com.virgo'
+    version = '1.0'
+    sourceCompatibility = 1.7
+    targetCompatibility = 1.7
+}
+
+subprojects {
+    repositories {
+        mavenCentral()
+    }
+    configurations {
+        all*.exclude group: 'commons-logging', module: 'commons-logging'
+    }
+    dependencies {
+        compile "org.springframework:spring-context-support:$springVersion"
+        compile("org.springframework.security:spring-security-web:$springSecurityVersion") {
+            exclude group: "org.springframework", module: "spring-jdbc"
+            exclude group: "org.springframework", module: "spring-tx"
+            exclude group: "org.springframework", module: "spring-web"
+        }
+        compile "org.springframework.security:spring-security-config:$springSecurityVersion"
+        compile "org.slf4j:jcl-over-slf4j:$slf4jVersion"
+        compile "ch.qos.logback:logback-classic:$logbackVersion"
+        testCompile "org.springframework:spring-test:$springVersion"
+        testCompile "junit:junit:$junitVersion"
+    }
+}
+
+project(':virgo-data') {
+
+    dependencies {
+        compile "mysql:mysql-connector-java:$mysqlConnectorJavaVersion"
+        compile "c3p0:c3p0:$c3p0Version"
+        compile "org.hibernate:hibernate-core:$hibernateVersion"
+        compile "org.springframework:spring-orm:$springVersion"
+        compile "org.hibernate:hibernate-validator:$hibernateValidatorVersion"
+    }
+
+    task createProject << {
+        sourceSets*.allSource.srcDirs*.each { it.mkdirs() }
+        println 'Project ' + name + ' created'
+    }
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "org.gradle.api.plugins:gradle-tomcat-plugin:1.0"
+    }
+}
+
+project(':virgo-web') {
+    apply plugin: 'war'
+    apply plugin: 'tomcat'
+
+    tomcatRun {
+        httpPort = 80
+        contextPath = ""
+    }
+
+    dependencies {
+        tomcat "org.apache.tomcat.embed:tomcat-embed-core:$tomcatVersion",
+                "org.apache.tomcat.embed:tomcat-embed-logging-juli:$tomcatVersion"
+        tomcat("org.apache.tomcat.embed:tomcat-embed-jasper:$tomcatVersion") {
+            exclude group: 'org.eclipse.jdt.core.compiler', module: 'ecj'
+        }
+
+        compile "org.springframework:spring-webmvc:$springVersion"
+        compile "org.freemarker:freemarker:$freemarkVersion"
+        providedCompile "org.apache.tomcat:tomcat-servlet-api:$tomcatVersion"
+        providedCompile "org.apache.tomcat:tomcat-jsp-api:$tomcatVersion"
+        compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+        testCompile "com.jayway.jsonpath:json-path:$jsonpathVersion"
+        compile project(':virgo-data')
+    }
+    task createProject << {
+        sourceSets*.allSource.srcDirs*.each { it.mkdirs() }
+        def webAppDir = file("$webAppDirName")
+        webAppDir.mkdirs()
+        println 'Project ' + name + ' created'
+    }
+}
