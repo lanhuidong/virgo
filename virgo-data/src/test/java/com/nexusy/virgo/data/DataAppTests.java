@@ -13,6 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = DataSourceConfig.class)
 @Transactional
-public class DataAppTests {
+public abstract class DataAppTests {
 
 }
