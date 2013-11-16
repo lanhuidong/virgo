@@ -1,6 +1,11 @@
 package com.nexusy.virgo.data.model;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 /**
@@ -11,7 +16,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
 
     /**
      * 用户ID，由数据库自动生成
@@ -67,7 +72,7 @@ public class User {
         this.username = username;
     }
 
-    @Column(length = 32)
+    @Column(length = 100)
     public String getPassword() {
         return password;
     }
@@ -111,4 +116,42 @@ public class User {
     public void setLastLogin(Date lastLogin) {
         this.lastLogin = lastLogin;
     }
+
+    @Override
+    @Transient
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    @Transient
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    @Transient
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    @Transient
+    public boolean isEnabled() {
+        return true;
+    }
+
+    @Override
+    @Transient
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Collection<GrantedAuthority> roles = new ArrayList<>();
+        roles.add(new GrantedAuthority() {
+            @Override
+            public String getAuthority() {
+                return "user";
+            }
+        });
+        return roles;
+    }
+
 }

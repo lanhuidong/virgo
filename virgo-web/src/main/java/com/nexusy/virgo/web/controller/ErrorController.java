@@ -19,6 +19,11 @@ public class ErrorController {
 
     private Logger logger = LoggerFactory.getLogger(ErrorController.class);
 
+    @RequestMapping("/403")
+    public ModelAndView http403() {
+        return new ModelAndView("/403");
+    }
+
     @RequestMapping("/error")
     public ModelAndView error(HttpServletRequest request) {
         Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
