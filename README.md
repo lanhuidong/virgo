@@ -23,7 +23,7 @@ json-path 0.9.1<br/>
 tomcat 7.0.47<br/>
 jquery 2.0.3<br/>
 bootstrap 3.0.2<br/>
-本版1.0.0(coding中)
+版本1.0.0(coding中)
 =====
 1.用户登录注册<br/>
 2.记账功能<br/>
