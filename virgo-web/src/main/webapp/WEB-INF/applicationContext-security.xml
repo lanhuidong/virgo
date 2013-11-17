@@ -7,6 +7,7 @@
            http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
     <http pattern="/" security="none"/>
+    <http pattern="/signup/**" security="none"/>
     <http pattern="/signup" security="none"/>
     <http pattern="/css/**" security="none"/>
     <http pattern="/js/**" security="none"/>
@@ -16,7 +17,8 @@
         <!-- 注意intercept-url的顺序 -->
         <intercept-url pattern="/admin/**" access="hasAnyRole('admin')"/>
         <intercept-url pattern="/**" access="hasAnyRole('user')"/>
-        <form-login login-page="/" login-processing-url="/login" authentication-success-handler-ref="virgoAuthenticationSuccessHandler"  always-use-default-target="true"/>
+        <form-login login-page="/" login-processing-url="/login" authentication-failure-handler-ref="virgoAuthenticationFailureHandler"
+                    authentication-success-handler-ref="virgoAuthenticationSuccessHandler"  always-use-default-target="true"/>
         <logout logout-url="/logout" logout-success-url="/"/>
     </http>
 
@@ -27,5 +29,6 @@
     </authentication-manager>
 
     <beans:bean id="virgoAuthenticationSuccessHandler" class="com.nexusy.virgo.web.auth.VirgoAuthenticationSuccessHandler" />
+    <beans:bean id="virgoAuthenticationFailureHandler" class="com.nexusy.virgo.web.auth.VirgoAuthenticationFailureHandler" />
 
 </beans:beans>

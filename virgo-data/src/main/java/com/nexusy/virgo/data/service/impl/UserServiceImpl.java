@@ -37,4 +37,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         user.setPassword(encodedPassword);
         userDao.merge(user);
     }
+
+    @Override
+    public boolean chechUsername(String username) {
+        return userDao.findUserByUsername(username) != null;
+    }
 }

@@ -6,8 +6,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -31,16 +33,29 @@ public class SignupController {
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public ModelAndView signup(@Valid User user, BindingResult result) {
+    @ResponseBody
+    public int signup(@Valid User user, BindingResult result) {
+        int code;
         if (result.hasErrors()) {
-
+            code =  1;
+        } else if(userService.chechUsername(user.getJ_username())){
+            code =  2;
+        } else {
+            com.nexusy.virgo.data.model.User newUser = new com.nexusy.virgo.data.model.User();
+            newUser.setUsername(user.getJ_username());
+            newUser.setPassword(user.getJ_password());
+            Date date = new Date();
+            newUser.setSignTime(date);
+            newUser.setLastLogin(date);
+            userService.save(newUser);
+            code = 0;
         }
-        com.nexusy.virgo.data.model.User newUser = new com.nexusy.virgo.data.model.User();
-        BeanUtils.copyProperties(user, newUser);
-        Date date = new Date();
-        newUser.setSignTime(date);
-        newUser.setLastLogin(date);
-        userService.save(newUser);
-        return null;
+        return code;
+    }
+
+    @RequestMapping("/signup/{username}")
+    @ResponseBody
+    public boolean checkUsername(@PathVariable String username){
+        return userService.chechUsername(username);
     }
 }

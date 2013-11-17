@@ -32,10 +32,10 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a>登录</a>
+                            <a href="/${username}">${username}</a>
                         </li>
                         <li>
-                            <a>注册</a>
+                            <a href="/logout">退出</a>
                         </li>
                     </ul>
                 </nav>
