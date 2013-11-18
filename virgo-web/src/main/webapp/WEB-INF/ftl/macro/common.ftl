@@ -35,7 +35,7 @@
                         <a href="/${user.username}">我的主页</a>
                     </li>
                     <li>
-                        <a href="/bill">记账</a>
+                        <a href="/bill">账本</a>
                     </li>
                     </#if>
                 </ul>

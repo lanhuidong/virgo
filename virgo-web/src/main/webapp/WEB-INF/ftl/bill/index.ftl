@@ -1,5 +1,5 @@
-<@c.html title="记账-记账本">
-    ${username}的主页
+<@c.html title="账本-记账本">
+    ${user.username}的账本
     <script type="text/javascript">
     $(function(){
         $('.nav').find('li').removeClass('active');

@@ -1,10 +1,3 @@
-$(function(){
-    $('#sign-btn').click(signup);
-    $('#login-form').submit(login);
-    $('#regusername').blur(validateUsername);
-    $('#regpassword').blur(validatePassword);
-});
-
 function validateUsername(event, uncheck){
     var result = true;
     var username = $('#regusername').val();

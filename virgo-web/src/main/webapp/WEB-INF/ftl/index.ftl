@@ -3,7 +3,11 @@
     <script type="text/javascript">
     $(function(){
         $('.nav').find('li').removeClass('active');
-        $('.nav').find('li:eq(0)').addClass('active');
+        $('.nav:eq(0)').find('li:eq(0)').addClass('active');
+        $('#sign-btn').click(signup);
+        $('#login-form').submit(login);
+        $('#regusername').blur(validateUsername);
+        $('#regpassword').blur(validatePassword);
     });
     </script>
 </@c.html>
