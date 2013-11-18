@@ -1,5 +1,6 @@
 $(function(){
     $('#sign-btn').click(signup);
+    $('#login-form').submit(login);
     $('#regusername').blur(validateUsername);
     $('#regpassword').blur(validatePassword);
 });
@@ -67,5 +68,16 @@ function signup(){
             }
         });
     }
+    return false;
+}
+
+function login(){
+    $.post('/login', $('#login-form').serialize(),function(data){
+        if(data==0){
+            window.location.href='/'
+        } else {
+            $('#login-error').text('用户名或者密码错误');
+        }
+    });
     return false;
 }

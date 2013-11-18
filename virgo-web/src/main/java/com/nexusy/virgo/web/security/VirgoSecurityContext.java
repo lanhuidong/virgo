@@ -16,9 +16,9 @@ public class VirgoSecurityContext implements SecurityContext {
     /**
      * Get login user.
      */
-    public static User getCurrentUser(){
+    public static User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication == null ? null : (User) authentication.getPrincipal();
+        return (authentication == null || authentication.getPrincipal() instanceof String) ? null : (User) authentication.getPrincipal();
     }
 
     @Override

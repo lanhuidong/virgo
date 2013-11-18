@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * 如果注册成功时自动登录成功，则进入用户主页，否则返回0
+ *
  * @author lan
  * @since 2013-11-16
  */
@@ -18,8 +20,14 @@ public class VirgoAuthenticationSuccessHandler implements AuthenticationSuccessH
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        String username = authentication.getName();
-        response.sendRedirect("/"+username);
+        String fromSignup = request.getParameter("fromSignup");
+        if (fromSignup != null) {
+            String username = authentication.getName();
+            response.sendRedirect("/" + username);
+        } else {
+            response.setHeader("Content-Type", "application/json");
+            response.getWriter().write("0");
+        }
     }
 
 }

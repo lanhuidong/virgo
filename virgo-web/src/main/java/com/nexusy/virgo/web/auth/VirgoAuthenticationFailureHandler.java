@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * 登录失败返回1
+ *
  * @author lan
  * @since 2013-11-17
  */
@@ -18,7 +20,8 @@ public class VirgoAuthenticationFailureHandler implements AuthenticationFailureH
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-
+        response.setHeader("Content-Type", "application/json");
+        response.getWriter().write("1");
     }
 
 }

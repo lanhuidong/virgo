@@ -1,12 +1,14 @@
 <beans:beans xmlns="http://www.springframework.org/schema/security"
              xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:context="http://www.springframework.org/schema/context"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.1.xsd
            http://www.springframework.org/schema/security
            http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
-    <http pattern="/" security="none"/>
     <http pattern="/signup/**" security="none"/>
     <http pattern="/signup" security="none"/>
     <http pattern="/css/**" security="none"/>
@@ -15,10 +17,13 @@
     <http pattern="/fonts/**" security="none"/>
     <http use-expressions="true" access-denied-page="/403">
         <!-- 注意intercept-url的顺序 -->
+        <intercept-url pattern="/" access="permitAll"/>
         <intercept-url pattern="/admin/**" access="hasAnyRole('admin')"/>
         <intercept-url pattern="/**" access="hasAnyRole('user')"/>
-        <form-login login-page="/" login-processing-url="/login" authentication-failure-handler-ref="virgoAuthenticationFailureHandler"
-                    authentication-success-handler-ref="virgoAuthenticationSuccessHandler"  always-use-default-target="true"/>
+        <form-login login-page="/" login-processing-url="/login"
+                    authentication-failure-handler-ref="virgoAuthenticationFailureHandler"
+                    authentication-success-handler-ref="virgoAuthenticationSuccessHandler"
+                    always-use-default-target="true"/>
         <logout logout-url="/logout" logout-success-url="/"/>
     </http>
 
@@ -28,7 +33,6 @@
         </authentication-provider>
     </authentication-manager>
 
-    <beans:bean id="virgoAuthenticationSuccessHandler" class="com.nexusy.virgo.web.auth.VirgoAuthenticationSuccessHandler" />
-    <beans:bean id="virgoAuthenticationFailureHandler" class="com.nexusy.virgo.web.auth.VirgoAuthenticationFailureHandler" />
+    <context:component-scan base-package="com.nexusy.virgo.web.auth"/>
 
 </beans:beans>
