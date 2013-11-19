@@ -2,8 +2,8 @@
     ${username}的主页
     <script type="text/javascript">
     $(function(){
-        $('.nav').find('li').removeClass('active');
-        $('.nav').find('li:eq(1)').addClass('active');
+        $('header').find('li').removeClass('active');
+        $('header').find('li:eq(1)').addClass('active');
     });
     </script>
 </@c.html>

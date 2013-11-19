@@ -74,3 +74,9 @@ function login(){
     });
     return false;
 }
+
+function addBill(){
+    $.post('add', $('#bill-form').serialize(), function(data){
+        alert(data);
+    });
+}

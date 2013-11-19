@@ -2,8 +2,8 @@
     This is main content.
     <script type="text/javascript">
     $(function(){
-        $('.nav').find('li').removeClass('active');
-        $('.nav:eq(0)').find('li:eq(0)').addClass('active');
+        $('header').find('li').removeClass('active');
+        $('header').find('li:eq(0)').addClass('active');
         $('#sign-btn').click(signup);
         $('#login-form').submit(login);
         $('#regusername').blur(validateUsername);

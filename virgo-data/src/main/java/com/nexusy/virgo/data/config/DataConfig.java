@@ -1,5 +1,6 @@
 package com.nexusy.virgo.data.config;
 
+import org.hibernate.cfg.ImprovedNamingStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -37,6 +38,7 @@ public class DataConfig {
         LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
         sessionFactoryBean.setDataSource(dataSource);
         sessionFactoryBean.setPackagesToScan("com.nexusy.virgo.data.model");
+        sessionFactoryBean.setNamingStrategy(new ImprovedNamingStrategy());
 
         Properties hibernateProperties = new Properties();
         hibernateProperties.put("hibernate.dialect", env.getProperty("hibernate.dialect"));

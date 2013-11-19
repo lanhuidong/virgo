@@ -2,9 +2,11 @@ package com.nexusy.virgo.web.controller;
 
 import com.nexusy.virgo.web.bean.Bill;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -26,12 +28,16 @@ public class BillController {
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public ModelAndView add() {
-        return new ModelAndView();
+        return new ModelAndView("/bill/add");
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ModelAndView add(@Valid Bill bill) {
-        return new ModelAndView();
+    @ResponseBody
+    public boolean add(@Valid Bill bill, BindingResult result) {
+        if(result.hasErrors()){
+            return false;
+        }
+        return true;
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)

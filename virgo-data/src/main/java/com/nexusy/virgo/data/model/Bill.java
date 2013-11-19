@@ -2,6 +2,7 @@ package com.nexusy.virgo.data.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 账单
@@ -27,6 +28,8 @@ public class Bill {
      * 用户ID
      */
     private Long userId;
+
+    private List<BillItem> items;
 
     @Id
     @GeneratedValue
@@ -55,5 +58,14 @@ public class Bill {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    @OneToMany(mappedBy = "bill", orphanRemoval = true)
+    public List<BillItem> getItems() {
+        return items;
+    }
+
+    public void setItems(List<BillItem> items) {
+        this.items = items;
     }
 }

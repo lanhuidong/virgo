@@ -1,5 +1,7 @@
 package com.nexusy.virgo.data.model;
 
+import org.hibernate.annotations.ForeignKey;
+
 import javax.persistence.*;
 
 /**
@@ -20,7 +22,7 @@ public class BillItem {
     /**
      * 账单ID
      */
-    private Long billId;
+    private Bill bill;
 
     /**
      * 金额
@@ -52,12 +54,15 @@ public class BillItem {
         this.id = id;
     }
 
-    public Long getBillId() {
-        return billId;
+    @ManyToOne
+    @JoinColumn(name = "bill_id", nullable = false)
+    @ForeignKey(name = "FK_bill_id")
+    public Bill getBill() {
+        return bill;
     }
 
-    public void setBillId(Long billId) {
-        this.billId = billId;
+    public void setBill(Bill bill) {
+        this.bill = bill;
     }
 
     public Double getMoney() {
