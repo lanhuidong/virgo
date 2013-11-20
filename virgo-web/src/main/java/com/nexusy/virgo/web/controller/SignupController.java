@@ -1,8 +1,7 @@
 package com.nexusy.virgo.web.controller;
 
 import com.nexusy.virgo.data.service.UserService;
-import com.nexusy.virgo.web.bean.User;
-import org.springframework.beans.BeanUtils;
+import com.nexusy.virgo.data.bean.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;

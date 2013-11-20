@@ -20,6 +20,7 @@ def hibernateValidatorVersion = '5.0.1.Final'
 def jacksonVersion = '2.2.3'
 def freemarkVersion = '2.3.20'
 def jsonpathVersion = '0.9.1'
+def commonslangVersion = '3.1'
 
 allprojects {
     apply plugin: 'java'
@@ -44,6 +45,7 @@ subprojects {
             exclude group: "org.springframework", module: "spring-web"
         }
         compile "org.springframework.security:spring-security-config:$springSecurityVersion"
+        compile "org.apache.commons:commons-lang3:$commonslangVersion"
         compile "org.slf4j:jcl-over-slf4j:$slf4jVersion"
         compile "ch.qos.logback:logback-classic:$logbackVersion"
         testCompile "org.springframework:spring-test:$springVersion"

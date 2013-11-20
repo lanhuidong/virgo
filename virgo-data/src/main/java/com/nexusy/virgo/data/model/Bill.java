@@ -60,7 +60,7 @@ public class Bill {
         this.userId = userId;
     }
 
-    @OneToMany(mappedBy = "bill", orphanRemoval = true)
+    @OneToMany(mappedBy = "bill", cascade = CascadeType.ALL)
     public List<BillItem> getItems() {
         return items;
     }

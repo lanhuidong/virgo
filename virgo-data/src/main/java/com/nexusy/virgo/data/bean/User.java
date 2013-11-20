@@ -1,4 +1,4 @@
-package com.nexusy.virgo.web.bean;
+package com.nexusy.virgo.data.bean;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;

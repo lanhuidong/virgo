@@ -1,4 +1,4 @@
-package com.nexusy.virgo.web.bean;
+package com.nexusy.virgo.data.bean;
 
 import com.nexusy.virgo.data.model.BillItemType;
 import org.hibernate.validator.constraints.Length;
@@ -20,6 +20,7 @@ public class Bill {
     private Double money;
     private String remark;
     private BillItemType type;
+    private Long userId;
 
     @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -66,5 +67,13 @@ public class Bill {
 
     public void setType(BillItemType type) {
         this.type = type;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }
