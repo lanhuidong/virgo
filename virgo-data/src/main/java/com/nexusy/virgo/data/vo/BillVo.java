@@ -1,4 +1,4 @@
-package com.nexusy.virgo.data.bean;
+package com.nexusy.virgo.data.vo;
 
 import com.nexusy.virgo.data.model.BillItemType;
 import org.hibernate.validator.constraints.Length;
@@ -13,7 +13,7 @@ import java.util.Date;
  * @author lan
  * @since 2013-11-18
  */
-public class Bill {
+public class BillVo {
 
     private Date date;
     private String item;

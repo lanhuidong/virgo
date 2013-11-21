@@ -1,4 +1,4 @@
-package com.nexusy.virgo.data.bean;
+package com.nexusy.virgo.data.vo;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.NotBlank;
  * @author lan
  * @since 2013-11-15
  */
-public class User {
+public class UserVo {
 
     private String j_username;
     private String j_password;

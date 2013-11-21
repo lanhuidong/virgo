@@ -1,7 +1,7 @@
 package com.nexusy.virgo.data.service;
 
 
-import com.nexusy.virgo.data.bean.Bill;
+import com.nexusy.virgo.data.vo.BillVo;
 
 /**
  * @author lan
@@ -12,5 +12,5 @@ public interface BillService {
     /**
      * 保存账单明细
      */
-    void saveBillItem(Bill bill);
+    void saveBillItem(BillVo bill);
 }

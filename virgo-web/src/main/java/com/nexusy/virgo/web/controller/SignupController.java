@@ -1,7 +1,8 @@
 package com.nexusy.virgo.web.controller;
 
+import com.nexusy.virgo.data.model.User;
 import com.nexusy.virgo.data.service.UserService;
-import com.nexusy.virgo.data.bean.User;
+import com.nexusy.virgo.data.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -33,14 +34,14 @@ public class SignupController {
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     @ResponseBody
-    public int signup(@Valid User user, BindingResult result) {
+    public int signup(@Valid UserVo user, BindingResult result) {
         int code;
         if (result.hasErrors()) {
             code =  1;
         } else if(userService.chechUsername(user.getJ_username())){
             code =  2;
         } else {
-            com.nexusy.virgo.data.model.User newUser = new com.nexusy.virgo.data.model.User();
+            User newUser = new User();
             newUser.setUsername(user.getJ_username());
             newUser.setPassword(user.getJ_password());
             Date date = new Date();

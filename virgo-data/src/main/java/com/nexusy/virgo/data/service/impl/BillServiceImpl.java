@@ -1,10 +1,11 @@
 package com.nexusy.virgo.data.service.impl;
 
-import com.nexusy.virgo.data.bean.Bill;
 import com.nexusy.virgo.data.dao.BillDao;
+import com.nexusy.virgo.data.model.Bill;
 import com.nexusy.virgo.data.model.BillItem;
 import com.nexusy.virgo.data.service.BillService;
 import com.nexusy.virgo.data.util.VirgoDateUtils;
+import com.nexusy.virgo.data.vo.BillVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,11 +27,11 @@ public class BillServiceImpl implements BillService {
 
     @Override
     @Transactional(readOnly = false)
-    public void saveBillItem(Bill bill) {
+    public void saveBillItem(BillVo bill) {
         Date date = VirgoDateUtils.getDate();
-        com.nexusy.virgo.data.model.Bill newBill = billDao.findBillByDate(bill.getUserId(), date);
+        Bill newBill = billDao.findBillByDate(bill.getUserId(), date);
         if (newBill == null) {
-            newBill = new com.nexusy.virgo.data.model.Bill();
+            newBill = new Bill();
             newBill.setDate(bill.getDate());
             newBill.setUserId(bill.getUserId());
         }

@@ -1,8 +1,8 @@
 package com.nexusy.virgo.web.controller;
 
-import com.nexusy.virgo.data.bean.Bill;
 import com.nexusy.virgo.data.model.User;
 import com.nexusy.virgo.data.service.BillService;
+import com.nexusy.virgo.data.vo.BillVo;
 import com.nexusy.virgo.web.security.VirgoSecurityContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,7 +40,7 @@ public class BillController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public boolean add(@Valid Bill bill, BindingResult result) {
+    public boolean add(@Valid BillVo bill, BindingResult result) {
         if (result.hasErrors()) {
             return false;
         }
@@ -56,7 +56,7 @@ public class BillController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public ModelAndView update(@Valid Bill bill) {
+    public ModelAndView update(@Valid BillVo bill) {
         return new ModelAndView();
     }
 
