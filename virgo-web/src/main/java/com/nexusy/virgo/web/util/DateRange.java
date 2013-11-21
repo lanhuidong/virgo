@@ -17,7 +17,7 @@ public class DateRange {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     public Date getFrom() {
         if (from == null) {
-            from = VirgoDateUtils.getDate();
+            from = VirgoDateUtils.getFirstDay();
         }
         return from;
     }
@@ -37,4 +37,5 @@ public class DateRange {
     public void setTo(Date to) {
         this.to = to;
     }
+
 }

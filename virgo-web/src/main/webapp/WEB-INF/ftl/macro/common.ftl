@@ -4,10 +4,13 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>记账本-首页</title>
+    <link rel="stylesheet" type="text/css" href="/css/redmond/jquery-ui-1.10.3.custom.min.css" />
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="/css/bootstrap-theme.min.css" />
     <link rel="stylesheet" type="text/css" href="/css/virgo.css" />
     <script type="text/javascript" src="/js/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.ui.datepicker-zh-CN.js"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/virgo.js"></script>
 </head>

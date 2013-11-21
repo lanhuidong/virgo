@@ -7,7 +7,6 @@ import com.nexusy.virgo.data.vo.BillVo;
 import com.nexusy.virgo.web.security.VirgoSecurityContext;
 import com.nexusy.virgo.web.util.DateRange;
 import com.nexusy.virgo.web.util.Page;
-import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -35,7 +34,7 @@ public class BillController {
         ModelAndView mav = new ModelAndView("/bill/index");
         Page page = new Page(pageNo, pageSize);
         User user = VirgoSecurityContext.getCurrentUser();
-        List<Bill> bills = billService.findBillsByDate(user.getId(), DateUtils.addMonths(range.getFrom(), -1), range.getTo(), page.getFirstResult(), page.getPageSize());
+        List<Bill> bills = billService.findBillsByDate(user.getId(), range.getFrom(), range.getTo(), page.getFirstResult(), page.getPageSize());
         mav.addObject("bills", bills);
         mav.addObject("page", page);
         return mav;

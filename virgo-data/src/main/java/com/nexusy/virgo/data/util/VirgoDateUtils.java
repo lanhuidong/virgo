@@ -18,4 +18,11 @@ public class VirgoDateUtils {
         return DateUtils.truncate(new Date(), Calendar.DATE);
     }
 
+    /**
+     * 返回每月的第一天
+     */
+    public static Date getFirstDay() {
+        return DateUtils.truncate(new Date(), Calendar.MONTH);
+    }
+
 }
