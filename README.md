@@ -19,6 +19,7 @@ hibernate 4.2.7.SP1<br/>
 hibernate validator 5.0.1.Final<br/>
 fastxml jackson 2.2.3<br/>
 freemarker 2.3.20<br/>
+commons-lang3 3.1<br/>
 json-path 0.9.1<br/>
 tomcat 7.0.47<br/>
 jquery 2.0.3<br/>

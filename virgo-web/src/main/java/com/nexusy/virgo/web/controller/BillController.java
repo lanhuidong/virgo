@@ -1,19 +1,21 @@
 package com.nexusy.virgo.web.controller;
 
+import com.nexusy.virgo.data.model.Bill;
 import com.nexusy.virgo.data.model.User;
 import com.nexusy.virgo.data.service.BillService;
 import com.nexusy.virgo.data.vo.BillVo;
 import com.nexusy.virgo.web.security.VirgoSecurityContext;
+import com.nexusy.virgo.web.util.DateRange;
+import com.nexusy.virgo.web.util.Page;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * This controller is used for bill.
@@ -29,8 +31,14 @@ public class BillController {
     private BillService billService;
 
     @RequestMapping
-    public ModelAndView index() {
-        return new ModelAndView("/bill/index");
+    public ModelAndView index(DateRange range, @RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "30") Integer pageSize) {
+        ModelAndView mav = new ModelAndView("/bill/index");
+        Page page = new Page(pageNo, pageSize);
+        User user = VirgoSecurityContext.getCurrentUser();
+        List<Bill> bills = billService.findBillsByDate(user.getId(), DateUtils.addMonths(range.getFrom(), -1), range.getTo(), page.getFirstResult(), page.getPageSize());
+        mav.addObject("bills", bills);
+        mav.addObject("page", page);
+        return mav;
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)

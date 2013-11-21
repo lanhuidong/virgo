@@ -10,7 +10,14 @@
                 </li>
             </ul>
         </div>
-        <div class="col-xs-9">内容</div>
+        <div class="col-xs-9">
+            <#list bills as bill>
+                ${bill.date}
+                <#list bill.items as item>
+                    ${item.money}
+                </#list>
+            </#list>
+        </div>
     </div>
     <script type="text/javascript">
     $(function(){

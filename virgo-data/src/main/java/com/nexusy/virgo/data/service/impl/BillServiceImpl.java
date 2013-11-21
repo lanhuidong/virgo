@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -50,5 +51,17 @@ public class BillServiceImpl implements BillService {
         newBill.setItems(items);
 
         billDao.merge(newBill);
+    }
+
+    @Override
+    public List<Bill> findBillsByDate(Long userId, Date from, Date to, Integer firstResult, Integer maxResults) {
+        List<Long> ids = billDao.findBillsByDate(userId, from, to, firstResult, maxResults);
+        List<Bill> bills;
+        if (ids.isEmpty()) {
+            bills = Collections.emptyList();
+        } else {
+            bills = billDao.findBillsWithBillItems(ids);
+        }
+        return bills;
     }
 }
