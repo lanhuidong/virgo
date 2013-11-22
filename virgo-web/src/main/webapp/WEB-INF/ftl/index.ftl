@@ -1,5 +1,5 @@
 <@c.html title="首页-记账本">
-    This is main content.
+    <div class="text-center"><h1 class="text-info">开发中……</h1><br/><img src="/img/xxx.jpg" height="500" /></div>
     <script type="text/javascript">
     $(function(){
         $('header').find('li').removeClass('active');
