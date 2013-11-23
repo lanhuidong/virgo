@@ -4,6 +4,7 @@ import com.nexusy.virgo.data.dao.BillDao;
 import com.nexusy.virgo.data.model.Bill;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
@@ -45,6 +46,7 @@ public class BillDaoHibernate extends BaseDaoHibernate<Bill, Long> implements Bi
     public List<Bill> findBillsWithBillItems(List<Long> ids) {
         Criteria c = getSession().createCriteria(Bill.class).createAlias("items", "i", JoinType.LEFT_OUTER_JOIN);
         c.add(Restrictions.in("id", ids));
+        c.addOrder(Order.asc("date"));
         c.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
         return c.list();
     }

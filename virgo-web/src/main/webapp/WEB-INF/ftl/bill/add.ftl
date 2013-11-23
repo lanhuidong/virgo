@@ -1,4 +1,4 @@
-<@c.html title="账本-记账本">
+<@c.html title="记账-记账本">
     <div class="row">
         <div class="col-xs-3">
             <ul class="nav nav-pills nav-stacked">
@@ -15,7 +15,7 @@
                 <div class="form-group">
                     <label for="date" class="col-sm-2 control-label">日期</label>
                     <div class="col-sm-2">
-                        <input type="text" class="form-control" name="date" readonly="readonly" id="date" value="${.now?string('yyyy-MM-dd')}" />
+                        <input type="text" class="form-control datepicker" style="cursor:pointer" name="date" readonly="readonly" id="date" value="${.now?string('yyyy-MM-dd')}" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -51,7 +51,7 @@
                     <label class="col-sm-2 control-label"></label>
                     <div class="col-sm-10">
                         <button type="button" id="addBill" class="btn btn-primary">提交</button>
-                        <button type="submit" class="btn btn-primary">提交并转到账本</button>
+                        <label id="add-tip" class="text-danger virgo-input-error"></label>
                     </div>
                 </div>
             </form>
@@ -62,6 +62,7 @@
         $('header').find('li').removeClass('active');
         $('header').find('li:eq(2)').addClass('active');
         $('#addBill').click(addBill);
+        $('.datepicker').datepicker();
     });
     </script>
 </@c.html>

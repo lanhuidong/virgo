@@ -1,3 +1,4 @@
+//首页
 function validateUsername(event, uncheck){
     var result = true;
     var username = $('#regusername').val();
@@ -75,8 +76,20 @@ function login(){
     return false;
 }
 
+//添加账单
 function addBill(){
     $.post('add', $('#bill-form').serialize(), function(data){
-        alert(data);
+        if(data){
+            document.getElementById('bill-form').reset();
+            $('#add-tip').text('保存成功');
+        } else {
+            $('#add-tip').text('保存失败');
+        }
+        setTimeout(function(){$('#add-tip').text('');},3000);
     });
+}
+
+//查询账单
+function toggleBillItem(){
+    $(this).parent().next().toggle();
 }
