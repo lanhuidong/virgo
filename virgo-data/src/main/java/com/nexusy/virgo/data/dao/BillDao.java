@@ -25,4 +25,5 @@ public interface BillDao extends BaseDao<Bill, Long> {
      * 查询并返回带明细的账单
      */
     List<Bill> findBillsWithBillItems(List<Long> ids);
+
 }

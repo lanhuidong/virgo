@@ -68,8 +68,11 @@ public class BillController {
     }
 
     @RequestMapping("/delete/{id}")
+    @ResponseBody
     public Boolean deleteBill(@PathVariable Long id) {
-        return true;
+        User user = VirgoSecurityContext.getCurrentUser();
+        Integer result = billService.deleteBillItem(user.getId(), id);
+        return result.equals(1);
     }
 
 }

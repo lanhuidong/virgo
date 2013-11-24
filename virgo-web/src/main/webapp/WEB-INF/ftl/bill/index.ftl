@@ -63,7 +63,7 @@
                                         <td width="15%">${item.item}</td>
                                         <td width="25%" <#if item.type=='PAY'>class="text-right text-danger"<#else>class="text-right text-success"</#if>>${item.money?string('#0.00')}</td>
                                         <td width="50%" class="text-center" colspan="2">${item.remark?if_exists}</td>
-                                        <td width="10%" class="text-center text-info" style="cursor:pointer">删除</td>
+                                        <td width="10%" class="text-center text-info"><label id="${item.id}" class="del-item" style="cursor:pointer">删除</label></td>
                                     </tr>
                                     </#list>
                                 </tbody>
@@ -91,6 +91,7 @@
         $('header').find('li:eq(2)').addClass('active');
         $('.datepicker').datepicker();
         $('.view-item').click(toggleBillItem);
+        $('.del-item').click(deleteBillItem);
     });
     </script>
 </@c.html>

@@ -93,3 +93,10 @@ function addBill(){
 function toggleBillItem(){
     $(this).parent().next().toggle();
 }
+
+function deleteBillItem(){
+    var $this = this;
+    $.post('/bill/delete/'+$(this).attr("id"),function(data){
+        $($this).parent().parent().remove();
+    })
+}

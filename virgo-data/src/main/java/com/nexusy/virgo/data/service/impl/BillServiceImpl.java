@@ -1,6 +1,7 @@
 package com.nexusy.virgo.data.service.impl;
 
 import com.nexusy.virgo.data.dao.BillDao;
+import com.nexusy.virgo.data.dao.UniversalDao;
 import com.nexusy.virgo.data.model.Bill;
 import com.nexusy.virgo.data.model.BillItem;
 import com.nexusy.virgo.data.service.BillService;
@@ -24,6 +25,9 @@ public class BillServiceImpl implements BillService {
 
     @Autowired
     private BillDao billDao;
+
+    @Autowired
+    private UniversalDao universalDao;
 
     @Override
     @Transactional(readOnly = false)
@@ -61,5 +65,16 @@ public class BillServiceImpl implements BillService {
             bills = billDao.findBillsWithBillItems(ids);
         }
         return bills;
+    }
+
+    @Override
+    @Transactional(readOnly = false)
+    public Integer deleteBillItem(Long userId, Long id) {
+        BillItem item = universalDao.get(BillItem.class, id);
+        if (item != null) {
+            universalDao.remove(item);
+            return 1;
+        }
+        return 0;
     }
 }

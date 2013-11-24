@@ -22,4 +22,9 @@ public interface BillService {
      * 根据时间范围查找账单，返回结果中包含明细
      */
     List<Bill> findBillsByDate(Long userId, Date from, Date to, Integer firstResult, Integer maxResults);
+
+    /**
+     * 根据Id删除账单明细
+     */
+    Integer deleteBillItem(Long userId, Long id);
 }
