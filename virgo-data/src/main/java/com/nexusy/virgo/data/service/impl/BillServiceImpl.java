@@ -71,7 +71,7 @@ public class BillServiceImpl implements BillService {
     @Transactional(readOnly = false)
     public Integer deleteBillItem(Long userId, Long id) {
         BillItem item = universalDao.get(BillItem.class, id);
-        if (item != null) {
+        if (item != null && item.getBill().getUserId().equals(userId)) {
             universalDao.remove(item);
             return 1;
         }

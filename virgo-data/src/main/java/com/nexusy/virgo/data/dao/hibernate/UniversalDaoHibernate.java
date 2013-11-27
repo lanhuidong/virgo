@@ -24,7 +24,7 @@ public class UniversalDaoHibernate implements UniversalDao {
 
     @SuppressWarnings("unchecked")
     public <T> T get(Class<T> clazz, Serializable id) {
-        return (T) getSession().get(clazz, id);
+        return (T) getSession().load(clazz, id);
     }
 
     @Override

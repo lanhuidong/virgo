@@ -12,6 +12,7 @@ def springSecurityVersion = '3.1.4.RELEASE'
 def tomcatVersion = '7.0.47'
 def logbackVersion = '1.0.13'
 def slf4jVersion = '1.7.5'
+def easymockVersion = '3.2'
 def junitVersion = '4+'
 def c3p0Version = '0.9.1.2'
 def mysqlConnectorJavaVersion = '5.1.27'
@@ -49,6 +50,7 @@ subprojects {
         compile "org.slf4j:jcl-over-slf4j:$slf4jVersion"
         compile "ch.qos.logback:logback-classic:$logbackVersion"
         testCompile "org.springframework:spring-test:$springVersion"
+        testCompile "org.easymock:easymock:$easymockVersion"
         testCompile "junit:junit:$junitVersion"
     }
 }
