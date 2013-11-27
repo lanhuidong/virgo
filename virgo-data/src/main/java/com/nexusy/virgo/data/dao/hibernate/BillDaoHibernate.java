@@ -10,6 +10,7 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -44,6 +45,9 @@ public class BillDaoHibernate extends BaseDaoHibernate<Bill, Long> implements Bi
     @Override
     @SuppressWarnings("unchecked")
     public List<Bill> findBillsWithBillItems(List<Long> ids) {
+        if (ids.isEmpty()) {
+            return Collections.emptyList();
+        }
         Criteria c = getSession().createCriteria(Bill.class).createAlias("items", "i", JoinType.LEFT_OUTER_JOIN);
         c.add(Restrictions.in("id", ids));
         c.addOrder(Order.asc("date"));
