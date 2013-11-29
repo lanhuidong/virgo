@@ -89,17 +89,40 @@ function login(){
 
 //添加账单
 function addBill(){
-    $.post('add', $('#bill-form').serialize(), function(data){
-        if(data){
-            $('#money').val('');
-            $('#item').val('');
-            $('#remark').val('');
-            $('#add-tip').text('保存成功');
-        } else {
-            $('#add-tip').text('保存失败');
-        }
-        setTimeout(function(){$('#add-tip').text('');},3000);
-    });
+    if(stringLength($('#item'), 1, 255) && isNumber($('#money')) && stringLength($('#remark'), 0, 255)){
+        $.post('add', $('#bill-form').serialize(), function(data){
+            if(data){
+                $('#money').val('');
+                $('#item').val('');
+                $('#remark').val('');
+                $('#add-tip').text('保存成功');
+            } else {
+                $('#add-tip').text('保存失败');
+            }
+            setTimeout(function(){$('#add-tip').text('');},3000);
+        });
+    }
+}
+
+function isNumber(input){
+    var number = $.trim(input.val());
+    var pattern = /^[1-9]\d*(.\d{1,2})?$/;
+    if(pattern.test(number)){
+        input.parent().removeClass('has-error');
+        return true;
+    }
+    input.parent().addClass('has-error');
+    return false;
+}
+
+function stringLength(input, min, max){
+    var text = $.trim(input.val());
+    if(text.length>=min && text.length<=max){
+        input.parent().removeClass('has-error');
+        return true;
+    }
+    input.parent().addClass('has-error');
+    return false;
 }
 
 //查询账单

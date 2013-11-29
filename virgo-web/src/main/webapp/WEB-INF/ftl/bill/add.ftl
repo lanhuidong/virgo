@@ -44,7 +44,7 @@
                 <div class="form-group">
                     <label for="remark" class="col-sm-2 control-label">备注</label>
                     <div class="col-sm-8">
-                        <textarea class="form-control" name="remark" id="remark" style="resize:none" rows="3"></textarea>
+                        <textarea class="form-control" name="remark" id="remark" style="resize:none" rows="3" placeholder="可不填，不能超过255个字符"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
