@@ -91,7 +91,9 @@ function login(){
 function addBill(){
     $.post('add', $('#bill-form').serialize(), function(data){
         if(data){
-            document.getElementById('bill-form').reset();
+            $('#money').val('');
+            $('#item').val('');
+            $('#remark').val('');
             $('#add-tip').text('保存成功');
         } else {
             $('#add-tip').text('保存失败');
@@ -101,6 +103,15 @@ function addBill(){
 }
 
 //查询账单
+function queryBill(){
+    $.post('/bill', $('#query-form').serialize(), function(data){
+        $('table').remove();
+        $('#query-form').after(data);
+        $('.view-item').click(toggleBillItem);
+        $('.del-item').click(deleteBillItem);
+    });
+}
+
 function toggleBillItem(){
     $(this).parent().next().toggle();
 }

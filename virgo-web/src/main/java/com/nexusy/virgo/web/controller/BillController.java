@@ -29,9 +29,14 @@ public class BillController {
     @Autowired
     private BillService billService;
 
-    @RequestMapping
-    public ModelAndView index(DateRange range, @RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "30") Integer pageSize) {
-        ModelAndView mav = new ModelAndView("/bill/index");
+    @RequestMapping(method = RequestMethod.GET)
+    public ModelAndView index(DateRange range) {
+        return new ModelAndView("/bill/index");
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public ModelAndView query(DateRange range, @RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "31") Integer pageSize) {
+        ModelAndView mav = new ModelAndView("/bill/bill");
         Page page = new Page(pageNo, pageSize);
         User user = VirgoSecurityContext.getCurrentUser();
         List<Bill> bills = billService.findBillsByDate(user.getId(), range.getFrom(), range.getTo(), page.getFirstResult(), page.getPageSize());
