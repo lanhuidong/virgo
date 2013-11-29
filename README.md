@@ -14,6 +14,7 @@ spring security 3.1.4.RELEASE<br/>
 logback 1.0.13<br/>
 slf4j 1.7.5<br/>
 junit 4.11<br/>
+easymock 3.2<br/>
 mysql-connector-java 5.1.27<br/>
 hibernate 4.2.7.SP1<br/>
 hibernate validator 5.0.1.Final<br/>
@@ -24,7 +25,10 @@ json-path 0.9.1<br/>
 tomcat 7.0.47<br/>
 jquery 2.0.3<br/>
 bootstrap 3.0.2<br/>
-版本1.0.0(coding中)
+版本1.1.0（coding中)
+=====
+1.个人主页
+版本1.0.0
 =====
 1.用户登录注册<br/>
 2.记账功能<br/>
