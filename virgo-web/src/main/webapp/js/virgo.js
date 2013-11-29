@@ -109,5 +109,80 @@ function deleteBillItem(){
     var $this = this;
     $.post('/bill/delete/'+$(this).attr("id"),function(data){
         $($this).parent().parent().remove();
-    })
+        var bid=$($this).attr('bid');
+        var money=0;
+        if($($this).parent().prev().prev().hasClass('text-danger')){  //支出
+            money = -parseFloat($($this).parent().prev().prev().text());
+
+            var pay = parseFloat($('#'+bid).find('.pay').text())+money;
+            $('#'+bid).find('.pay').text(pay.toFixed(2));
+            var payment;
+            if($('#'+bid).find('.money').hasClass('text-danger')){
+                payment = -parseFloat($('#'+bid).find('.money').text())-money;
+            } else {
+                payment = parseFloat($('#'+bid).find('.money').text())-money;
+            }
+            if(payment >= 0){
+                $('#'+bid).find('.money').text(payment.toFixed(2));
+                $('#'+bid).find('.money').removeClass('text-danger').addClass('text-success');
+            } else {
+                payment = -payment;
+                $('#'+bid).find('.money').text(payment.toFixed(2));
+                $('#'+bid).find('.money').removeClass('text-success').addClass('text-danger');
+            }
+
+            var totalPay = parseFloat($('#total-pay').text()) + money;
+            $('#total-pay').text(totalPay.toFixed(2));
+            var totalMoney;
+            if($('#total-money').hasClass('text-danger')){
+                totalMoney = -parseFloat($('#total-money').text())-money;
+            } else {
+                totalMoney = parseFloat($('#total-money').text())-money;
+            }
+            if(totalMoney >= 0){
+                $('#total-money').text(totalMoney.toFixed(2));
+                $('#total-money').removeClass('text-danger').addClass('text-success');
+            } else {
+                totalMoney = -totalMoney;
+                $('#total-money').text(totalMoney.toFixed(2));
+                $('#total-money').removeClass('text-success').addClass('text-danger');
+            }
+        } else {  //收入
+            money = parseFloat($($this).parent().prev().prev().text());
+
+            var pay = parseFloat($('#'+bid).find('.income').text()) - money;
+            $('#'+bid).find('.income').text(pay.toFixed(2));
+            var payment;
+            if($('#'+bid).find('.money').hasClass('text-danger')){
+                payment = -parseFloat($('#'+bid).find('.money').text())-money;
+            } else {
+                payment = parseFloat($('#'+bid).find('.money').text())-money;
+            }
+            if(payment >= 0){
+                $('#'+bid).find('.money').text(payment.toFixed(2));
+                $('#'+bid).find('.money').removeClass('text-danger').addClass('text-success');
+            } else {
+                payment = -payment;
+                $('#'+bid).find('.money').text(payment.toFixed(2));
+                $('#'+bid).find('.money').removeClass('text-success').addClass('text-danger');
+            }
+
+            var totalPay = parseFloat($('#total-income').text()) - money;
+            $('#total-income').text(totalPay.toFixed(2));
+            var totalMoney;
+            if($('#total-money').hasClass('text-danger')){
+                totalMoney = -parseFloat($('#total-money').text())-money;
+            } else {
+                totalMoney = parseFloat($('#total-money').text())-money;
+            }
+            if(totalMoney >= 0){
+                $('#total-money').text(totalMoney.toFixed(2));
+                $('#total-money').removeClass('text-danger').addClass('text-success');
+            } else {
+                totalMoney = -totalMoney;
+                $('#total-money').text(totalMoney.toFixed(2));
+                $('#total-money').removeClass('text-success').addClass('text-danger');
+            }
+        }
+    });
 }

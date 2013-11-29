@@ -47,11 +47,15 @@
                             <#assign income=income+item.money>
                         </#if>
                     </#list>
-                    <tr>
+                    <tr id="${bill.id}">
                         <td>${bill.date?string('yyyy-MM-dd')}</td>
-                        <td class="text-right text-danger">${pay?string('#0.00')}</td>
-                        <td class="text-right text-success">${income?string('#0.00')}</td>
-                        <td <#if income-pay lt 0>class="text-danger text-right"<#else>class="text-right text-success"</#if>>${(income-pay)?string('#0.00')}</td>
+                        <td class="text-right text-danger pay">${pay?string('#0.00')}</td>
+                        <td class="text-right text-success income">${income?string('#0.00')}</td>
+                        <#if income-pay lt 0>
+                        <td class="text-danger text-right money">${(pay-income)?string('#0.00')}</td>
+                        <#else>
+                        <td class="text-right text-success money">${(income-pay)?string('#0.00')}</td>
+                        </#if>
                         <td class="text-center text-info view-item" style="cursor:pointer">查看</td>
                     </tr>
                     <tr style="display:none">
@@ -63,7 +67,7 @@
                                         <td width="15%">${item.item}</td>
                                         <td width="25%" <#if item.type=='PAY'>class="text-right text-danger"<#else>class="text-right text-success"</#if>>${item.money?string('#0.00')}</td>
                                         <td width="50%" class="text-center" colspan="2">${item.remark?if_exists}</td>
-                                        <td width="10%" class="text-center text-info"><label id="${item.id}" class="del-item" style="cursor:pointer">删除</label></td>
+                                        <td width="10%" class="text-center text-info"><label id="${item.id}" bid="${bill.id}" class="del-item" style="cursor:pointer">删除</label></td>
                                     </tr>
                                     </#list>
                                 </tbody>
@@ -76,9 +80,13 @@
             <tfoot>
                 <tr>
                     <th>结算</th>
-                    <th class="text-right text-danger">${totalPay?string('#0.00')}</th>
-                    <th class="text-right text-success">${totalIncome?string('#0.00')}</th>
-                    <th <#if totalIncome-totalPay lt 0>class="text-danger text-right"<#else>class="text-right text-success"</#if>>${(totalIncome-totalPay)?string('#0.00')}</th>
+                    <th id="total-pay" class="text-right text-danger">${totalPay?string('#0.00')}</th>
+                    <th id="total-income" class="text-right text-success">${totalIncome?string('#0.00')}</th>
+                    <#if totalIncome-totalPay lt 0>
+                    <th id="total-money" class="text-danger text-right">${(totalPay-totalIncome)?string('#0.00')}</th>
+                    <#else>
+                    <th id="total-money" class="text-right text-success">${(totalIncome-totalPay)?string('#0.00')}</th>
+                    </#if>
                     <th></th>
                 </tr>
             </tfoot>
