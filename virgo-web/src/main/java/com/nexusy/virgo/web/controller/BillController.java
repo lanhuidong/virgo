@@ -57,16 +57,6 @@ public class BillController {
         return true;
     }
 
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
-    public ModelAndView update(@PathVariable Long id) {
-        return new ModelAndView();
-    }
-
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public ModelAndView update(@Valid BillVo bill) {
-        return new ModelAndView();
-    }
-
     @RequestMapping("/delete/{id}")
     @ResponseBody
     public Boolean deleteBill(@PathVariable Long id) {

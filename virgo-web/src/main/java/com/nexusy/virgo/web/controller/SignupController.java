@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.Date;
@@ -27,19 +26,14 @@ public class SignupController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/signup", method = RequestMethod.GET)
-    public ModelAndView signup() {
-        return new ModelAndView("/signup");
-    }
-
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     @ResponseBody
     public int signup(@Valid UserVo user, BindingResult result) {
         int code;
         if (result.hasErrors()) {
-            code =  1;
-        } else if(userService.chechUsername(user.getJ_username())){
-            code =  2;
+            code = 1;
+        } else if (userService.chechUsername(user.getJ_username())) {
+            code = 2;
         } else {
             User newUser = new User();
             newUser.setUsername(user.getJ_username());
@@ -55,7 +49,7 @@ public class SignupController {
 
     @RequestMapping("/signup/{username}")
     @ResponseBody
-    public boolean checkUsername(@PathVariable String username){
+    public boolean checkUsername(@PathVariable String username) {
         return userService.chechUsername(username);
     }
 }
