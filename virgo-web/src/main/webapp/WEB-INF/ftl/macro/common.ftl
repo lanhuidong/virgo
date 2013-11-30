@@ -20,7 +20,7 @@
     <header class="navbar navbar-inverse navbar-fixed-top" role="banner">
         <div class="container">
             <div class="navbar-header">
-                <button class="navbar-toggle" type="button">
+                <button class="navbar-toggle" type="button" data-target=".navbar-collapse" data-toggle="collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>

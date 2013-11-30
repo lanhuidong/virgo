@@ -1,3 +1,4 @@
+<div class="table-responsive">
 <table class="table table-striped table-hover">
     <thead>
         <tr>
@@ -67,3 +68,4 @@
         <tbody><tr><td class="text-center" colspan="5">暂无数据</td></tr></tbody>
     </#if>
 </table>
+</div>
