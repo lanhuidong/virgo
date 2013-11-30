@@ -35,7 +35,7 @@
                     </li>
                     <#if user??>
                     <li>
-                        <a href="/${user.username}">我的主页</a>
+                        <a href="/u/${user.id}">我的主页</a>
                     </li>
                     <li>
                         <a href="/bill">账本</a>
@@ -45,7 +45,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <#if user??>
                         <li>
-                           <a href="/${user.username}">${user.username}</a>
+                           <a href="/u/${user.id}">${user.username}</a>
                         </li>
                         <li>
                             <a href="/logout">退出</a>

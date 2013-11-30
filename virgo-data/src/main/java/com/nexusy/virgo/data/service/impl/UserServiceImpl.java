@@ -11,6 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
+
 /**
  * @author lan
  * @since 2013-11-15
@@ -28,6 +30,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userDao.findUserByUsername(username);
+    }
+
+    @Override
+    public User get(Long id) {
+        return userDao.get(id);
+    }
+
+    @Override
+    @Transactional(readOnly = false)
+    public void updateLoginTime(Long userId, Date time) {
+        User user = userDao.load(userId);
+        user.setLastLogin(time);
+        userDao.update(user);
     }
 
     @Override
