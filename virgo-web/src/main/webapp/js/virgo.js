@@ -220,3 +220,22 @@ function deleteBillItem(){
         }
     });
 }
+
+function editProfile(){
+    var text = $(this).text();
+    if(text=='编辑'){
+        $('.form-group').css('display','block');
+        $('.form-group').prev().css('display','none');
+        $('.form-group>input').each(function(){
+            $(this).val($(this).parent().prev().text());
+        });
+        $(this).text('保存');
+    } else {
+        $('.form-group').css('display','none');
+        $('.form-group').prev().css('display','block');
+        $('.form-group>input').each(function(){
+            $(this).parent().prev().text($.trim($(this).val()));
+        });
+        $(this).text('编辑');
+    }
+}

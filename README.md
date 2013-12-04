@@ -7,7 +7,7 @@ virgo
 软件版本
 =====
 jdk 1.7<br/>
-intellij idea 12.1.6<br/>
+intellij idea 13.0<br/>
 gradle 1.9<br/>
 spring 3.2.5.RELEASE<br/>
 spring security 3.1.4.RELEASE<br/>
