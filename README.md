@@ -16,7 +16,7 @@ slf4j 1.7.5<br/>
 junit 4.11<br/>
 easymock 3.2<br/>
 mysql-connector-java 5.1.27<br/>
-hibernate 4.2.7.SP1<br/>
+hibernate 4.2.8.Final<br/>
 hibernate validator 5.0.1.Final<br/>
 fastxml jackson 2.2.3<br/>
 freemarker 2.3.20<br/>
