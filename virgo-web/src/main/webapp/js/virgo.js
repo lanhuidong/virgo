@@ -222,20 +222,37 @@ function deleteBillItem(){
 }
 
 function editProfile(){
+    $(this).unbind('click');
     var text = $(this).text();
     if(text=='编辑'){
-        $('.form-group').css('display','block');
-        $('.form-group').prev().css('display','none');
-        $('.form-group>input').each(function(){
+        $('#basic-form').find('.form-group').css('display','block');
+        $('#basic-form').find('.form-group').prev().css('display','none');
+        $('#basic-form').find('.form-group>input').each(function(){
             $(this).val($(this).parent().prev().text());
         });
         $(this).text('保存');
+        $('#edit').click(editProfile);
     } else {
-        $('.form-group').css('display','none');
-        $('.form-group').prev().css('display','block');
-        $('.form-group>input').each(function(){
+        $('#basic-form').find('.form-group').css('display','none');
+        $('#basic-form').find('.form-group').prev().css('display','block');
+        $('#basic-form').find('.form-group>input').each(function(){
             $(this).parent().prev().text($.trim($(this).val()));
         });
         $(this).text('编辑');
+    }
+}
+
+function modifyPassword(){
+    $(this).unbind('click');
+    var text = $(this).text();
+    if(text=='修改'){
+        $('#password-form').find('.form-group').css('display','block');
+        $('#password-form').find('.form-group').prev().css('display','none');
+        $(this).text('保存');
+        $('#modify').click(modifyPassword);
+    } else {
+        $('#password-form').find('.form-group').css('display','none');
+        $('#password-form').find('.form-group').prev().css('display','block');
+        $(this).text('修改');
     }
 }
