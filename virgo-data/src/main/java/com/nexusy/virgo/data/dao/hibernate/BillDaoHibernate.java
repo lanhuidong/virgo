@@ -9,6 +9,7 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.Collections;
 import java.util.Date;
@@ -18,7 +19,7 @@ import java.util.List;
  * @author lan
  * @since 2013-11-20
  */
-@Component
+@Repository
 public class BillDaoHibernate extends BaseDaoHibernate<Bill, Long> implements BillDao {
 
     public BillDaoHibernate() {

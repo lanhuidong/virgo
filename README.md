@@ -9,8 +9,8 @@ virgo
 jdk 1.7<br/>
 intellij idea 13.0<br/>
 gradle 1.9<br/>
-spring 3.2.5.RELEASE<br/>
-spring security 3.1.4.RELEASE<br/>
+spring 4.0.0.RELEASE<br/>
+spring security 3.2.0.RELEASE<br/>
 logback 1.0.13<br/>
 slf4j 1.7.5<br/>
 junit 4.11<br/>

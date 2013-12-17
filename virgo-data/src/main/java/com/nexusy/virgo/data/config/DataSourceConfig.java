@@ -33,9 +33,9 @@ public class DataSourceConfig {
         dataSource.setUser(env.getProperty("jdbc.username"));
         dataSource.setPassword(env.getProperty("jdbc.password"));
 
-        dataSource.setMinPoolSize(5);
-        dataSource.setMaxPoolSize(10);
-        dataSource.setAcquireIncrement(5);
+        dataSource.setMinPoolSize(2);
+        dataSource.setMaxPoolSize(3);
+        dataSource.setAcquireIncrement(1);
         dataSource.setMaxIdleTime(1800);
         dataSource.setIdleConnectionTestPeriod(180);
 

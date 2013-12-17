@@ -7,14 +7,14 @@ idea {
     }
 }
 
-def springVersion = '3.2.5.RELEASE'
-def springSecurityVersion = '3.1.4.RELEASE'
+def springVersion = '4.0.0.RELEASE'
+def springSecurityVersion = '3.2.0.RELEASE'
 def tomcatVersion = '7.0.47'
 def logbackVersion = '1.0.13'
 def slf4jVersion = '1.7.5'
 def easymockVersion = '3.2'
 def junitVersion = '4+'
-def c3p0Version = '0.9.1.2'
+def c3p0Version = '0.9.2.1'
 def mysqlConnectorJavaVersion = '5.1.27'
 def hibernateVersion = '4.2.8.Final'
 def hibernateValidatorVersion = '5.0.1.Final'
@@ -41,8 +41,6 @@ subprojects {
     dependencies {
         compile "org.springframework:spring-context-support:$springVersion"
         compile("org.springframework.security:spring-security-web:$springSecurityVersion") {
-            exclude group: "org.springframework", module: "spring-jdbc"
-            exclude group: "org.springframework", module: "spring-tx"
             exclude group: "org.springframework", module: "spring-web"
         }
         compile "org.springframework.security:spring-security-config:$springSecurityVersion"
@@ -59,7 +57,7 @@ project(':virgo-data') {
 
     dependencies {
         compile "mysql:mysql-connector-java:$mysqlConnectorJavaVersion"
-        compile "c3p0:c3p0:$c3p0Version"
+        compile "com.mchange:c3p0:$c3p0Version"
         compile "org.hibernate:hibernate-core:$hibernateVersion"
         compile "org.springframework:spring-orm:$springVersion"
         compile "org.hibernate:hibernate-validator:$hibernateValidatorVersion"
