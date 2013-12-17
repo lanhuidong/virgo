@@ -11,7 +11,7 @@ import java.util.List;
  * @author lan
  * @since 2013-11-20
  */
-public interface BillService {
+public interface BillService extends BaseService<Bill, Long> {
 
     /**
      * 保存账单明细

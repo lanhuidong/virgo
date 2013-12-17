@@ -8,9 +8,7 @@ import java.util.Date;
  * @author lan
  * @since 2013-11-15
  */
-public interface UserService {
-
-    User get(Long id);
+public interface UserService extends BaseService<User, Long> {
 
     void updateLoginTime(Long userId, Date time);
 

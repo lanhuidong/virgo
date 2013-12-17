@@ -13,7 +13,7 @@ import java.util.List;
  * @author lan
  * @since 2013-11-07
  */
-public class BaseDaoHibernate<T, PK extends Serializable> implements BaseDao<T, PK> {
+public abstract class BaseDaoHibernate<T, PK extends Serializable> implements BaseDao<T, PK> {
 
     @Autowired
     private SessionFactory sessionFactory;

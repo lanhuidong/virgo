@@ -19,7 +19,7 @@ import java.util.Date;
  */
 @Service("userService")
 @Transactional(readOnly = true)
-public class UserServiceImpl implements UserService, UserDetailsService {
+public class UserServiceImpl extends BaseServiceImpl<User, Long> implements UserService, UserDetailsService {
 
     @Autowired
     private UserDao userDao;

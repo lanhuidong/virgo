@@ -21,7 +21,7 @@ import java.util.List;
  */
 @Service
 @Transactional(readOnly = true)
-public class BillServiceImpl implements BillService {
+public class BillServiceImpl extends BaseServiceImpl<Bill, Long> implements BillService {
 
     @Autowired
     private BillDao billDao;
