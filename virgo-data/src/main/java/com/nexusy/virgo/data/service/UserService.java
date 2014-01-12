@@ -1,6 +1,7 @@
 package com.nexusy.virgo.data.service;
 
 import com.nexusy.virgo.data.model.User;
+import com.nexusy.virgo.data.vo.BasicInfo;
 
 import java.util.Date;
 
@@ -17,8 +18,12 @@ public interface UserService extends BaseService<User, Long> {
      */
     void save(User user);
 
+    boolean modifyPassword(Long userId, String oldPassword, String newPassword);
+
     /**
      * 检查用户名是否存在，已存在返回true,否则返回false
      */
     boolean chechUsername(String username);
+
+    void save(Long userId, BasicInfo info);
 }

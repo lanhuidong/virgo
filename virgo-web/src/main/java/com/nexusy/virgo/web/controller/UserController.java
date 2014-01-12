@@ -31,26 +31,30 @@ public class UserController {
     public ModelAndView index() {
         ModelAndView mav = new ModelAndView("/u/index");
         User user = VirgoSecurityContext.getCurrentUser();
+        user = userService.get(user.getId());
         mav.addObject("user", user);
         return mav;
     }
 
     @RequestMapping("/edit")
     @ResponseBody
-    public boolean edit(@Valid BasicInfo info, BindingResult result){
-        if(result.hasErrors()){
+    public boolean edit(@Valid BasicInfo info, BindingResult result) {
+        if (result.hasErrors()) {
             return false;
         }
+        User user = VirgoSecurityContext.getCurrentUser();
+        userService.save(user.getId(), info);
         return true;
     }
 
     @RequestMapping("/modify")
     @ResponseBody
-    public boolean modify(@Valid PasswordVo vo, BindingResult result){
-        if(result.hasErrors()){
+    public boolean modify(@Valid PasswordVo vo, BindingResult result) {
+        if (result.hasErrors()) {
             return false;
         }
-        return true;
+        User user = VirgoSecurityContext.getCurrentUser();
+        return userService.modifyPassword(user.getId(), vo.getOldPassword(), vo.getNewPassword());
     }
 
     @RequestMapping("/admin")

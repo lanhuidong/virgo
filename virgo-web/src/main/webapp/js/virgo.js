@@ -238,6 +238,16 @@ function editProfile(){
         $('#basic-form').find('.form-group>input').each(function(){
             $(this).parent().prev().text($.trim($(this).val()));
         });
+        var param = $('#basic-form').serialize();
+        $.post('/u/edit', param, function(data){
+            if(data){
+                $('#edittip').text('保存成功');
+            } else {
+                $('#edittip').text('保存失败');
+            }
+            setTimeout(function(){$('#edittip').text('');}, 2000);
+            $('#edit').click(editProfile);
+        });
         $(this).text('编辑');
     }
 }
@@ -253,6 +263,16 @@ function modifyPassword(){
     } else {
         $('#password-form').find('.form-group').css('display','none');
         $('#password-form').find('.form-group').prev().css('display','block');
+        var param = $('#password-form').serialize();
+        $.post('/u/modify', param, function(data){
+            if(data){
+                $('#modifytip').text('修改成功');
+            } else {
+                $('#modifytip').text('修改失败');
+            }
+            setTimeout(function(){$('#modifytip').text('');}, 2000);
+            $('#modify').click(modifyPassword)
+        });
         $(this).text('修改');
     }
 }

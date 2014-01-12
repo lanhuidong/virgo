@@ -3,6 +3,7 @@ package com.nexusy.virgo.data.service.impl;
 import com.nexusy.virgo.data.dao.UserDao;
 import com.nexusy.virgo.data.model.User;
 import com.nexusy.virgo.data.service.UserService;
+import com.nexusy.virgo.data.vo.BasicInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,7 +19,7 @@ import java.util.Date;
  * @since 2013-11-15
  */
 @Service("userService")
-@Transactional(readOnly = true)
+@Transactional
 public class UserServiceImpl extends BaseServiceImpl<User, Long> implements UserService, UserDetailsService {
 
     @Autowired
@@ -28,17 +29,18 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
     private PasswordEncoder passwordEncoder;
 
     @Override
+    @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userDao.findUserByUsername(username);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public User get(Long id) {
         return userDao.get(id);
     }
 
     @Override
-    @Transactional(readOnly = false)
     public void updateLoginTime(Long userId, Date time) {
         User user = userDao.load(userId);
         user.setLastLogin(time);
@@ -46,7 +48,6 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
     }
 
     @Override
-    @Transactional(readOnly = false)
     public void save(User user) {
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
@@ -54,7 +55,30 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
     }
 
     @Override
+    public boolean modifyPassword(Long userId, String oldPassword, String newPassword) {
+        User user = userDao.get(userId);
+        if(passwordEncoder.matches(oldPassword, user.getPassword())){
+            user.setPassword(passwordEncoder.encode(newPassword));
+            userDao.update(user);
+        } else {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public boolean chechUsername(String username) {
         return userDao.findUserByUsername(username) != null;
+    }
+
+    @Override
+    public void save(Long userId, BasicInfo info) {
+        User user = userDao.get(userId);
+        if(user != null){
+            user.setEmail(info.getEmail());
+            user.setPhone(info.getPhone());
+        }
+        userDao.update(user);
     }
 }

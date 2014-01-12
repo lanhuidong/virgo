@@ -1,7 +1,5 @@
 package com.nexusy.virgo.data.model;
 
-import org.hibernate.annotations.ForeignKey;
-
 import javax.persistence.*;
 
 /**
@@ -55,8 +53,7 @@ public class BillItem {
     }
 
     @ManyToOne
-    @JoinColumn(name = "bill_id", nullable = false)
-    @ForeignKey(name = "FK_bill_id")
+    @JoinColumn(name = "bill_id", nullable = false, foreignKey = @ForeignKey(name = "FK_bill_id"))
     public Bill getBill() {
         return bill;
     }

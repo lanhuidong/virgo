@@ -22,7 +22,6 @@ public class BasicInfo {
         this.email = email;
     }
 
-    @Pattern(regexp = "^((\\+86)|(86))?(13)|(15)|(18)\\d{9}$")
     public String getPhone() {
         return phone;
     }
