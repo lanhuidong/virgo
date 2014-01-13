@@ -25,14 +25,14 @@
                 </div>
                 <div class="row" style="margin:5px 0;height:30px;line-height:30px">
                     <span class="col-xs-4 col-sm-2 text-right text-muted">Email</span>
-                    <span class="col-xs-8 col-sm-4">${user.email?if_exists}</span>
+                    <span class="col-xs-8 col-sm-4">${u.email?if_exists}</span>
                     <div class="col-xs-8 col-sm-4 form-group" style="display:none;margin:0">
                         <input name="email" type="text" class="form-control input-sm">
                     </div>
                 </div>
                 <div class="row" style="margin:5px 0;height:30px;line-height:30px">
                     <span class="col-xs-4 col-sm-2 text-right text-muted">手机</span>
-                    <span class="col-xs-8 col-sm-4">${user.phone?if_exists}</span>
+                    <span class="col-xs-8 col-sm-4">${u.phone?if_exists}</span>
                     <div class="col-xs-8 col-sm-4 form-group" style="display:none;margin:0">
                         <input name="phone" type="text" class="form-control input-sm">
                     </div>

@@ -7,8 +7,8 @@ virgo
 软件版本
 =====
 jdk 1.7<br/>
-intellij idea 13.0<br/>
-gradle 1.9<br/>
+intellij idea 12<br/>
+gradle 1.10<br/>
 spring 4.0.0.RELEASE<br/>
 spring security 3.2.0.RELEASE<br/>
 logback 1.0.13<br/>
@@ -22,7 +22,7 @@ fastxml jackson 2.2.3<br/>
 freemarker 2.3.20<br/>
 commons-lang3 3.1<br/>
 json-path 0.9.1<br/>
-tomcat 7.0.47<br/>
+tomcat 7.0.50<br/>
 jquery 2.0.3<br/>
 bootstrap 3.0.2<br/>
 版本1.1.0（coding中)

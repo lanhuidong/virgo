@@ -32,7 +32,7 @@ public class UserController {
         ModelAndView mav = new ModelAndView("/u/index");
         User user = VirgoSecurityContext.getCurrentUser();
         user = userService.get(user.getId());
-        mav.addObject("user", user);
+        mav.addObject("u", user);
         return mav;
     }
 

@@ -38,6 +38,7 @@ public class BillDaoHibernate extends BaseDaoHibernate<Bill, Long> implements Bi
     public List<Long> findBillsByDate(Long userId, Date from, Date to, Integer firstResult, Integer maxResults) {
         Criteria c = getSession().createCriteria(Bill.class);
         c.add(Restrictions.eq("userId", userId)).add(Restrictions.ge("date", from)).add(Restrictions.le("date", to));
+        c.addOrder(Order.asc("date"));
         c.setFirstResult(firstResult).setMaxResults(maxResults);
         c.setProjection(Projections.id());
         return c.list();
