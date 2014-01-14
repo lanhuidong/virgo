@@ -26,6 +26,20 @@
                     </div>
                 </div>
             </form>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th width="15%">日期</th>
+                        <th width="25%" class="text-right">支出</th>
+                        <th width="25%" class="text-right">收入</th>
+                        <th width="25%" class="text-right">小结</th>
+                        <th width="10%" class="text-center">明细</th>
+                    </tr>
+                    </thead>
+                    <tbody><tr><td class="text-center" colspan="5">正在加载数据</td></tr></tbody>
+                </table>
+            </div>
         </div>
     </div>
     <script type="text/javascript">

@@ -89,6 +89,7 @@ function login(){
 
 //添加账单
 function addBill(){
+    $('#addBill').unbind('click');
     if(stringLength($('#item'), 1, 255) && isNumber($('#money')) && stringLength($('#remark'), 0, 255)){
         $.post('add', $('#bill-form').serialize(), function(data){
             if(data){
@@ -100,6 +101,7 @@ function addBill(){
                 $('#add-tip').text('保存失败');
             }
             setTimeout(function(){$('#add-tip').text('');},3000);
+            $('#addBill').click(addBill);
         });
     }
 }
@@ -128,7 +130,7 @@ function stringLength(input, min, max){
 //查询账单
 function queryBill(){
     $.post('/bill', $('#query-form').serialize(), function(data){
-        $('table').remove();
+        $('table').parent().remove();
         $('#query-form').after(data);
         $('.view-item').click(toggleBillItem);
         $('.del-item').click(deleteBillItem);
