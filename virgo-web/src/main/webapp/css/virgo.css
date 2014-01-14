@@ -1,3 +1,5 @@
 body{padding-top:70px}
 .virgo-dropdown{padding:5px 10px;width:250px}
 .virgo-input-error{font-size:12px}
+.virgo-tip{z-index:10000;text-align:center;width:100%;position:fixed;top:55px;display:none}
+.virgo-tip span{border:1px solid #F0C36D;padding:6px 14px;margin:0 auto;background:#F9EDBE}

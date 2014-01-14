@@ -13,9 +13,13 @@ public class Page {
     public Page() {
     }
 
-    public Page(int pageNo, int pageSize) {
-        this.pageNo = pageNo;
-        this.pageSize = pageSize;
+    public Page(Integer pageNo, Integer pageSize) {
+        if (pageNo != null && pageNo > 0) {
+            this.pageNo = pageNo;
+        }
+        if (pageSize != null && pageSize > 0) {
+            this.pageSize = pageSize;
+        }
     }
 
     public int getPageNo() {

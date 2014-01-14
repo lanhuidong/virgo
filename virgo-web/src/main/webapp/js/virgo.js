@@ -233,23 +233,53 @@ function editProfile(){
         $(this).text('保存');
         $('#edit').click(editProfile);
     } else {
-        $('#basic-form').find('.form-group').css('display','none');
-        $('#basic-form').find('.form-group').prev().css('display','block');
-        $('#basic-form').find('.form-group>input').each(function(){
-            $(this).parent().prev().text($.trim($(this).val()));
-        });
+        if(!isEmail($('input[name="email"]'))){
+            $('.virgo-tip > span').text('Email错误');
+            $('#edit').click(editProfile);
+            $('.virgo-tip').show();
+            return;
+        } else if(!isPhoneNumber($('input[name="phone"]'))){
+            $('.virgo-tip > span').text('手机号错误');
+            $('#edit').click(editProfile);
+            $('.virgo-tip').show();
+            return;
+        }
         var param = $('#basic-form').serialize();
         $.post('/u/edit', param, function(data){
             if(data){
-                $('#edittip').text('保存成功');
+                $('#basic-form').find('.form-group').css('display','none');
+                $('#basic-form').find('.form-group').prev().css('display','block');
+                $('#basic-form').find('.form-group>input').each(function(){
+                    $(this).parent().prev().text($.trim($(this).val()));
+                });
+                $('.virgo-tip > span').text('保存信息成功');
+                setTimeout(function(){$('.virgo-tip').hide();}, 2000);
+                $('#edit').text('编辑');
             } else {
-                $('#edittip').text('保存失败');
+                $('.virgo-tip > span').text('保存信息失败');
             }
-            setTimeout(function(){$('#edittip').text('');}, 2000);
+            $('.virgo-tip').show();
             $('#edit').click(editProfile);
         });
-        $(this).text('编辑');
     }
+}
+
+function isEmail(input){
+    var email = $.trim(input.val());
+    var pattern = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+    if(pattern.test(email)){
+        return true;
+    }
+    return false;
+}
+
+function isPhoneNumber(input){
+    var phone = $.trim(input.val());
+    var pattern = /^((\s*)|((\+86)|(86))?((15)|(13)|(18))\d{9})$/;
+    if(pattern.test(phone)){
+        return true;
+    }
+    return false;
 }
 
 function modifyPassword(){
@@ -261,18 +291,19 @@ function modifyPassword(){
         $(this).text('保存');
         $('#modify').click(modifyPassword);
     } else {
-        $('#password-form').find('.form-group').css('display','none');
-        $('#password-form').find('.form-group').prev().css('display','block');
         var param = $('#password-form').serialize();
         $.post('/u/modify', param, function(data){
             if(data){
-                $('#modifytip').text('修改成功');
+                $('#password-form').find('.form-group').css('display','none');
+                $('#password-form').find('.form-group').prev().css('display','block');
+                $('.virgo-tip > span').text('修改密码成功');
+                setTimeout(function(){$('.virgo-tip').hide();}, 2000);
+                $('#modify').text('修改');
             } else {
-                $('#modifytip').text('修改失败');
+                $('.virgo-tip > span').text('修改密码失败');
             }
-            setTimeout(function(){$('#modifytip').text('');}, 2000);
+            $('.virgo-tip').show();
             $('#modify').click(modifyPassword)
         });
-        $(this).text('修改');
     }
 }

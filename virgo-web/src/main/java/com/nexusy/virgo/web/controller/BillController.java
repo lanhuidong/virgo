@@ -10,7 +10,10 @@ import com.nexusy.virgo.web.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -35,7 +38,7 @@ public class BillController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView query(DateRange range, @RequestParam(defaultValue = "1") Integer pageNo, @RequestParam(defaultValue = "31") Integer pageSize) {
+    public ModelAndView query(DateRange range, Integer pageNo, Integer pageSize) {
         ModelAndView mav = new ModelAndView("/bill/bill");
         Page page = new Page(pageNo, pageSize);
         User user = VirgoSecurityContext.getCurrentUser();
