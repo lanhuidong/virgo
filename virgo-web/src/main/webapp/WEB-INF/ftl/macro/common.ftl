@@ -92,7 +92,7 @@
     <div class="container" id="content">
         <#nested/>
     </div>
-    <div class="container text-center">&copy;2013-${.now?string('yyyy')}&nbsp;&nbsp;Lan.&nbsp;&nbsp;All rights reserved.&nbsp;&nbsp;v1.0.0</div>
+    <div class="container text-center">&copy;2013-${.now?string('yyyy')}&nbsp;&nbsp;Lan.&nbsp;&nbsp;All rights reserved.&nbsp;&nbsp;v1.1.1</div>
     <div class="virgo-tip"><span></span></div>
 </body>
 </html>
