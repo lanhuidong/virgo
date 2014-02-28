@@ -130,8 +130,9 @@ function stringLength(input, min, max){
 //查询账单
 function queryBill(){
     $.post('/bill', $('#query-form').serialize(), function(data){
-        $('table').parent().remove();
-        $('#query-form').after(data);
+        $('table').find('tbody').remove();
+        $('table').find('tfoot').remove();
+        $('table').append(data);
         $('.view-item').click(toggleBillItem);
         $('.del-item').click(deleteBillItem);
     });
