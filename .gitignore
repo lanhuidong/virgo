@@ -3,6 +3,7 @@
 *.iml
 logs/
 out/
+gen/
 
 #################
 ## Eclipse
