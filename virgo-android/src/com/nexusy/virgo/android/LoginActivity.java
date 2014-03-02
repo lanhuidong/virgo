@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class LoginActivity extends Activity {
@@ -38,8 +39,18 @@ public class LoginActivity extends Activity {
             public void onClick(View v) {
                 String username = usernameEditText.getText().toString().trim();
                 String password = passwordEditText.getText().toString().trim();
+                if(username == null || "".equals(username)){
+                    Toast.makeText(LoginActivity.this, R.string.username, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(password == null || "".equals(password)){
+                    Toast.makeText(LoginActivity.this, R.string.password, Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 dialog = new Dialog(LoginActivity.this, R.style.dialog);
                 dialog.setContentView(R.layout.loading_dialog);
+                TextView tv = (TextView) dialog.findViewById(R.id.dialog_content);
+                tv.setText(R.string.logining);
                 dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                 dialog.setCanceledOnTouchOutside(false);
                 dialog.show();
@@ -72,7 +83,6 @@ public class LoginActivity extends Activity {
                     Map<String, String> params = new HashMap<String, String>();
                     params.put("j_username", username);
                     params.put("j_password", password);
-                    params.put("login_agent", "android");
                     String result = VirgoHttpClient.parseHttpResponseToString(VirgoHttpClient.post(UrlConstants.LOGIN_URL, params));
                     dialog.dismiss();
                     if("0".equals(result)){

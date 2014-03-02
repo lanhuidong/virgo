@@ -25,6 +25,11 @@ public class VirgoInterceptor extends HandlerInterceptorAdapter {
                 && !(pathMatcher.match("/signup/**",request.getPathInfo()) || pathMatcher.match("/login",request.getPathInfo()))) {
             response.addHeader("sessionstatus", "timeout");
         }
+        String agent = request.getHeader("mobile-os");
+        if (agent != null && "api".equals(agent) && VirgoSecurityContext.getCurrentUser() == null
+                && !(pathMatcher.match("/signup/**",request.getPathInfo()) || pathMatcher.match("/login",request.getPathInfo()))) {
+            response.addHeader("androidsession", "timeout");
+        }
         return super.preHandle(request, response, handler);
     }
 

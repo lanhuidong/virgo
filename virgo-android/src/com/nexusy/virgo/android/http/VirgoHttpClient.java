@@ -56,6 +56,7 @@ public class VirgoHttpClient {
                             .get(key)));
                 }
             }
+            httppost.addHeader("mobile-os", "api");
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "utf8"));
             // Execute HTTP Post Request
             HttpResponse response = httpclient.execute(httppost);

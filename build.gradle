@@ -47,6 +47,8 @@ subprojects {
         compile "org.apache.commons:commons-lang3:$commonslangVersion"
         compile "org.slf4j:jcl-over-slf4j:$slf4jVersion"
         compile "ch.qos.logback:logback-classic:$logbackVersion"
+        compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+        compile "com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion"
         testCompile "org.springframework:spring-test:$springVersion"
         testCompile "org.easymock:easymock:$easymockVersion"
         testCompile "junit:junit:$junitVersion"
@@ -98,7 +100,6 @@ project(':virgo-web') {
         compile "org.freemarker:freemarker:$freemarkVersion"
         providedCompile "org.apache.tomcat:tomcat-servlet-api:$tomcatVersion"
         providedCompile "org.apache.tomcat:tomcat-jsp-api:$tomcatVersion"
-        compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
         testCompile "com.jayway.jsonpath:json-path:$jsonpathVersion"
         compile project(':virgo-data')
     }
