@@ -6,7 +6,7 @@ package com.nexusy.virgo.android.http;
  */
 public interface UrlConstants {
 
-    String HOSTNAME = "http://192.168.0.101/";
+    String HOSTNAME = "http://192.168.0.103/";
 
     String LOGIN_URL = HOSTNAME + "login";
 
