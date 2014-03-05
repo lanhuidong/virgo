@@ -11,4 +11,6 @@ public interface UrlConstants {
     String LOGIN_URL = HOSTNAME + "login";
 
     String QUERY_BILL_URL = HOSTNAME + "/api/bill";
+    
+    String ADD_BILL_URL = HOSTNAME + "/api/bill/add";
 }

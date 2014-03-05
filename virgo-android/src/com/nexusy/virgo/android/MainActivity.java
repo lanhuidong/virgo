@@ -59,6 +59,11 @@ public class MainActivity extends Activity {
         adapter = new SimpleAdapter(MainActivity.this, billsMap, R.layout.bills,
                 new String[] { "date", "income", "pay" }, new int[] { R.id.bill_date, R.id.bill_income, R.id.bill_pay });
         lv.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         new QueryBillTask().execute();
     }
 
@@ -69,6 +74,7 @@ public class MainActivity extends Activity {
             Map<String, String> parameters = new HashMap<String, String>();
             List<Bill> bills = new JSONToBean().parseHttpResponse(VirgoHttpClient.post(UrlConstants.QUERY_BILL_URL,
                     parameters));
+            billsMap.clear();
             for (Bill bill : bills) {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("date", bill.getDate());
