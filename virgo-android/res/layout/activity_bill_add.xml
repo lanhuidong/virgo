@@ -106,6 +106,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/add"/>
+        android:text="@string/add"
+        android:background="@drawable/green_button"
+        android:textColor="@android:color/white"/>
 
 </LinearLayout>

@@ -30,15 +30,25 @@
 
         <Button
             android:id="@+id/login"
-            android:layout_width="wrap_content"
+            android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:text="@string/login" />
+            android:layout_weight="1"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:background="@drawable/green_button"
+            android:text="@string/login"
+            android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/signup"
-            android:layout_width="wrap_content"
+            android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:text="@string/signup" />
+            android:layout_weight="1"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:background="@drawable/green_button"
+            android:text="@string/signup" 
+            android:textColor="@android:color/white" />
     </LinearLayout>
 
 </LinearLayout>
