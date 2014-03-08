@@ -49,7 +49,8 @@ public class BillAddActivity extends Activity {
 
                         @Override
                         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                            date.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+                            date.setText(year + "-" + String.format("%02d", (monthOfYear + 1)) + "-"
+                                    + String.format("%02d", dayOfMonth));
                         }
                     }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DATE));
                 }
