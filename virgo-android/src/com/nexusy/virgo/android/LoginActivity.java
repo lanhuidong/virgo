@@ -68,9 +68,28 @@ public class LoginActivity extends Activity {
 
             @Override
             public void onClick(View v) {
-                String username = usernameEditText.getText().toString();
-                String password = passwordEditText.getText().toString();
-                Toast.makeText(LoginActivity.this, username + password, Toast.LENGTH_LONG).show();
+                String username = usernameEditText.getText().toString().trim();
+                String password = passwordEditText.getText().toString().trim();
+                if (username == null || "".equals(username)) {
+                    Toast.makeText(LoginActivity.this, R.string.username, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (password == null || "".equals(password)) {
+                    Toast.makeText(LoginActivity.this, R.string.password, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(!NetworkUtil.isConnected(LoginActivity.this)){
+                    Toast.makeText(LoginActivity.this, R.string.networkunavailable, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                dialog = new Dialog(LoginActivity.this, R.style.dialog);
+                dialog.setContentView(R.layout.loading_dialog);
+                TextView tv = (TextView) dialog.findViewById(R.id.dialog_content);
+                tv.setText(R.string.logining);
+                dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                dialog.setCanceledOnTouchOutside(false);
+                dialog.show();
+                new SignupTask().execute(username, password);
             }
         });
 
@@ -100,6 +119,32 @@ public class LoginActivity extends Activity {
             }
         }
 
+    }
+    
+    private class SignupTask extends AsyncTask<String, Void, String> {
+        
+        @Override
+        protected String doInBackground(String... params) {
+            Map<String, String> parameters = new HashMap<String, String>();
+            parameters.put("j_username", params[0]);
+            parameters.put("j_password", params[1]);
+            return VirgoHttpClient.parseHttpResponseToString(VirgoHttpClient.post(UrlConstants.SIGN_URL, parameters));
+        }
+        
+        @Override
+        protected void onPostExecute(String result) {
+            dialog.dismiss();
+            if ("0".equals(result)) {
+                String username = usernameEditText.getText().toString().trim();
+                String password = passwordEditText.getText().toString().trim();
+                new LoginTask().execute(username, password);
+            } else if("2".equals(result)){
+                Toast.makeText(LoginActivity.this, R.string.samename, Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(LoginActivity.this, R.string.signupfailed, Toast.LENGTH_LONG).show();
+            }
+        }
+        
     }
 
 }

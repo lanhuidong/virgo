@@ -11,6 +11,8 @@
     <string name="logining">正在登录，请稍候…</string>
     <string name="connectionfailed">连接服务器失败</string>
     <string name="loginfailed">登录失败</string>
+    <string name="signupfailed">注册失败</string>
+    <string name="samename">该用户名已被注册</string>
     <string name="networkunavailable">网络连接不可用</string>
     <string name="add">记账</string>
     <string name="query">查询</string>
@@ -22,6 +24,5 @@
     <string name="type">类型</string>
     <string name="billsuccess">添加账单成功</string>
     <string name="billfailed">添加账单失败</string>
-    <string name="title_activity_bill_one_day">BillOneDayActivity</string>
 
 </resources>
