@@ -1,5 +1,6 @@
 package com.nexusy.virgo.android;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -15,6 +16,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -138,14 +141,19 @@ public class MainActivity extends Activity {
         });
 
         lv = (ListView) findViewById(R.id.bills);
-        Map<String, Object> header = new HashMap<String, Object>();
-        header.put("date", "日期");
-        header.put("income", "收入");
-        header.put("pay", "支出");
-        billsMap.add(header);
         adapter = new SimpleAdapter(MainActivity.this, billsMap, R.layout.bills,
                 new String[] { "date", "income", "pay" }, new int[] { R.id.bill_date, R.id.bill_income, R.id.bill_pay });
         lv.setAdapter(adapter);
+        
+        lv.setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View view, int arg2, long arg3) {
+                Intent intent = new Intent(MainActivity.this, BillOneDayActivity.class);
+                intent.putExtra("bill", (Serializable)billsMap.get(arg2).get("bill"));
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -166,9 +174,15 @@ public class MainActivity extends Activity {
             List<Bill> bills = new JSONToBean().parseHttpResponse(VirgoHttpClient.post(UrlConstants.QUERY_BILL_URL,
                     parameters));
             billsMap.clear();
+            Map<String, Object> header = new HashMap<String, Object>();
+            header.put("date", "日期");
+            header.put("income", "收入");
+            header.put("pay", "支出");
+            billsMap.add(header);
             for (Bill bill : bills) {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("date", bill.getDate());
+                map.put("bill", bill);
                 double income = 0d;
                 double pay = 0d;
                 for (BillItem item : bill.getItems()) {

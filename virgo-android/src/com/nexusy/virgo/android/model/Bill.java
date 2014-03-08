@@ -1,5 +1,6 @@
 package com.nexusy.virgo.android.model;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
@@ -7,8 +8,9 @@ import java.util.List;
  * @author lan
  * @since 2014-3-2
  */
-public class Bill {
+public class Bill implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private Long id;
     private Date date;
     private Long userId;

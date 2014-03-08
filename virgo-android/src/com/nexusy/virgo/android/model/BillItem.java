@@ -1,11 +1,14 @@
 package com.nexusy.virgo.android.model;
 
+import java.io.Serializable;
+
 /**
  * @author lan
  * @since 2014-3-2
  */
-public class BillItem {
+public class BillItem implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     private Long id;
     private Bill bill;
     private Double money;
