@@ -6,11 +6,15 @@ package com.nexusy.virgo.android.http;
  */
 public interface UrlConstants {
 
-    String HOSTNAME = "http://192.168.0.103/";
+    String HOSTNAME = "https://bill.nexusy.com/";
 
+    String SIGN_URL = HOSTNAME + "signup";
+    
     String LOGIN_URL = HOSTNAME + "login";
 
     String QUERY_BILL_URL = HOSTNAME + "/api/bill";
     
     String ADD_BILL_URL = HOSTNAME + "/api/bill/add";
+    
+    String DEL_BILL_URL = HOSTNAME + "/api/bill/del/";
 }
