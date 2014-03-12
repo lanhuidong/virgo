@@ -1,6 +1,7 @@
 package com.nexusy.virgo.android;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -144,13 +145,13 @@ public class MainActivity extends Activity {
         adapter = new SimpleAdapter(MainActivity.this, billsMap, R.layout.bills,
                 new String[] { "date", "income", "pay" }, new int[] { R.id.bill_date, R.id.bill_income, R.id.bill_pay });
         lv.setAdapter(adapter);
-        
+
         lv.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> arg0, View view, int arg2, long arg3) {
                 Intent intent = new Intent(MainActivity.this, BillOneDayActivity.class);
-                intent.putExtra("bill", (Serializable)billsMap.get(arg2).get("bill"));
+                intent.putExtra("bill", (Serializable) billsMap.get(arg2).get("bill"));
                 startActivity(intent);
             }
         });
@@ -179,6 +180,7 @@ public class MainActivity extends Activity {
             header.put("income", "收入");
             header.put("pay", "支出");
             billsMap.add(header);
+            NumberFormat nf = NumberFormat.getCurrencyInstance();
             for (Bill bill : bills) {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("date", bill.getDate());
@@ -192,8 +194,8 @@ public class MainActivity extends Activity {
                         pay += item.getMoney();
                     }
                 }
-                map.put("income", income);
-                map.put("pay", pay);
+                map.put("income", nf.format(income));
+                map.put("pay", nf.format(pay));
                 billsMap.add(map);
             }
             return null;

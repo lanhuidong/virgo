@@ -7,23 +7,33 @@
 
     <TextView
         android:id="@+id/bill_date"
-        android:layout_weight="1"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
-        android:gravity="center" />
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:ellipsize="end" />
 
     <TextView
         android:id="@+id/bill_income"
-        android:layout_weight="1"
         android:layout_width="0dip"
-        android:layout_height="wrap_content" 
-        android:gravity="center"/>
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="right"
+        android:textSize="16sp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="@color/holo_green_dark" />
 
     <TextView
         android:id="@+id/bill_pay"
-        android:layout_weight="1"
         android:layout_width="0dip"
-        android:layout_height="wrap_content" 
-        android:gravity="center"/>
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="right"
+        android:textSize="16sp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="@color/holo_red_dark" />
 
 </LinearLayout>
