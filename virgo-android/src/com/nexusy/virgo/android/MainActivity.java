@@ -23,6 +23,7 @@ import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.SimpleExpandableListAdapter;
 
+import com.nexusy.virgo.android.adapter.BillAdapter;
 import com.nexusy.virgo.android.http.JSONToBean;
 import com.nexusy.virgo.android.http.UrlConstants;
 import com.nexusy.virgo.android.http.VirgoHttpClient;
@@ -140,7 +141,7 @@ public class MainActivity extends Activity {
         });
 
         elv = (ExpandableListView) findViewById(R.id.bills);
-        adapter = new SimpleExpandableListAdapter(MainActivity.this, billsMap, R.layout.bills, new String[] { "date",
+        adapter = new BillAdapter(MainActivity.this, billsMap, R.layout.bills, new String[] { "date",
                 "income", "pay" }, new int[] { R.id.bill_date, R.id.bill_income, R.id.bill_pay }, billMap,
                 R.layout.bill, new String[] { "item", "money" }, new int[] { R.id.bill_item, R.id.bill_money });
         elv.setAdapter(adapter);
@@ -185,6 +186,8 @@ public class MainActivity extends Activity {
                     Map<String, Object> m = new HashMap<String, Object>();
                     m.put("item", item.getItem());
                     m.put("money", nf.format(item.getMoney()));
+                    m.put("type", item.getType());
+                    m.put("id", item.getId());
                     child.add(m);
                     if (item.getType() == BillItemType.INCOME) {
                         income += item.getMoney();

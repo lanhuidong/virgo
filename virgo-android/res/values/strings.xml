@@ -24,5 +24,6 @@
     <string name="type">类型</string>
     <string name="billsuccess">添加账单成功</string>
     <string name="billfailed">添加账单失败</string>
+    <string name="del">删除</string>
 
 </resources>
