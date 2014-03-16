@@ -57,7 +57,7 @@ public class MainActivity extends Activity {
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.activity_main);
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.bill_title_bar);
-
+        
         add = (Button) findViewById(R.id.add_button);
         add.setOnClickListener(new OnClickListener() {
 
@@ -141,9 +141,10 @@ public class MainActivity extends Activity {
         });
 
         elv = (ExpandableListView) findViewById(R.id.bills);
-        adapter = new BillAdapter(MainActivity.this, billsMap, R.layout.bills, new String[] { "date",
-                "income", "pay" }, new int[] { R.id.bill_date, R.id.bill_income, R.id.bill_pay }, billMap,
-                R.layout.bill, new String[] { "item", "money" }, new int[] { R.id.bill_item, R.id.bill_money });
+        adapter = new BillAdapter(MainActivity.this, billsMap, R.layout.bills,
+                new String[] { "date", "income", "pay" },
+                new int[] { R.id.bill_date, R.id.bill_income, R.id.bill_pay }, billMap, R.layout.bill, new String[] {
+                        "item", "money" }, new int[] { R.id.bill_item, R.id.bill_money });
         elv.setAdapter(adapter);
     }
 

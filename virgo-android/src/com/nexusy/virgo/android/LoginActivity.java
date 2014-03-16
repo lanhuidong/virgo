@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.ads.AdRequest;
+import com.google.ads.AdView;
 import com.nexusy.virgo.android.http.UrlConstants;
 import com.nexusy.virgo.android.http.VirgoHttpClient;
 import com.nexusy.virgo.android.util.NetworkUtil;
@@ -32,6 +34,9 @@ public class LoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        AdView adView = (AdView) findViewById(R.id.adView);
+        adView.loadAd(new AdRequest());
 
         loginButton = (Button) findViewById(R.id.login);
         loginButton.setOnClickListener(new OnClickListener() {
