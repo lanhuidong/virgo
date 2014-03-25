@@ -7,8 +7,10 @@ import java.util.Map;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -17,11 +19,14 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.nexusy.virgo.android.http.DataParser;
 import com.nexusy.virgo.android.http.UrlConstants;
 import com.nexusy.virgo.android.http.VirgoHttpClient;
 import com.nexusy.virgo.android.model.BillItemType;
 
 public class BillAddActivity extends Activity {
+    
+    private String TAG = BillAddActivity.class.getName();
 
     private EditText date;
     private EditText item;
@@ -35,6 +40,7 @@ public class BillAddActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i(TAG, "onCreate");
         setContentView(R.layout.activity_bill_add);
 
         date = (EditText) findViewById(R.id.date);
@@ -82,23 +88,57 @@ public class BillAddActivity extends Activity {
         });
     }
 
-    private class BillAddTask extends AsyncTask<String, Void, Boolean> {
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i(TAG, "onDestroy");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i(TAG, "onPause");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i(TAG, "onResume");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i(TAG, "onStart");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i(TAG, "onStop");
+    }
+
+    private class BillAddTask extends AsyncTask<String, Void, String> {
 
         @Override
-        protected Boolean doInBackground(String... arg0) {
+        protected String doInBackground(String... arg0) {
             Map<String, String> params = new HashMap<String, String>();
             params.put("date", arg0[0]);
             params.put("item", arg0[1]);
             params.put("money", arg0[2]);
             params.put("type", arg0[3]);
-            Boolean result = Boolean.valueOf(VirgoHttpClient.parseHttpResponseToString(VirgoHttpClient.post(
-                    UrlConstants.ADD_BILL_URL, params)));
-            return result;
+            return new DataParser().parseHttpResponseToString(VirgoHttpClient.post(UrlConstants.ADD_BILL_URL, params));
         }
 
         @Override
-        protected void onPostExecute(Boolean result) {
-            if (result) {
+        protected void onPostExecute(String result) {
+            if ("timeout".equals(result)) {
+                Intent intent = new Intent(BillAddActivity.this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);        
+                return;
+            }
+            if ("true".equals(result)) {
                 item.setText("");
                 money.setText("");
                 Toast.makeText(BillAddActivity.this, R.string.billsuccess, Toast.LENGTH_LONG).show();
@@ -106,7 +146,6 @@ public class BillAddActivity extends Activity {
                 Toast.makeText(BillAddActivity.this, R.string.billfailed, Toast.LENGTH_LONG).show();
             }
         }
-
     }
 
 }

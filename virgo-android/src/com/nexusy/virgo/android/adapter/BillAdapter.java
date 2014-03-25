@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,7 +15,9 @@ import android.widget.Button;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
 
+import com.nexusy.virgo.android.LoginActivity;
 import com.nexusy.virgo.android.R;
+import com.nexusy.virgo.android.http.DataParser;
 import com.nexusy.virgo.android.http.UrlConstants;
 import com.nexusy.virgo.android.http.VirgoHttpClient;
 import com.nexusy.virgo.android.model.BillItemType;
@@ -63,7 +66,7 @@ public class BillAdapter extends SimpleExpandableListAdapter {
         return view;
     }
 
-    private class BillDeleteTask extends AsyncTask<Long, Void, Boolean> {
+    private class BillDeleteTask extends AsyncTask<Long, Void, String> {
 
         private int groupPosition;
         private int childPosition;
@@ -76,14 +79,18 @@ public class BillAdapter extends SimpleExpandableListAdapter {
         }
 
         @Override
-        protected Boolean doInBackground(Long... params) {
-            String result = VirgoHttpClient.parseHttpResponseToString(VirgoHttpClient.post(UrlConstants.DEL_BILL_URL+params[0], new HashMap<String, String>(0)));
-            return Boolean.valueOf(result);
+        protected String doInBackground(Long... params) {
+            return new DataParser().parseHttpResponseToString((VirgoHttpClient.post(UrlConstants.DEL_BILL_URL
+                    + params[0], new HashMap<String, String>(0))));
         }
 
         @Override
-        protected void onPostExecute(Boolean result) {
-            if (result) {
+        protected void onPostExecute(String result) {
+            if ("timeout".equals(result)) {
+                Intent intent = new Intent(context, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            } else if ("true".equals(result)) {
                 childData.get(groupPosition).remove(childPosition);
                 Map<String, Object> groupMap = groupData.get(groupPosition);
                 NumberFormat nf = NumberFormat.getCurrencyInstance();

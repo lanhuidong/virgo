@@ -9,7 +9,6 @@ import java.util.Map;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
 import org.apache.http.NameValuePair;
-import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -28,7 +27,6 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HTTP;
-import org.apache.http.util.EntityUtils;
 
 /**
  * @author lan
@@ -65,10 +63,6 @@ public class VirgoHttpClient {
 
     private final static HttpClient httpclient = initHttpClient();
 
-    public static HttpClient getHttpClient() {
-        return httpclient;
-    }
-
     public static HttpResponse post(String url, Map<String, String> params) {
 
         HttpPost httppost = new HttpPost(url);
@@ -82,23 +76,9 @@ public class VirgoHttpClient {
             }
             httppost.addHeader("mobile-os", "api");
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "utf8"));
-            // Execute HTTP Post Request
             HttpResponse response = httpclient.execute(httppost);
             return response;
         } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public static String parseHttpResponseToString(HttpResponse response) {
-        try {
-            if (response != null && response.getStatusLine().getStatusCode() == 200) {
-                return EntityUtils.toString(response.getEntity());
-            }
-        } catch (ParseException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();

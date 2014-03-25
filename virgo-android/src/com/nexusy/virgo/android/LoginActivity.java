@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
+import com.nexusy.virgo.android.http.DataParser;
 import com.nexusy.virgo.android.http.UrlConstants;
 import com.nexusy.virgo.android.http.VirgoHttpClient;
 import com.nexusy.virgo.android.util.NetworkUtil;
@@ -53,7 +54,7 @@ public class LoginActivity extends Activity {
                     Toast.makeText(LoginActivity.this, R.string.password, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(!NetworkUtil.isConnected(LoginActivity.this)){
+                if (!NetworkUtil.isConnected(LoginActivity.this)) {
                     Toast.makeText(LoginActivity.this, R.string.networkunavailable, Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -83,7 +84,7 @@ public class LoginActivity extends Activity {
                     Toast.makeText(LoginActivity.this, R.string.password, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(!NetworkUtil.isConnected(LoginActivity.this)){
+                if (!NetworkUtil.isConnected(LoginActivity.this)) {
                     Toast.makeText(LoginActivity.this, R.string.networkunavailable, Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -109,7 +110,7 @@ public class LoginActivity extends Activity {
             Map<String, String> parameters = new HashMap<String, String>();
             parameters.put("j_username", params[0]);
             parameters.put("j_password", params[1]);
-            return VirgoHttpClient.parseHttpResponseToString(VirgoHttpClient.post(UrlConstants.LOGIN_URL, parameters));
+            return new DataParser().parseHttpResponseToString(VirgoHttpClient.post(UrlConstants.LOGIN_URL, parameters));
         }
 
         @Override
@@ -125,17 +126,17 @@ public class LoginActivity extends Activity {
         }
 
     }
-    
+
     private class SignupTask extends AsyncTask<String, Void, String> {
-        
+
         @Override
         protected String doInBackground(String... params) {
             Map<String, String> parameters = new HashMap<String, String>();
             parameters.put("j_username", params[0]);
             parameters.put("j_password", params[1]);
-            return VirgoHttpClient.parseHttpResponseToString(VirgoHttpClient.post(UrlConstants.SIGN_URL, parameters));
+            return new DataParser().parseHttpResponseToString(VirgoHttpClient.post(UrlConstants.SIGN_URL, parameters));
         }
-        
+
         @Override
         protected void onPostExecute(String result) {
             dialog.dismiss();
@@ -143,13 +144,13 @@ public class LoginActivity extends Activity {
                 String username = usernameEditText.getText().toString().trim();
                 String password = passwordEditText.getText().toString().trim();
                 new LoginTask().execute(username, password);
-            } else if("2".equals(result)){
+            } else if ("2".equals(result)) {
                 Toast.makeText(LoginActivity.this, R.string.samename, Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(LoginActivity.this, R.string.signupfailed, Toast.LENGTH_LONG).show();
             }
         }
-        
+
     }
 
 }

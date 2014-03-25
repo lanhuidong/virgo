@@ -7,12 +7,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.http.HttpResponse;
+
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -24,7 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.SimpleExpandableListAdapter;
 
 import com.nexusy.virgo.android.adapter.BillAdapter;
-import com.nexusy.virgo.android.http.JSONToBean;
+import com.nexusy.virgo.android.http.DataParser;
 import com.nexusy.virgo.android.http.UrlConstants;
 import com.nexusy.virgo.android.http.VirgoHttpClient;
 import com.nexusy.virgo.android.model.Bill;
@@ -32,6 +35,8 @@ import com.nexusy.virgo.android.model.BillItem;
 import com.nexusy.virgo.android.model.BillItemType;
 
 public class MainActivity extends Activity {
+    
+    private String TAG = MainActivity.class.getName();
 
     private Button add;
     private Button query;
@@ -54,10 +59,11 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i(TAG, "onCreate");
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.activity_main);
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.bill_title_bar);
-        
+
         add = (Button) findViewById(R.id.add_button);
         add.setOnClickListener(new OnClickListener() {
 
@@ -151,20 +157,48 @@ public class MainActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
+        Log.i(TAG, "onStart");
         String fromDate = from.getText().toString();
         String toDate = to.getText().toString();
         new QueryBillTask().execute(fromDate, toDate);
     }
 
-    private class QueryBillTask extends AsyncTask<String, Void, Void> {
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i(TAG, "onDestroy");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i(TAG, "onPause");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i(TAG, "onResume");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i(TAG, "onStop");
+    }
+
+    private class QueryBillTask extends AsyncTask<String, Void, Boolean> {
 
         @Override
-        protected Void doInBackground(String... params) {
+        protected Boolean doInBackground(String... params) {
             Map<String, String> parameters = new HashMap<String, String>();
             parameters.put("from", params[0]);
             parameters.put("to", params[1]);
-            List<Bill> bills = new JSONToBean().parseHttpResponse(VirgoHttpClient.post(UrlConstants.QUERY_BILL_URL,
-                    parameters));
+            HttpResponse response = VirgoHttpClient.post(UrlConstants.QUERY_BILL_URL, parameters);
+            List<Bill> bills = new DataParser().parseHttpResponse(response);
+            if(bills == null){
+                return false;
+            }
             billsMap.clear();
             billMap.clear();
             Map<String, Object> header = new HashMap<String, Object>();
@@ -201,12 +235,19 @@ public class MainActivity extends Activity {
                 map.put("pay", nf.format(pay));
                 billsMap.add(map);
             }
-            return null;
+            return true;
         }
 
         @Override
-        protected void onPostExecute(Void result) {
-            adapter.notifyDataSetChanged();
+        protected void onPostExecute(Boolean result) {
+            if(result){
+                adapter.notifyDataSetChanged();
+            } else {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish();
+            }
         }
 
     }
