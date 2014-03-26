@@ -1,5 +1,6 @@
 package com.nexusy.virgo.android;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,6 +30,7 @@ public class LoginActivity extends Activity {
     private Button signupButton;
     private EditText usernameEditText;
     private EditText passwordEditText;
+    private TextView copyright;
 
     private Dialog dialog;
 
@@ -102,6 +104,16 @@ public class LoginActivity extends Activity {
 
         usernameEditText = (EditText) findViewById(R.id.username);
         passwordEditText = (EditText) findViewById(R.id.password);
+        
+        copyright = (TextView) findViewById(R.id.copyright);
+        String cr = copyright.getText().toString();
+        Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        if (year > 2014) {
+            copyright.setText(cr.replace("-", "-" + c.get(Calendar.YEAR)));
+        } else {
+            copyright.setText(cr.replace("-", ""));
+        }
     }
 
     @Override

@@ -22,5 +22,7 @@
     <string name="billsuccess">添加账单成功</string>
     <string name="billfailed">添加账单失败</string>
     <string name="del">删除</string>
+    <string name="web">网页版-https://bill.nexusy.com</string>
+    <string name="copyright">&#169;2013- lan ALl Rights Reserved.</string>
 
 </resources>
