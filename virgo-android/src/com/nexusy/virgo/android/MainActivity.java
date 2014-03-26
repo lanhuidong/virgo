@@ -9,11 +9,13 @@ import java.util.Map;
 
 import org.apache.http.HttpResponse;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -62,6 +64,10 @@ public class MainActivity extends Activity {
         Log.i(TAG, "onCreate");
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.activity_main);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+            VirgoApplication app = (VirgoApplication) getApplication();
+            app.addActivity(this);
+        }
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.bill_title_bar);
 
         add = (Button) findViewById(R.id.add_button);
@@ -166,6 +172,10 @@ public class MainActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+            VirgoApplication app = (VirgoApplication) getApplication();
+            app.addActivity(this);
+        }
         Log.i(TAG, "onDestroy");
     }
 
@@ -238,13 +248,16 @@ public class MainActivity extends Activity {
             return true;
         }
 
+        @TargetApi(Build.VERSION_CODES.HONEYCOMB)
         @Override
         protected void onPostExecute(Boolean result) {
             if(result){
                 adapter.notifyDataSetChanged();
             } else {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB){
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                }
                 startActivity(intent);
                 finish();
             }

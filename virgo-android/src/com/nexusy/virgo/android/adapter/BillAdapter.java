@@ -5,9 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -84,11 +86,14 @@ public class BillAdapter extends SimpleExpandableListAdapter {
                     + params[0], new HashMap<String, String>(0))));
         }
 
+        @SuppressLint("InlinedApi")
         @Override
         protected void onPostExecute(String result) {
             if ("timeout".equals(result)) {
                 Intent intent = new Intent(context, LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                }
                 context.startActivity(intent);
             } else if ("true".equals(result)) {
                 childData.get(groupPosition).remove(childPosition);

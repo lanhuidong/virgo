@@ -4,11 +4,13 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,7 +27,7 @@ import com.nexusy.virgo.android.http.VirgoHttpClient;
 import com.nexusy.virgo.android.model.BillItemType;
 
 public class BillAddActivity extends Activity {
-    
+
     private String TAG = BillAddActivity.class.getName();
 
     private EditText date;
@@ -42,6 +44,10 @@ public class BillAddActivity extends Activity {
         super.onCreate(savedInstanceState);
         Log.i(TAG, "onCreate");
         setContentView(R.layout.activity_bill_add);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+            VirgoApplication app = (VirgoApplication) getApplication();
+            app.addActivity(this);
+        }
 
         date = (EditText) findViewById(R.id.date);
         final Calendar c = Calendar.getInstance();
@@ -91,6 +97,10 @@ public class BillAddActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+            VirgoApplication app = (VirgoApplication) getApplication();
+            app.removeActivity(this);
+        }
         Log.i(TAG, "onDestroy");
     }
 
@@ -130,12 +140,15 @@ public class BillAddActivity extends Activity {
             return new DataParser().parseHttpResponseToString(VirgoHttpClient.post(UrlConstants.ADD_BILL_URL, params));
         }
 
+        @SuppressLint("InlinedApi")
         @Override
         protected void onPostExecute(String result) {
             if ("timeout".equals(result)) {
                 Intent intent = new Intent(BillAddActivity.this, LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);        
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                }
+                startActivity(intent);
                 return;
             }
             if ("true".equals(result)) {
