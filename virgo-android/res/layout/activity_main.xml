@@ -8,13 +8,64 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <ExpandableListView 
-        android:id="@+id/bills"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:groupIndicator="@android:color/transparent">
-        
-    </ExpandableListView>
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:id="@+id/summary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:paddingBottom="5dip"
+                android:paddingTop="5dip"
+                android:textSize="16sp"
+                android:text="@string/summary" />
+
+            <TextView
+                android:id="@+id/total_income"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:gravity="right"
+                android:maxLines="1"
+                android:paddingBottom="5dip"
+                android:paddingTop="5dip"
+                android:textColor="@color/holo_green_dark"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/total_pay"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:gravity="right"
+                android:maxLines="1"
+                android:paddingBottom="5dip"
+                android:paddingTop="5dip"
+                android:textColor="@color/holo_red_dark"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <ExpandableListView
+            android:id="@+id/bills"
+            android:layout_above="@id/summary"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:groupIndicator="@android:color/transparent" >
+        </ExpandableListView>
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/query_panel"

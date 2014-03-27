@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -100,12 +101,17 @@ public class BillAdapter extends SimpleExpandableListAdapter {
                 Map<String, Object> groupMap = groupData.get(groupPosition);
                 NumberFormat nf = NumberFormat.getCurrencyInstance();
                 BillItemType type = (BillItemType) billItem.get("type");
+                Activity activity = (Activity) context;
                 if (type == BillItemType.INCOME) {
                     try {
                         groupMap.put(
                                 "income",
                                 nf.format(Double.valueOf(((String) groupMap.get("income")).substring(1))
                                         - Double.valueOf(((String) billItem.get("money")).substring(1))));
+                        TextView tv = (TextView) activity.findViewById(R.id.total_income);
+                        tv.setText(nf.format(Double.valueOf(tv.getText().toString().substring(1))
+                                - Double.valueOf(((String) billItem.get("money")).substring(1))));
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -116,6 +122,9 @@ public class BillAdapter extends SimpleExpandableListAdapter {
                                 "pay",
                                 nf.format(Double.valueOf(((String) groupMap.get("pay")).substring(1))
                                         - Double.valueOf(((String) billItem.get("money")).substring(1))));
+                        TextView tv = (TextView) activity.findViewById(R.id.total_pay);
+                        tv.setText(nf.format(Double.valueOf(tv.getText().toString().substring(1))
+                                - Double.valueOf(((String) billItem.get("money")).substring(1))));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

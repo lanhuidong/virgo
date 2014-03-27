@@ -13,6 +13,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -27,6 +28,7 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.SimpleExpandableListAdapter;
+import android.widget.TextView;
 
 import com.nexusy.virgo.android.adapter.BillAdapter;
 import com.nexusy.virgo.android.http.DataParser;
@@ -37,7 +39,7 @@ import com.nexusy.virgo.android.model.BillItem;
 import com.nexusy.virgo.android.model.BillItemType;
 
 public class MainActivity extends Activity {
-    
+
     private String TAG = MainActivity.class.getName();
 
     private Button add;
@@ -47,9 +49,16 @@ public class MainActivity extends Activity {
 
     private EditText from;
     private EditText to;
+    
+    private TextView totalIncomeTV;
+    private TextView totalPayTV;
+    private double totalIncome;
+    private double totalPay;
 
     private DatePickerDialog dialogFrom;
     private DatePickerDialog dialogTo;
+
+    private Dialog loadingDialog;
 
     private ExpandableListView elv;
 
@@ -69,6 +78,9 @@ public class MainActivity extends Activity {
             app.addActivity(this);
         }
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.bill_title_bar);
+        
+        totalIncomeTV = (TextView) findViewById(R.id.total_income);
+        totalPayTV = (TextView) findViewById(R.id.total_pay);
 
         add = (Button) findViewById(R.id.add_button);
         add.setOnClickListener(new OnClickListener() {
@@ -148,6 +160,13 @@ public class MainActivity extends Activity {
                 queryPanel.setVisibility(View.GONE);
                 String fromDate = from.getText().toString();
                 String toDate = to.getText().toString();
+                loadingDialog = new Dialog(MainActivity.this, R.style.dialog);
+                loadingDialog.setContentView(R.layout.loading_dialog);
+                TextView tv = (TextView) loadingDialog.findViewById(R.id.dialog_content);
+                tv.setText(R.string.loading);
+                loadingDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                loadingDialog.setCanceledOnTouchOutside(false);
+                loadingDialog.show();
                 new QueryBillTask().execute(fromDate, toDate);
             }
         });
@@ -166,6 +185,13 @@ public class MainActivity extends Activity {
         Log.i(TAG, "onStart");
         String fromDate = from.getText().toString();
         String toDate = to.getText().toString();
+        loadingDialog = new Dialog(MainActivity.this, R.style.dialog);
+        loadingDialog.setContentView(R.layout.loading_dialog);
+        TextView tv = (TextView) loadingDialog.findViewById(R.id.dialog_content);
+        tv.setText(R.string.loading);
+        loadingDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        loadingDialog.setCanceledOnTouchOutside(false);
+        loadingDialog.show();
         new QueryBillTask().execute(fromDate, toDate);
     }
 
@@ -206,7 +232,7 @@ public class MainActivity extends Activity {
             parameters.put("to", params[1]);
             HttpResponse response = VirgoHttpClient.post(UrlConstants.QUERY_BILL_URL, parameters);
             List<Bill> bills = new DataParser().parseHttpResponse(response);
-            if(bills == null){
+            if (bills == null) {
                 return false;
             }
             billsMap.clear();
@@ -219,6 +245,8 @@ public class MainActivity extends Activity {
             List<Map<String, Object>> headerChild = new ArrayList<Map<String, Object>>();
             billMap.add(headerChild);
             NumberFormat nf = NumberFormat.getCurrencyInstance();
+            totalIncome = 0d;
+            totalPay = 0d;
             for (Bill bill : bills) {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("date", String.format("%1$tF", bill.getDate()));
@@ -240,6 +268,8 @@ public class MainActivity extends Activity {
                         pay += item.getMoney();
                     }
                 }
+                totalIncome += income;
+                totalPay += pay;
                 billMap.add(child);
                 map.put("income", nf.format(income));
                 map.put("pay", nf.format(pay));
@@ -251,12 +281,16 @@ public class MainActivity extends Activity {
         @TargetApi(Build.VERSION_CODES.HONEYCOMB)
         @Override
         protected void onPostExecute(Boolean result) {
-            if(result){
+            loadingDialog.dismiss();
+            if (result) {
+                NumberFormat nf = NumberFormat.getCurrencyInstance();
                 adapter.notifyDataSetChanged();
+                totalIncomeTV.setText(nf.format(totalIncome));
+                totalPayTV.setText(nf.format(totalPay));
             } else {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB){
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 }
                 startActivity(intent);
                 finish();

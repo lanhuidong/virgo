@@ -3,10 +3,12 @@ package com.nexusy.virgo.android;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -19,6 +21,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nexusy.virgo.android.http.DataParser;
@@ -34,10 +37,13 @@ public class BillAddActivity extends Activity {
     private EditText item;
     private EditText money;
     private RadioGroup type;
+    private AtomicInteger i = new AtomicInteger();
 
     private Button add;
 
     private DatePickerDialog dialog;
+    
+    private Dialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +85,9 @@ public class BillAddActivity extends Activity {
 
             @Override
             public void onClick(View v) {
+                if(!i.compareAndSet(0, 1)){
+                    return;
+                }
                 String dateString = date.getText().toString();
                 String itemString = item.getText().toString().trim();
                 String moneyString = money.getText().toString().trim();
@@ -89,6 +98,13 @@ public class BillAddActivity extends Activity {
                 } else {
                     typeString = BillItemType.INCOME.toString();
                 }
+                loadingDialog = new Dialog(BillAddActivity.this, R.style.dialog);
+                loadingDialog.setContentView(R.layout.loading_dialog);
+                TextView tv = (TextView) loadingDialog.findViewById(R.id.dialog_content);
+                tv.setText(R.string.adding);
+                loadingDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                loadingDialog.setCanceledOnTouchOutside(false);
+                loadingDialog.show();
                 new BillAddTask().execute(dateString, itemString, moneyString, typeString);
             }
         });
@@ -143,6 +159,8 @@ public class BillAddActivity extends Activity {
         @SuppressLint("InlinedApi")
         @Override
         protected void onPostExecute(String result) {
+            loadingDialog.dismiss();
+            i.compareAndSet(1, 0);
             if ("timeout".equals(result)) {
                 Intent intent = new Intent(BillAddActivity.this, LoginActivity.class);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
