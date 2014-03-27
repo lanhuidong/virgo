@@ -23,6 +23,8 @@
     <string name="billfailed">添加账单失败</string>
     <string name="del">删除</string>
     <string name="summary">合计</string>
+    <string name="itemempty">名目不能为空</string>
+    <string name="moneyempty">金额不能为空</string>
     <string name="adding">正在添加，请稍后……</string>
     <string name="loading">数据加载中，请稍后……</string>
     <string name="web">网页版-https://bill.nexusy.com</string>

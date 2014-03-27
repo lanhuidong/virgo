@@ -90,7 +90,14 @@ public class BillAddActivity extends Activity {
                 }
                 String dateString = date.getText().toString();
                 String itemString = item.getText().toString().trim();
+                if(itemString==null||"".equals(itemString)){
+                    Toast.makeText(BillAddActivity.this, R.string.itemempty, Toast.LENGTH_SHORT).show();
+                }
+                
                 String moneyString = money.getText().toString().trim();
+                if(moneyString==null||"".equals(moneyString)){
+                    Toast.makeText(BillAddActivity.this, R.string.moneyempty, Toast.LENGTH_SHORT).show();
+                }
                 int id = type.getCheckedRadioButtonId();
                 String typeString;
                 if (id == R.id.pay) {
