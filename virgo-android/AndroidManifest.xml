@@ -33,7 +33,7 @@
             android:name="com.nexusy.virgo.android.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/TitleBar" >
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
         <activity
             android:name="com.nexusy.virgo.android.BillAddActivity"

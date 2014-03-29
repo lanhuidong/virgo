@@ -21,7 +21,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -45,11 +44,12 @@ public class MainActivity extends Activity {
     private Button add;
     private Button query;
     private LinearLayout queryPanel;
+    private LinearLayout addPanel;
     private Button search;
 
     private EditText from;
     private EditText to;
-    
+
     private TextView totalIncomeTV;
     private TextView totalPayTV;
     private double totalIncome;
@@ -71,14 +71,12 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i(TAG, "onCreate");
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.activity_main);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
             VirgoApplication app = (VirgoApplication) getApplication();
             app.addActivity(this);
         }
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.bill_title_bar);
-        
+
         totalIncomeTV = (TextView) findViewById(R.id.total_income);
         totalPayTV = (TextView) findViewById(R.id.total_pay);
 
@@ -93,6 +91,7 @@ public class MainActivity extends Activity {
         });
 
         queryPanel = (LinearLayout) findViewById(R.id.query_panel);
+        addPanel = (LinearLayout) findViewById(R.id.add_panel);
 
         query = (Button) findViewById(R.id.query_button);
         query.setOnClickListener(new OnClickListener() {
@@ -100,6 +99,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 queryPanel.setVisibility(View.VISIBLE);
+                addPanel.setVisibility(View.GONE);
             }
         });
 
@@ -158,6 +158,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 queryPanel.setVisibility(View.GONE);
+                addPanel.setVisibility(View.VISIBLE);
                 String fromDate = from.getText().toString();
                 String toDate = to.getText().toString();
                 loadingDialog = new Dialog(MainActivity.this, R.style.dialog);

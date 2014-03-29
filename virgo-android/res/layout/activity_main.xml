@@ -1,104 +1,144 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="47dip"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/border"
+        android:orientation="horizontal"
+        android:gravity="center_vertical" >
 
         <LinearLayout
-            android:id="@+id/summary"
+            android:id="@+id/add_panel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:layout_alignParentBottom="true"
-            android:orientation="horizontal" >
+            android:visibility="visible" >
 
-            <TextView
+            <Button
+                android:id="@+id/add_button"
                 android:layout_width="0dip"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:ellipsize="end"
+                android:background="@android:color/transparent"
                 android:gravity="center"
-                android:paddingBottom="5dip"
-                android:paddingTop="5dip"
-                android:textSize="16sp"
-                android:text="@string/summary" />
+                android:text="@string/add" />
 
             <TextView
-                android:id="@+id/total_income"
                 android:layout_width="0dip"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:ellipsize="end"
-                android:gravity="right"
-                android:maxLines="1"
-                android:paddingBottom="5dip"
-                android:paddingTop="5dip"
-                android:textColor="@color/holo_green_dark"
-                android:textSize="16sp" />
+                android:gravity="center"
+                android:text="@string/app_name"
+                android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/total_pay"
+            <Button
+                android:id="@+id/query_button"
                 android:layout_width="0dip"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:ellipsize="end"
-                android:gravity="right"
-                android:maxLines="1"
-                android:paddingBottom="5dip"
-                android:paddingTop="5dip"
-                android:textColor="@color/holo_red_dark"
-                android:textSize="16sp" />
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:text="@string/query" />
         </LinearLayout>
 
-        <ExpandableListView
-            android:id="@+id/bills"
-            android:layout_above="@id/summary"
+        <LinearLayout
+            android:id="@+id/query_panel"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:groupIndicator="@android:color/transparent" >
-        </ExpandableListView>
-    </RelativeLayout>
+            android:layout_height="wrap_content"
+            android:visibility="gone" >
+
+            <EditText
+                android:id="@+id/from"
+                android:layout_width="0dip"
+                android:layout_height="40dip"
+                android:layout_weight="2"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:inputType="date" />
+
+            <EditText
+                android:id="@+id/to"
+                android:layout_width="0dip"
+                android:layout_height="40dip"
+                android:layout_weight="2"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:inputType="date" />
+
+            <Button
+                android:id="@+id/search"
+                android:layout_width="0dip"
+                android:layout_height="40dip"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/query" />
+        </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/query_panel"
+        android:id="@+id/footer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/background_light"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:visibility="gone" >
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin" >
 
-        <EditText
-            android:id="@+id/from"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:inputType="date" />
-
-        <EditText
-            android:id="@+id/to"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:inputType="date" />
-
-        <Button
-            android:id="@+id/search"
+        <TextView
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/query" />
+            android:ellipsize="end"
+            android:gravity="center"
+            android:paddingBottom="5dip"
+            android:paddingTop="5dip"
+            android:text="@string/summary"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/total_income"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:gravity="right"
+            android:maxLines="1"
+            android:paddingBottom="5dip"
+            android:paddingTop="5dip"
+            android:textColor="@color/holo_green_dark"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/total_pay"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:gravity="right"
+            android:maxLines="1"
+            android:paddingBottom="5dip"
+            android:paddingTop="5dip"
+            android:textColor="@color/holo_red_dark"
+            android:textSize="16sp" />
     </LinearLayout>
 
-</FrameLayout>
+    <ExpandableListView
+        android:id="@+id/bills"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/footer"
+        android:layout_below="@id/header"
+        android:background="@android:color/background_light"
+        android:groupIndicator="@android:color/transparent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin" >
+    </ExpandableListView>
+
+</RelativeLayout>
