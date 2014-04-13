@@ -7,12 +7,14 @@ import java.util.Map;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,9 +32,13 @@ public class LoginActivity extends Activity {
     private Button signupButton;
     private EditText usernameEditText;
     private EditText passwordEditText;
+
+    private CheckBox remember;
     private TextView copyright;
 
     private Dialog dialog;
+
+    public static final String PREFS_NAME = "UserFile";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +110,18 @@ public class LoginActivity extends Activity {
 
         usernameEditText = (EditText) findViewById(R.id.username);
         passwordEditText = (EditText) findViewById(R.id.password);
+        remember = (CheckBox) findViewById(R.id.remember);
         
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        String username = prefs.getString("username", "");
+        String password = prefs.getString("password", "");
+        if(!"".equals(username)&&  !"".equals(password)){
+            usernameEditText.setText(username);
+            passwordEditText.setText(password);
+            remember.setChecked(true);
+        }
+
+
         copyright = (TextView) findViewById(R.id.copyright);
         String cr = copyright.getText().toString();
         Calendar c = Calendar.getInstance();
@@ -139,6 +156,19 @@ public class LoginActivity extends Activity {
         protected void onPostExecute(String result) {
             dialog.dismiss();
             if ("0".equals(result)) {
+                if (remember.isChecked()) {
+                    SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putString("username", usernameEditText.getText().toString().trim());
+                    editor.putString("password", passwordEditText.getText().toString().trim());
+                    editor.commit();
+                } else {
+                    SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.remove("username");
+                    editor.remove("password");
+                    editor.commit();
+                }
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 finish();
                 startActivity(intent);

@@ -43,6 +43,12 @@
             android:hint="@string/password"
             android:inputType="textPassword" />
 
+        <CheckBox
+            android:id="@+id/remember"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/remember" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -77,18 +83,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/loginPanel"
-        android:gravity="center"
-        android:text="@string/web"
-        android:linksClickable="true"
+        android:layout_marginTop="20dip"
         android:autoLink="web"
-        android:layout_marginTop="20dip" />
+        android:gravity="center"
+        android:linksClickable="true"
+        android:text="@string/web" />
+
     <TextView
         android:id="@+id/copyright"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/web"
+        android:layout_marginTop="20dip"
         android:gravity="center"
-        android:text="@string/copyright"
-        android:layout_marginTop="20dip" />
+        android:text="@string/copyright" />
 
 </RelativeLayout>
