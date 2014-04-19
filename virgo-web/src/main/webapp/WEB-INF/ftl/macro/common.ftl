@@ -40,6 +40,9 @@
                     <li>
                         <a href="/bill">账本</a>
                     </li>
+                    <li>
+                        <a href="/bill/add">记账</a>
+                    </li>
                     </#if>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -92,7 +95,7 @@
     <div class="container" id="content">
         <#nested/>
     </div>
-    <div class="container text-center">&copy;2013-${.now?string('yyyy')}&nbsp;&nbsp;Lan.&nbsp;&nbsp;All rights reserved.&nbsp;&nbsp;v1.1.1</div>
+    <div class="container text-center">&copy;2013-${.now?string('yyyy')}&nbsp;&nbsp;Lan.&nbsp;&nbsp;All rights reserved.&nbsp;&nbsp;v1.2.0</div>
     <div class="virgo-tip"><span></span></div>
 </body>
 </html>
