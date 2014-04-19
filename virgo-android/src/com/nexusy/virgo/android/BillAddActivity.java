@@ -33,16 +33,19 @@ public class BillAddActivity extends Activity {
 
     private String TAG = BillAddActivity.class.getName();
 
+    private BillAddTask billAddTask;
+
     private EditText date;
     private EditText item;
     private EditText money;
     private RadioGroup type;
-    private AtomicInteger i = new AtomicInteger();
+    private AtomicInteger lock = new AtomicInteger();
 
     private Button add;
+    private Button back;
 
     private DatePickerDialog dialog;
-    
+
     private Dialog loadingDialog;
 
     @Override
@@ -85,17 +88,17 @@ public class BillAddActivity extends Activity {
 
             @Override
             public void onClick(View v) {
-                if(!i.compareAndSet(0, 1)){
+                if (!lock.compareAndSet(0, 1)) {
                     return;
                 }
                 String dateString = date.getText().toString();
                 String itemString = item.getText().toString().trim();
-                if(itemString==null||"".equals(itemString)){
+                if (itemString == null || "".equals(itemString)) {
                     Toast.makeText(BillAddActivity.this, R.string.itemempty, Toast.LENGTH_SHORT).show();
                 }
-                
+
                 String moneyString = money.getText().toString().trim();
-                if(moneyString==null||"".equals(moneyString)){
+                if (moneyString == null || "".equals(moneyString)) {
                     Toast.makeText(BillAddActivity.this, R.string.moneyempty, Toast.LENGTH_SHORT).show();
                 }
                 int id = type.getCheckedRadioButtonId();
@@ -105,14 +108,17 @@ public class BillAddActivity extends Activity {
                 } else {
                     typeString = BillItemType.INCOME.toString();
                 }
-                loadingDialog = new Dialog(BillAddActivity.this, R.style.dialog);
-                loadingDialog.setContentView(R.layout.loading_dialog);
-                TextView tv = (TextView) loadingDialog.findViewById(R.id.dialog_content);
-                tv.setText(R.string.adding);
-                loadingDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-                loadingDialog.setCanceledOnTouchOutside(false);
-                loadingDialog.show();
-                new BillAddTask().execute(dateString, itemString, moneyString, typeString);
+                billAddTask = new BillAddTask();
+                billAddTask.execute(dateString, itemString, moneyString, typeString);
+            }
+        });
+        
+        back = (Button) findViewById(R.id.back);
+        back.setOnClickListener(new OnClickListener() {
+            
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
@@ -154,7 +160,26 @@ public class BillAddActivity extends Activity {
     private class BillAddTask extends AsyncTask<String, Void, String> {
 
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            if (loadingDialog == null) {
+                loadingDialog = new Dialog(BillAddActivity.this, R.style.dialog);
+                loadingDialog.setContentView(R.layout.loading_dialog);
+                TextView tv = (TextView) loadingDialog.findViewById(R.id.dialog_content);
+                tv.setText(R.string.adding);
+                loadingDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                loadingDialog.setCanceledOnTouchOutside(false);
+            }
+            loadingDialog.show();
+        }
+
+        @Override
         protected String doInBackground(String... arg0) {
+            try {
+                Thread.sleep(1000*5);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             Map<String, String> params = new HashMap<String, String>();
             params.put("date", arg0[0]);
             params.put("item", arg0[1]);
@@ -167,7 +192,7 @@ public class BillAddActivity extends Activity {
         @Override
         protected void onPostExecute(String result) {
             loadingDialog.dismiss();
-            i.compareAndSet(1, 0);
+            lock.compareAndSet(1, 0);
             if ("timeout".equals(result)) {
                 Intent intent = new Intent(BillAddActivity.this, LoginActivity.class);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
