@@ -18,6 +18,8 @@ def c3p0Version = '0.9.2.1'
 def mysqlConnectorJavaVersion = '5.1.31'
 def hibernateVersion = '4.3.6.Final'
 def hibernateValidatorVersion = '5.1.2.Final'
+def mybatisVersion = '3.2.7'
+def mybatisSpringVersion = '1.2.2'
 def jacksonVersion = '2.4.1'
 def freemarkVersion = '2.3.20'
 def jsonpathVersion = '0.9.1'
@@ -61,6 +63,8 @@ project(':virgo-data') {
         compile "mysql:mysql-connector-java:$mysqlConnectorJavaVersion"
         compile "com.mchange:c3p0:$c3p0Version"
         compile "org.hibernate:hibernate-core:$hibernateVersion"
+        compile "org.mybatis:mybatis:$mybatisVersion"
+        compile "org.mybatis:mybatis-spring:$mybatisSpringVersion"
         compile "org.springframework:spring-orm:$springVersion"
         compile "org.hibernate:hibernate-validator:$hibernateValidatorVersion"
     }

@@ -1,6 +1,7 @@
 package com.nexusy.virgo.data.dao;
 
 import com.nexusy.virgo.data.DataAppTest;
+import com.nexusy.virgo.data.model.User;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -15,6 +16,7 @@ public class UserDaoTest extends DataAppTest {
 
     @Test
     public void testFindUserByUsername() {
-        userDao.findUserByUsername("lan");
+        User user = userDao.findUserByUsername("lanhuidong");
+        System.out.println(user.getUsername());
     }
 }

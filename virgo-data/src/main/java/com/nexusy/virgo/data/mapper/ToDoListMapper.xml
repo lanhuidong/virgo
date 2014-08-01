@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nexusy.virgo.data.mapper.ToDoListMapper">
+    <insert id="insertToDoList">
+        insert into todo_list (created, content, todo_time, remind_at, finished)
+        values(#{created}, #{content}, #{todoTime}, #{remindAt}, #{finished})
+    </insert>
+    <select id="selectToDoList" resultType="com.nexusy.virgo.data.model.ToDoList">
+        select * from todo_list where id = #{id}
+    </select>
+</mapper>
