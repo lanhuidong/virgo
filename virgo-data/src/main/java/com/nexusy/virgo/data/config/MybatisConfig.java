@@ -32,7 +32,7 @@ public class MybatisConfig {
         return sqlSessionFactoryBean.getObject();
     }
 
-    @Bean
+    @Bean(destroyMethod = "close")
     public SqlSessionTemplate sqlSession() throws Exception {
         return new SqlSessionTemplate(sqlSessionFactory());
     }

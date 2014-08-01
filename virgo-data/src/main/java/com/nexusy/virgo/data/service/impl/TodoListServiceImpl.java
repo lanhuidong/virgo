@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional("transactionManager2")
 public class TodoListServiceImpl implements TodoListService {
 
-    @Autowired(required = false)
+    @Autowired
     private ToDoListDao toDoListDao;
 
     @Override

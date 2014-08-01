@@ -20,7 +20,7 @@ import java.util.List;
  * @since 2013-11-20
  */
 @Service
-@Transactional(readOnly = true)
+@Transactional("transactionManager")
 public class BillServiceImpl extends BaseServiceImpl<Bill, Long> implements BillService {
 
     @Autowired
@@ -30,7 +30,6 @@ public class BillServiceImpl extends BaseServiceImpl<Bill, Long> implements Bill
     private UniversalDao universalDao;
 
     @Override
-    @Transactional(readOnly = false)
     public void saveBillItem(BillVo bill) {
         Bill newBill = billDao.findBillByDate(bill.getUserId(), bill.getDate());
         if (newBill == null) {
@@ -68,7 +67,6 @@ public class BillServiceImpl extends BaseServiceImpl<Bill, Long> implements Bill
     }
 
     @Override
-    @Transactional(readOnly = false)
     public Integer deleteBillItem(Long userId, Long id) {
         BillItem item = universalDao.get(BillItem.class, id);
         if (item != null && item.getBill().getUserId().equals(userId)) {

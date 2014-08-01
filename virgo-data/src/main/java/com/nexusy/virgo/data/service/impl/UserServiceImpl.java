@@ -19,7 +19,7 @@ import java.util.Date;
  * @since 2013-11-15
  */
 @Service("userService")
-@Transactional
+@Transactional("transactionManager")
 public class UserServiceImpl extends BaseServiceImpl<User, Long> implements UserService, UserDetailsService {
 
     @Autowired
@@ -29,13 +29,11 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
     private PasswordEncoder passwordEncoder;
 
     @Override
-    @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userDao.findUserByUsername(username);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public User get(Long id) {
         return userDao.get(id);
     }
@@ -57,7 +55,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
     @Override
     public boolean modifyPassword(Long userId, String oldPassword, String newPassword) {
         User user = userDao.get(userId);
-        if(passwordEncoder.matches(oldPassword, user.getPassword())){
+        if (passwordEncoder.matches(oldPassword, user.getPassword())) {
             user.setPassword(passwordEncoder.encode(newPassword));
             userDao.update(user);
         } else {
@@ -67,7 +65,6 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
     }
 
     @Override
-    @Transactional(readOnly = true)
     public boolean chechUsername(String username) {
         return userDao.findUserByUsername(username) != null;
     }
@@ -75,7 +72,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
     @Override
     public void save(Long userId, BasicInfo info) {
         User user = userDao.get(userId);
-        if(user != null){
+        if (user != null) {
             user.setEmail(info.getEmail());
             user.setPhone(info.getPhone());
         }
