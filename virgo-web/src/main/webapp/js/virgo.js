@@ -103,12 +103,14 @@ function addBill(){
             setTimeout(function(){$('#add-tip').text('');},3000);
             $('#addBill').click(addBill);
         });
+    } else {
+        $('#addBill').click(addBill);
     }
 }
 
 function isNumber(input){
     var number = $.trim(input.val());
-    var pattern = /^[1-9]\d*(.\d{1,2})?$/;
+    var pattern = /^\d+(.\d{1,2})?$/;
     if(pattern.test(number)){
         input.parent().removeClass('has-error');
         return true;
