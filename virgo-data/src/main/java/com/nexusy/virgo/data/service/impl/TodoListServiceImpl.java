@@ -1,7 +1,7 @@
 package com.nexusy.virgo.data.service.impl;
 
-import com.nexusy.virgo.data.dao.ToDoListDao;
-import com.nexusy.virgo.data.model.ToDoList;
+import com.nexusy.virgo.data.dao.TodoListDao;
+import com.nexusy.virgo.data.model.TodoList;
 import com.nexusy.virgo.data.service.TodoListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,10 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class TodoListServiceImpl implements TodoListService {
 
     @Autowired
-    private ToDoListDao toDoListDao;
+    private TodoListDao todoListDao;
 
     @Override
-    public void save(ToDoList toDoList) {
-        toDoListDao.save(toDoList);
+    public void save(TodoList todoList) {
+        todoListDao.save(todoList);
     }
 }

@@ -1,10 +1,12 @@
 package com.nexusy.virgo.data.dao;
 
 import com.nexusy.virgo.data.DataAppTest;
-import com.nexusy.virgo.data.model.ToDoList;
+import com.nexusy.virgo.data.model.LoopType;
+import com.nexusy.virgo.data.model.TodoList;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 
 import java.util.Date;
 
@@ -12,24 +14,26 @@ import java.util.Date;
  * @author lan
  * @since 2014-08-01
  */
-public class ToDoListDaoTest extends DataAppTest {
+public class TodoListDaoTest extends DataAppTest {
 
     @Autowired
-    private ToDoListDao toDoListDao;
+    private TodoListDao todoListDao;
 
     @Test
-    @Ignore
+    @Rollback(false)
     public void testSave() {
-        ToDoList toDoList = new ToDoList();
-        toDoList.setContent("test");
-        toDoList.setCreated(new Date());
-        toDoListDao.save(toDoList);
+        TodoList todoList = new TodoList();
+        todoList.setContent("test");
+        todoList.setCreated(new Date());
+        todoList.setRemindAt(new Date());
+        todoList.setFinished(new Date());
+        todoList.setLoopType(LoopType.MONTH);
+        todoListDao.save(todoList);
     }
 
     @Test
-    @Ignore
     public void testGet() {
-        ToDoList toDoList = toDoListDao.get(1L);
-        System.out.println(toDoList.getContent());
+        TodoList todoList = todoListDao.get(1L);
+        System.out.println(todoList.getContent());
     }
 }

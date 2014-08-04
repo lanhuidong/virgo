@@ -1,7 +1,7 @@
 package com.nexusy.virgo.data.dao.mybatis;
 
-import com.nexusy.virgo.data.dao.ToDoListDao;
-import com.nexusy.virgo.data.model.ToDoList;
+import com.nexusy.virgo.data.dao.TodoListDao;
+import com.nexusy.virgo.data.model.TodoList;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
  * @since 2014-08-01
  */
 @Repository
-public class ToDoListDaoMybatis extends SqlSessionDaoSupport implements ToDoListDao {
+public class TodoListDaoMybatis extends SqlSessionDaoSupport implements TodoListDao {
 
     @Override
     @Autowired
@@ -21,12 +21,12 @@ public class ToDoListDaoMybatis extends SqlSessionDaoSupport implements ToDoList
     }
 
     @Override
-    public void save(ToDoList toDoList) {
-        getSqlSession().insert("com.nexusy.virgo.data.mapper.ToDoListMapper.insertToDoList", toDoList);
+    public void save(TodoList toDoList) {
+        getSqlSession().insert("com.nexusy.virgo.data.mapper.TodoListMapper.insertTodoList", toDoList);
     }
 
     @Override
-    public ToDoList get(Long id) {
-        return getSqlSession().selectOne("com.nexusy.virgo.data.mapper.ToDoListMapper.selectToDoList", id);
+    public TodoList get(Long id) {
+        return getSqlSession().selectOne("com.nexusy.virgo.data.mapper.TodoListMapper.selectTodoList", id);
     }
 }

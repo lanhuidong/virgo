@@ -1,6 +1,9 @@
 package com.nexusy.virgo.data.config;
 
+import com.nexusy.virgo.data.model.LoopType;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.type.EnumTypeHandler;
+import org.apache.ibatis.type.TypeHandler;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
@@ -8,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 
@@ -29,6 +33,9 @@ public class MybatisConfig {
     public SqlSessionFactory sqlSessionFactory() throws Exception {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource);
+
+        sqlSessionFactoryBean.setConfigLocation(new ClassPathResource("mybatis-config.xml"));
+
         return sqlSessionFactoryBean.getObject();
     }
 
@@ -38,8 +45,7 @@ public class MybatisConfig {
     }
 
     @Bean
-    public PlatformTransactionManager transactionManager2(){
-        DataSourceTransactionManager transactionManager = new DataSourceTransactionManager(dataSource);
-        return transactionManager;
+    public PlatformTransactionManager transactionManager2() {
+        return new DataSourceTransactionManager(dataSource);
     }
 }

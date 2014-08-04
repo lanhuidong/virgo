@@ -1,6 +1,6 @@
 package com.nexusy.virgo.data.service;
 
-import com.nexusy.virgo.data.model.ToDoList;
+import com.nexusy.virgo.data.model.TodoList;
 
 /**
  * @author lan
@@ -8,5 +8,5 @@ import com.nexusy.virgo.data.model.ToDoList;
  */
 public interface TodoListService {
 
-    void save(ToDoList toDoList);
+    void save(TodoList todoList);
 }

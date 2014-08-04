@@ -6,14 +6,14 @@ import java.util.Date;
  * @author lan
  * @since 2014-07-31
  */
-public class ToDoList {
+public class TodoList {
 
     private Long id;
     private Date created;  //任务创建时间
     private String content;  //任务内容
-    private Date todoTime;  //任务时间
     private Date remindAt;  //任务提醒时间
     private Date finished;  //任务完成时间
+    private LoopType loopType;
 
     public Long getId() {
         return id;
@@ -39,12 +39,12 @@ public class ToDoList {
         this.content = content;
     }
 
-    public Date getTodoTime() {
-        return todoTime;
+    public LoopType getLoopType() {
+        return loopType;
     }
 
-    public void setTodoTime(Date todoTime) {
-        this.todoTime = todoTime;
+    public void setLoopType(LoopType loopType) {
+        this.loopType = loopType;
     }
 
     public Date getRemindAt() {

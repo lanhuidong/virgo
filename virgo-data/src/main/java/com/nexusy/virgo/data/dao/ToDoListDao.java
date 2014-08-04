@@ -1,15 +1,15 @@
 package com.nexusy.virgo.data.dao;
 
-import com.nexusy.virgo.data.model.ToDoList;
+import com.nexusy.virgo.data.model.TodoList;
 
 /**
  * @author lan
  * @since 2014-08-01
  */
-public interface ToDoListDao {
+public interface TodoListDao {
 
-    void save(ToDoList toDoList);
+    void save(TodoList toDoList);
 
-    ToDoList get(Long id);
+    TodoList get(Long id);
 
 }

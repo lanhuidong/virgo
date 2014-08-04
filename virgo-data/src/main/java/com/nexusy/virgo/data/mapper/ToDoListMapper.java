@@ -1,6 +1,6 @@
 package com.nexusy.virgo.data.mapper;
 
-import com.nexusy.virgo.data.model.ToDoList;
+import com.nexusy.virgo.data.model.TodoList;
 
 import java.util.Date;
 
@@ -8,9 +8,9 @@ import java.util.Date;
  * @author lan
  * @since 2014-08-01
  */
-public interface ToDoListMapper {
+public interface TodoListMapper {
 
-    void insertTodoList(Long id, Date created, String content, Date todoTime, Date remindAt, Date finished);
+    void insertTodoList(Long id, Date created, String content, Date remindAt, Date finished);
 
-    ToDoList selectTodoList(Long id);
+    TodoList selectTodoList(Long id);
 }
