@@ -22,7 +22,7 @@ public class TodoListDaoMybatis extends SqlSessionDaoSupport implements TodoList
 
     @Override
     public void save(TodoList todoList) {
-        getSqlSession().selectOne("com.nexusy.virgo.data.mapper.TodoListMapper.insertTodoList", todoList);
+        getSqlSession().selectOne("com.nexusy.virgo.data.mapper.TodoListMapper.save", todoList);
     }
 
     @Override

@@ -1,17 +1,16 @@
 package com.nexusy.virgo.data.mapper;
 
 import com.nexusy.virgo.data.model.TodoList;
-
-import java.util.List;
-import java.util.Map;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author lan
  * @since 2014-08-05
  */
+@Repository
 public interface TodoListMapper {
 
-    void insertTodoList(TodoList todoList);
+    void save(TodoList todoList);
 
     TodoList selectTodoList(Long id);
 }
