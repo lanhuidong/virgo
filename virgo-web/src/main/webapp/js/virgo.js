@@ -1,12 +1,12 @@
 $(function(){
     $.ajaxSetup({
-	    cache:false,
-		complete:function(jqXHR,textStatus){
-			if(jqXHR.getResponseHeader('sessionstatus')=='timeout'){
-				window.location.href='/';
-			}
-		}
-	});
+        cache:false,
+        complete:function(jqXHR,textStatus){
+            if(jqXHR.getResponseHeader('sessionstatus')=='timeout'){
+                window.location.href='/';
+            }
+        }
+    });
 });
 
 //首页

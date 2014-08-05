@@ -37,7 +37,7 @@ public class TodoListTest extends DataAppTest {
     }
 
     @Test
-    public void testFinish(){
+    public void testFinish() {
         todoListService.finish(1L, 2L);
     }
 }

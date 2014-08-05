@@ -10,6 +10,7 @@ public class TodoList {
 
     private Long id;
     private Date created;  //任务创建时间
+    private Date remindAt;
     private String content;  //任务内容
     private Date finished;  //任务完成时间
     private LoopType loopType;
@@ -37,6 +38,14 @@ public class TodoList {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Date getRemindAt() {
+        return remindAt;
+    }
+
+    public void setRemindAt(Date remindAt) {
+        this.remindAt = remindAt;
     }
 
     public LoopType getLoopType() {
