@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nexusy.virgo.data.mapper.TodoListMapper">
-    <insert id="insertTodoList" parameterType="com.nexusy.virgo.data.model.TodoList">
+    <insert id="insertTodoList">
         insert into todo_list (created, content, remind_at, finished, repeat_type, user_id)
         values(#{created}, #{content}, #{remindAt}, #{finished}, #{repeatType}, #{userId})
     </insert>
@@ -11,17 +11,5 @@
     <select id="selectTodoList" resultType="com.nexusy.virgo.data.model.TodoList">
         select * from todo_list where id = #{id}
     </select>
-
-    <select id="selectTodoListByDay" resultType="com.nexusy.virgo.data.model.TodoList">
-        select * from todo_list where user_id = #{userId} and remind_at &lt;= #{day}
-    </select>
-
-    <select id="selectTodoListByDateRange" resultType="com.nexusy.virgo.data.model.TodoList">
-        select * from todo_list where user_id = #{userId} and finished &gt;= #{from} and finished &lt;= #{to}
-    </select>
-
-    <update id="updateFinished">
-        update todo_list set finished = #{finished} where id = #{id} and user_id = #{userId}
-    </update>
 
 </mapper>

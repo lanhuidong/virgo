@@ -13,11 +13,5 @@ public interface TodoListMapper {
 
     void insertTodoList(TodoList todoList);
 
-    List<TodoList> selectTodoListByDay(Map<String, Object> params);
-
-    List<TodoList> selectTodoListByDateRange(Map<String, Object> params);
-
-    Integer updateFinished(Map<String, Object> params);
-
     TodoList selectTodoList(Long id);
 }

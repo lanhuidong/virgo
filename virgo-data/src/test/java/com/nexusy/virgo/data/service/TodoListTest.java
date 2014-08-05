@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author lan
@@ -29,16 +28,4 @@ public class TodoListTest extends DataAppTest {
         todoListService.save(todoList);
     }
 
-    @Test
-    public void testFindTodoListByDay() {
-        List<TodoList> todoLists = todoListService.findTodoListByDay(1L, new Date());
-        for (TodoList todoList : todoLists) {
-            System.out.println(todoList.getContent());
-        }
-    }
-
-    @Test
-    public void testFinish() {
-        todoListService.finish(1L, 2L);
-    }
 }

@@ -21,6 +21,7 @@ public class DataMain {
         TodoList toDoList =new TodoList();
         toDoList.setContent("service");
         toDoList.setCreated(new Date());
+        toDoList.setUserId(1L);
         todoListService.save(toDoList);
     }
 }

@@ -23,7 +23,7 @@ import java.util.Properties;
  */
 @Configuration
 @EnableTransactionManagement
-@ComponentScan(basePackages = {"com.nexusy.virgo.data.service", "com.nexusy.virgo.data.dao.hibernate"})
+@ComponentScan(basePackages = {"com.nexusy.virgo.data.service", "com.nexusy.virgo.data.dao"})
 @PropertySource("classpath:jdbc.properties")
 public class DataConfig {
 
