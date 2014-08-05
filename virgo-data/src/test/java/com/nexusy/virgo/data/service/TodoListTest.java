@@ -1,7 +1,7 @@
 package com.nexusy.virgo.data.service;
 
 import com.nexusy.virgo.data.DataAppTest;
-import com.nexusy.virgo.data.model.LoopType;
+import com.nexusy.virgo.data.model.RepeatType;
 import com.nexusy.virgo.data.model.TodoList;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +21,10 @@ public class TodoListTest extends DataAppTest {
     @Test
     public void testSave() {
         TodoList todoList = new TodoList();
-        todoList.setContent("test content");
         todoList.setCreated(new Date());
-        todoList.setLoopType(LoopType.WEEK);
+        todoList.setContent("ceshi");
+        todoList.setRemindAt(new Date());
+        todoList.setRepeatType(RepeatType.NO_REPEAT);
         todoList.setUserId(1L);
         todoListService.save(todoList);
     }

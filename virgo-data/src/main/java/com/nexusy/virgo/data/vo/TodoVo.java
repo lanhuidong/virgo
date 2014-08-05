@@ -1,15 +1,21 @@
-package com.nexusy.virgo.data.model;
+package com.nexusy.virgo.data.vo;
 
+import com.nexusy.virgo.data.model.RepeatType;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
  * @author lan
- * @since 2014-07-31
+ * @since 2014-08-05
  */
-public class TodoList {
+public class TodoVo {
 
     private Long id;
-    private Date created;  //任务创建时间
+    private Date created;
     private Date remindAt;
     private String content;  //任务内容
     private Date finished;  //任务完成时间
@@ -32,14 +38,8 @@ public class TodoList {
         this.created = created;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
+    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     public Date getRemindAt() {
         return remindAt;
     }
@@ -48,12 +48,14 @@ public class TodoList {
         this.remindAt = remindAt;
     }
 
-    public RepeatType getRepeatType() {
-        return repeatType;
+    @NotBlank
+    @Length(max = 255)
+    public String getContent() {
+        return content;
     }
 
-    public void setRepeatType(RepeatType repeatType) {
-        this.repeatType = repeatType;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public Date getFinished() {
@@ -62,6 +64,15 @@ public class TodoList {
 
     public void setFinished(Date finished) {
         this.finished = finished;
+    }
+
+    @NotNull
+    public RepeatType getRepeatType() {
+        return repeatType;
+    }
+
+    public void setRepeatType(RepeatType repeatType) {
+        this.repeatType = repeatType;
     }
 
     public Long getUserId() {

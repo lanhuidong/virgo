@@ -312,3 +312,23 @@ function modifyPassword(){
         });
     }
 }
+
+
+//添加任务
+function addTodo(){
+    $('#addTodo').unbind('click');
+    if(stringLength($('#todo'), 1, 255)){
+        $.post('add', $('#todo-form').serialize(), function(data){
+            if(data){
+                $('#todo').val('');
+                $('#add-tip').text('保存成功');
+            } else {
+                $('#add-tip').text('保存失败');
+            }
+            setTimeout(function(){$('#add-tip').text('');},3000);
+            $('#addTodo').click(addTodo);
+        });
+    } else {
+        $('#addTodo').click(addTodo);
+    }
+}

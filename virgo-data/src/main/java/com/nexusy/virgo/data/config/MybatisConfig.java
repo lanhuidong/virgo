@@ -7,7 +7,6 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.io.ClassPathResource;
@@ -21,7 +20,6 @@ import javax.sql.DataSource;
  * @since 2014-08-01
  */
 @Configuration
-@ComponentScan(basePackages = {"com.nexusy.virgo.data.dao.mybatis"})
 @MapperScan("com.nexusy.virgo.data.mapper")
 public class MybatisConfig {
 

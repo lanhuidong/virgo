@@ -4,20 +4,20 @@
             <div class="form-group">
                 <label for="date" class="col-xs-3 col-sm-2 control-label text-right">日期</label>
                 <div class="col-xs-6 col-sm-2">
-                    <input type="text" class="form-control datepicker" style="cursor:pointer" name="date" readonly="readonly" id="date" value="${.now?string('yyyy-MM-dd')}" />
+                    <input type="text" class="form-control datepicker" style="cursor:pointer" name="remindAt" readonly="readonly" id="date" value="${.now?string('yyyy-MM-dd')}" />
                 </div>
             </div>
             <div class="form-group">
-                <label for="content" class="col-xs-3 col-sm-2 control-label text-right">任务</label>
+                <label for="todo" class="col-xs-3 col-sm-2 control-label text-right">任务</label>
                 <div class="col-xs-8 col-sm-8">
-                    <textarea class="form-control" name="content" id="content" style="resize:none" rows="3" placeholder="必填，不能超过255个字符"></textarea>
+                    <textarea class="form-control" name="content" id="todo" style="resize:none" rows="3" placeholder="必填，不能超过255个字符"></textarea>
                 </div>
             </div>
             <div class="form-group">
                 <label for="repeat" class="col-xs-3 col-sm-2 control-label text-right">重复</label>
                 <div class="col-xs-2 col-sm-2">
-                    <select id="repeat" name="repeat" class="form-control">
-                        <option value="NO-REPEAT">不重复</option>
+                    <select id="repeat" name="repeatType" class="form-control">
+                        <option value="NO_REPEAT">不重复</option>
                         <option value="DAY">每天</option>
                         <option value="WEEK">每周</option>
                         <option value="MONTH">每月</option>
@@ -37,6 +37,7 @@
     $(function(){
         $('header').find('li').removeClass('active');
         $('header').find('li:eq(5)').addClass('active');
+        $('#addTodo').click(addTodo);
         $('.datepicker').datepicker();
     });
     </script>
