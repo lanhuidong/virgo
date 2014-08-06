@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @since 2013-11-12
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {DataSourceConfig.class, MybatisConfig.class})
+@ContextConfiguration(classes = {MybatisConfig.class, DataSourceConfig.class})
 @Transactional("transactionManager")
 public abstract class DataAppTest {
 

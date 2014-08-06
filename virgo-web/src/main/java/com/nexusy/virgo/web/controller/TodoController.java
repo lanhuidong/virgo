@@ -1,8 +1,8 @@
 package com.nexusy.virgo.web.controller;
 
-import com.nexusy.virgo.data.model.TodoList;
+import com.nexusy.virgo.data.model.Todo;
 import com.nexusy.virgo.data.model.User;
-import com.nexusy.virgo.data.service.TodoListService;
+import com.nexusy.virgo.data.service.TodoService;
 import com.nexusy.virgo.data.vo.TodoVo;
 import com.nexusy.virgo.web.security.VirgoSecurityContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ import java.util.Date;
 public class TodoController {
 
     @Autowired
-    private TodoListService todoListService;
+    private TodoService todoService;
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView index() {
@@ -44,13 +44,13 @@ public class TodoController {
             return false;
         }
         User user = VirgoSecurityContext.getCurrentUser();
-        TodoList todoList = new TodoList();
+        Todo todoList = new Todo();
         todoList.setCreated(new Date());
         todoList.setContent(todo.getContent());
         todoList.setRemindAt(todo.getRemindAt());
         todoList.setRepeatType(todo.getRepeatType());
         todoList.setUserId(user.getId());
-        todoListService.save(todoList);
+        todoService.insertTodo(todoList);
         return true;
     }
 }
