@@ -25,7 +25,7 @@ public class TodoServiceTest extends DataAppTest {
         todoList.setRemindAt(new Date());
         todoList.setRepeatType(RepeatType.NO_REPEAT);
         todoList.setUserId(1L);
-        todoListService.insertTodo(todoList);
+        todoListService.save(todoList);
     }
 
 }

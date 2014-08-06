@@ -1,5 +1,6 @@
 package com.nexusy.virgo.web.controller;
 
+import com.nexusy.virgo.data.model.RepeatType;
 import com.nexusy.virgo.data.model.Todo;
 import com.nexusy.virgo.data.model.User;
 import com.nexusy.virgo.data.service.TodoService;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author lan
@@ -32,6 +34,15 @@ public class TodoController {
         return new ModelAndView("/todo/index");
     }
 
+    @RequestMapping(method = RequestMethod.POST)
+    public ModelAndView queryTodo() {
+        ModelAndView mav = new ModelAndView("/todo/todos");
+        User user = VirgoSecurityContext.getCurrentUser();
+        List<Todo> todos = todoService.findUnfinishedTodos(user.getId());
+        mav.addObject("todos", todos);
+        return mav;
+    }
+
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public ModelAndView add() {
         return new ModelAndView("/todo/add");
@@ -47,10 +58,20 @@ public class TodoController {
         Todo todoList = new Todo();
         todoList.setCreated(new Date());
         todoList.setContent(todo.getContent());
-        todoList.setRemindAt(todo.getRemindAt());
+        if (todo.getRepeatType() != RepeatType.NO_REPEAT) {
+            todoList.setRemindAt(todo.getRemindAt());
+        }
         todoList.setRepeatType(todo.getRepeatType());
         todoList.setUserId(user.getId());
-        todoService.insertTodo(todoList);
+        todoService.save(todoList);
+        return true;
+    }
+
+    @RequestMapping("/finish")
+    @ResponseBody
+    public boolean finishTodo(Long id) {
+        User user = VirgoSecurityContext.getCurrentUser();
+        todoService.finishTodo(user.getId(), id);
         return true;
     }
 }

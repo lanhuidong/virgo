@@ -332,3 +332,21 @@ function addTodo(){
         $('#addTodo').click(addTodo);
     }
 }
+
+//查询任务
+function queryTodos(){
+    $.post('/todo',function(data){
+        $('#todos').html(data);
+        $('#todos').find('button').click(finishTodo);
+    });
+}
+
+//结束任务
+function finishTodo(){
+    var id = $(this).attr('todoId');
+    $.post('/todo/finish', {id:id}, function(data){
+        if(data){
+            window.location.reload();
+        }
+    });
+}
