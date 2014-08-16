@@ -36,12 +36,13 @@
                 <tbody><tr><td class="text-center" colspan="5">正在加载数据</td></tr></tbody>
             </table>
         </div>
-        <div id="chart" style="width:100%;height:500px;display:none"></div>
+        <div id="chart" style="width:90%;height:500px;display:none"></div>
     </div>
     <script type="text/javascript" src="/js/echarts-plain.js"></script>
     <script type="text/javascript">
     var myChart;
     $(function(){
+        $('#chart').css({'width':$('#chart').outerWidth()+'px'});
         $('header').find('li').removeClass('active');
         $('header').find('li:eq(2)').addClass('active');
         $('.datepicker').datepicker();
