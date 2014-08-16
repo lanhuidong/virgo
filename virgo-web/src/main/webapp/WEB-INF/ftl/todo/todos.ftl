@@ -9,9 +9,9 @@
     <div>今日无任务</div>
     </#if>
 </div>
-<div style="width:100%;height:30px" class="col-xs-10 col-sm-6 col-xs-offset-1 col-sm-offset-3"></div>
+<div style="height:30px" class="col-xs-10 col-sm-6 col-xs-offset-1 col-sm-offset-3"></div>
 <#list todoMap?keys as key>
-    <div style="width:100%;height:10px" class="col-xs-10 col-sm-6 col-xs-offset-1 col-sm-offset-3"></div>
+    <div style="height:10px" class="col-xs-10 col-sm-6 col-xs-offset-1 col-sm-offset-3"></div>
     <div class="card col-xs-10 col-sm-6 col-xs-offset-1 col-sm-offset-3">
         <div>${key}</div>
         <div class="line"></div>
