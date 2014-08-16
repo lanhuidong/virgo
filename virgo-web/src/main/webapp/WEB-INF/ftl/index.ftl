@@ -1,5 +1,4 @@
 <@c.html title="首页-记账本">
-    <div class="text-center"><h1 class="text-info">版本2.0.0已完成，版本2.1.0开发中……</h1></div>
     <div class="text-center">Android APP download:
         <a target="_blank" href="https://play.google.com/store/apps/details?id=com.nexusy.virgo.android">
             <img src="/img/bill-icon.png" style="width:48px;height:48px;border:none" />
