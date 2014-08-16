@@ -9,13 +9,13 @@
             </div>
             <div class="form-group">
                 <label for="todo" class="col-xs-3 col-sm-2 control-label text-right">任务</label>
-                <div class="col-xs-8 col-sm-8">
-                    <textarea class="form-control" name="content" id="todo" style="resize:none" rows="3" placeholder="必填，不能超过255个字符"></textarea>
+                <div class="col-xs-8 col-sm-4">
+                    <input type="text" class="form-control" name="content" id="todo"  placeholder="必填，不能超过20个字符" />
                 </div>
             </div>
             <div class="form-group">
                 <label for="repeat" class="col-xs-3 col-sm-2 control-label text-right">重复</label>
-                <div class="col-xs-2 col-sm-2">
+                <div class="col-xs-4 col-sm-2">
                     <select id="repeat" name="repeatType" class="form-control">
                         <option value="NO_REPEAT">不重复</option>
                         <option value="DAY">每天</option>

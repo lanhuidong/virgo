@@ -12,6 +12,10 @@
         select * from todo where user_id = #{userId} and (remind_at &lt;= #{day} or remind_at is null) and finished is null
     </select>
 
+    <select id="selectFinishedTodo" resultType="com.nexusy.virgo.data.model.Todo">
+        select * from todo where user_id = #{userId} and finished &gt;= #{start} and finished &lt;= #{end} order by finished desc
+    </select>
+
     <update id="finishTodo">
         update todo set finished = #{day} where user_id = #{userId} and id = #{id}
     </update>

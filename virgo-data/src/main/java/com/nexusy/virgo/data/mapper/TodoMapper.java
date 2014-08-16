@@ -15,5 +15,7 @@ public interface TodoMapper {
 
     List<Todo> selectUnfinishedTodo(Map<String, Object> params);
 
+    List<Todo> selectFinishedTodo(Map<String, Object> params);
+
     int finishTodo(Map<String, Object> params);
 }

@@ -25,4 +25,11 @@ public class VirgoDateUtils {
         return DateUtils.truncate(new Date(), Calendar.MONTH);
     }
 
+    /**
+     * 将java.util.Date类型转换为yyyy-MM-dd形式的字符串
+     */
+    public static String getDate2String(Date date) {
+        return String.format("%1$tF", date);
+    }
+
 }

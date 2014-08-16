@@ -40,6 +40,17 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
+    public List<Todo> findFinishedTodos(Long userId) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("userId", userId);
+        Date end = new Date();
+        Date start = DateUtils.addMonths(end, -1);
+        params.put("start", start);
+        params.put("end", end);
+        return todoMapper.selectFinishedTodo(params);
+    }
+
+    @Override
     public int finishTodo(Long userId, Long id) {
         Map<String, Object> params = new HashMap<>();
         params.put("userId", userId);

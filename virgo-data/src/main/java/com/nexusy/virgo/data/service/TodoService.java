@@ -14,6 +14,8 @@ public interface TodoService {
 
     List<Todo> findUnfinishedTodos(Long userId);
 
+    List<Todo> findFinishedTodos(Long userId);
+
     int finishTodo(Long userId, Long id);
 
 }

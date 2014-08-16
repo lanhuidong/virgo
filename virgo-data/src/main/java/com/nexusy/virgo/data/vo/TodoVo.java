@@ -49,7 +49,7 @@ public class TodoVo {
     }
 
     @NotBlank
-    @Length(max = 255)
+    @Length(max = 20)
     public String getContent() {
         return content;
     }

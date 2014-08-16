@@ -317,7 +317,7 @@ function modifyPassword(){
 //添加任务
 function addTodo(){
     $('#addTodo').unbind('click');
-    if(stringLength($('#todo'), 1, 255)){
+    if(stringLength($('#todo'), 1, 20)){
         $.post('add', $('#todo-form').serialize(), function(data){
             if(data){
                 $('#todo').val('');
