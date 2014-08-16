@@ -14,7 +14,15 @@
                 </div>
             </div>
         </form>
-        <div class="table-responsive">
+        <label class="col-xs-3 col-sm-1">类型</label>
+        <label class="radio-inline">
+            <input type="radio" name="style" value="table" checked="checked" /> 表格
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="style" value="chart" /> 图表
+        </label>
+        <div class="clearfix"></div>
+        <div id="table" class="table-responsive">
             <table class="table table-striped table-hover">
                 <thead>
                 <tr>
@@ -28,14 +36,19 @@
                 <tbody><tr><td class="text-center" colspan="5">正在加载数据</td></tr></tbody>
             </table>
         </div>
+        <div id="chart" style="width:100%;height:500px;display:none"></div>
     </div>
+    <script type="text/javascript" src="/js/echarts-plain.js"></script>
     <script type="text/javascript">
+    var myChart;
     $(function(){
         $('header').find('li').removeClass('active');
         $('header').find('li:eq(2)').addClass('active');
         $('.datepicker').datepicker();
         queryBill();
         $('#query-button').click(queryBill);
+        decideShowType();
+        $('input[name="style"]').change(decideShowType);
     });
     </script>
 </@c.html>

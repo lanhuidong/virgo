@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="money" class="col-xs-3 col-sm-2 control-label text-right">类型</label>
+                <label class="col-xs-3 col-sm-2 control-label text-right">类型</label>
                 <div class="col-xs-9 col-sm-10">
                     <label class="radio-inline">
                         <input type="radio" name="type" value="PAY" checked="checked" /> 支出

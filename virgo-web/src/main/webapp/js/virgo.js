@@ -131,6 +131,7 @@ function stringLength(input, min, max){
 
 //查询账单
 function queryBill(){
+    drawChart();
     $.post('/bill', $('#query-form').serialize(), function(data){
         $('table').find('tbody').remove();
         $('table').find('tfoot').remove();
@@ -138,6 +139,143 @@ function queryBill(){
         $('.view-item').click(toggleBillItem);
         $('.del-item').click(deleteBillItem);
     });
+}
+
+function drawChart(){
+    if(myChart){
+        myChart.clear();
+        myChart.dispose();
+    }
+    $.ajax({
+        url:'/api/bill',
+        data:$('#query-form').serialize(),
+        type:'post',
+        success:function(result){
+            if(result.length > 0){
+                var xAxisData = [];
+                var incomeData = [];
+                var payData = [];
+                var max = 0;
+                for(var i in result){
+                    xAxisData[i] = result[i]['date'];
+                    incomeData[i] = 0;
+                    payData[i] = 0;
+                    var items = result[i]['items'];
+                    for(var j in items){
+                        var item = items[j];
+                        if(item['type']=='PAY'){
+                            payData[i] += parseFloat(item['money']);
+                        } else {
+                            incomeData[i] += parseFloat(item['money']);
+                        }
+                    }
+                    if(incomeData[i] > max){
+                        max = incomeData[i];
+                    }
+                    if(payData[i] > max){
+                        max = payData[i];
+                    }
+
+                }
+                var x = 40;
+                if(max < 10000){
+                    x=40;
+                } else if(max < 1000000) {
+                    x= 50;
+                } else if(max < 100000000){
+                    x=60;
+                } else if(max < 1000000000){
+                    x = 70;
+                } else if(max < 100000000000){
+                    x = 80;
+                }
+                myChart = echarts.init(document.getElementById('chart'));
+                var option={
+                        grid:{
+                            x:x,
+                            y:20,
+                            x2:35,
+                            y2:60
+                        },
+                        legend:
+                        {
+                            y:'bottom',
+                            data:['收入', '支出']
+                        },
+                        tooltip:{
+                            trigger:'item',
+                            formatter:'{b0}{a0}:{c0}元'
+                        },
+                        xAxis:[
+                            {
+                                type:'category',
+                                boundaryGap:false,
+                                axisLabel:
+                                {
+                                    formatter:'{value}',
+                                    textStyle: {
+                                        fontFamily: '微软雅黑',
+                                        fontSize: 12,
+                                        fontStyle: 'normal',
+                                        fontWeight: 'bold'
+                                    }
+                                },
+                                data:xAxisData
+                            }
+                        ],
+                        yAxis:[
+                            {
+                                type:'value',
+                                boundaryGap:[0, 0],
+                                axisLabel:
+                                {
+                                    formatter:'￥{value}',
+                                    textStyle: {
+                                        fontFamily: '微软雅黑',
+                                        fontSize: 12,
+                                        fontStyle: 'normal',
+                                        fontWeight: 'bold'
+                                    }
+                                }
+                            }
+                        ],
+                        series:[
+                            {
+                                name:'收入',
+                                type:'line',
+                                data:incomeData
+                            },
+                            {
+                                name:'支出',
+                                type:'line',
+                                data:payData
+                            }
+                        ]
+                    }
+                    myChart.setOption(option);
+            } else {
+                myChart = echarts.init(document.getElementById('chart'));
+                myChart.showLoading({
+                    text : '暂无数据',
+                    effect : 'dynamicLine',
+                    textStyle : {
+                        fontSize : 30
+                    }
+                });
+            }
+        }
+    });
+}
+
+function decideShowType(){
+    var showType = $('input[name="style"]:checked').val();
+    if(showType=='table'){
+        $('#chart').hide();
+        $('#table').show();
+    } else {
+        $('#table').hide();
+        $('#chart').show();
+    }
 }
 
 function toggleBillItem(){
