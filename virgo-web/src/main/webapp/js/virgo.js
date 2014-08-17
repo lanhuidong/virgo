@@ -131,13 +131,13 @@ function stringLength(input, min, max){
 
 //查询账单
 function queryBill(){
-    drawChart();
     $.post('/bill', $('#query-form').serialize(), function(data){
         $('table').find('tbody').remove();
         $('table').find('tfoot').remove();
         $('table').append(data);
         $('.view-item').click(toggleBillItem);
         $('.del-item').click(deleteBillItem);
+        drawChart();
     });
 }
 
@@ -177,30 +177,39 @@ function drawChart(){
                     }
 
                 }
-                var x = 40;
+                var x = 45;
                 if(max < 10000){
-                    x=40;
-                } else if(max < 1000000) {
-                    x= 50;
+                    x=45;
+                } else if(max < 100000) {
+                    x= 55;
+                } else if(max < 10000000){
+                    x=65;
                 } else if(max < 100000000){
-                    x=60;
-                } else if(max < 1000000000){
-                    x = 70;
-                } else if(max < 100000000000){
-                    x = 80;
+                    x = 75;
+                } else if(max < 10000000000){
+                    x = 87;
                 }
                 myChart = echarts.init(document.getElementById('chart'));
                 var option={
                         grid:{
                             x:x,
-                            y:20,
+                            y:40,
                             x2:35,
-                            y2:60
+                            y2:100
                         },
                         legend:
                         {
                             y:'bottom',
-                            data:['收入', '支出']
+                            data:['支出', '收入']
+                        },
+                        color:['#a94442','#3c763d'],
+                        toolbox: {
+                            show : true,
+                            padding : [0,40,0,0],
+                            feature : {
+                                magicType : {show: true, type: ['line', 'bar']},
+                                saveAsImage : {show: true}
+                            }
                         },
                         tooltip:{
                             trigger:'item',
@@ -212,6 +221,7 @@ function drawChart(){
                                 boundaryGap:false,
                                 axisLabel:
                                 {
+                                    rotate:-60,
                                     formatter:'{value}',
                                     textStyle: {
                                         fontFamily: '微软雅黑',
@@ -241,14 +251,14 @@ function drawChart(){
                         ],
                         series:[
                             {
-                                name:'收入',
-                                type:'line',
-                                data:incomeData
-                            },
-                            {
                                 name:'支出',
                                 type:'line',
                                 data:payData
+                            },
+                            {
+                                name:'收入',
+                                type:'line',
+                                data:incomeData
                             }
                         ]
                     }
