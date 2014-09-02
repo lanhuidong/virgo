@@ -212,8 +212,12 @@ function drawChart(){
                             }
                         },
                         tooltip:{
-                            trigger:'item',
-                            formatter:'{b0}{a0}:{c0}元'
+                            trigger:'axis',
+                            formatter: function(v) {
+                                return v[0][1] + '<br/>'
+                                       + v[0][0] + ' : ' + v[0][2] + '元<br/>'
+                                       + v[1][0] + ' : ' + v[1][2] + '元';
+                            }
                         },
                         xAxis:[
                             {
@@ -221,7 +225,6 @@ function drawChart(){
                                 boundaryGap:false,
                                 axisLabel:
                                 {
-                                    rotate:-60,
                                     formatter:'{value}',
                                     textStyle: {
                                         fontFamily: '微软雅黑',
@@ -235,6 +238,23 @@ function drawChart(){
                         ],
                         yAxis:[
                             {
+                                name:'支出',
+                                type:'value',
+                                boundaryGap:[0, 0],
+                                axisLabel:
+                                {
+                                    formatter:'￥{value}',
+                                    textStyle: {
+                                        fontFamily: '微软雅黑',
+                                        fontSize: 12,
+                                        fontStyle: 'normal',
+                                        fontWeight: 'bold'
+                                    }
+                                }
+                            },
+                            {
+                                name:'收入',
+                                position:'right',
                                 type:'value',
                                 boundaryGap:[0, 0],
                                 axisLabel:
@@ -257,6 +277,7 @@ function drawChart(){
                             },
                             {
                                 name:'收入',
+                                yAxisIndex:1,
                                 type:'line',
                                 data:incomeData
                             }
