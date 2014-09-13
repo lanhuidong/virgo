@@ -240,8 +240,21 @@ function drawChart(){
                         yAxis:[
                             {
                                 name:'支出',
+                                nameTextStyle:{
+                                    fontFamily: '微软雅黑',
+                                    fontSize: 12,
+                                    fontStyle: 'normal',
+                                    fontWeight: 'bold',
+                                    color: '#a94442'
+                                },
                                 type:'value',
                                 boundaryGap:[0, 0],
+                                axisLine: {
+                                    lineStyle:
+                                    {
+                                        color: '#a94442'
+                                    }
+                                },
                                 axisLabel:
                                 {
                                     formatter:'￥{value}',
@@ -249,15 +262,29 @@ function drawChart(){
                                         fontFamily: '微软雅黑',
                                         fontSize: 12,
                                         fontStyle: 'normal',
-                                        fontWeight: 'bold'
+                                        fontWeight: 'bold',
+                                        color: '#a94442'
                                     }
                                 }
                             },
                             {
                                 name:'收入',
+                                nameTextStyle:{
+                                    fontFamily: '微软雅黑',
+                                    fontSize: 12,
+                                    fontStyle: 'normal',
+                                    fontWeight: 'bold',
+                                    color: '#3c763d'
+                                },
                                 position:'right',
                                 type:'value',
                                 boundaryGap:[0, 0],
+                                axisLine: {
+                                    lineStyle:
+                                    {
+                                        color: '#3c763d'
+                                    }
+                                },
                                 axisLabel:
                                 {
                                     formatter:'￥{value}',
@@ -265,7 +292,8 @@ function drawChart(){
                                         fontFamily: '微软雅黑',
                                         fontSize: 12,
                                         fontStyle: 'normal',
-                                        fontWeight: 'bold'
+                                        fontWeight: 'bold',
+                                        color: '#3c763d'
                                     }
                                 }
                             }
