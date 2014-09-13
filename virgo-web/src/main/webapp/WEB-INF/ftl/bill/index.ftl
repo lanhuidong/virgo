@@ -36,7 +36,7 @@
                 <tbody><tr><td class="text-center" colspan="5">正在加载数据</td></tr></tbody>
             </table>
         </div>
-        <div id="chart" style="width:1150px;height:500px;display:none"></div>
+        <div id="chart" style="height:500px;display:none"></div>
     </div>
     <script type="text/javascript" src="/js/echarts-plain.js"></script>
     <script type="text/javascript">
@@ -47,6 +47,7 @@
         $('.datepicker').datepicker();
         queryBill();
         $('#query-button').click(queryBill);
+        $('#chart').css({"width":$('#table').width()+"px"});
         decideShowType();
         $('input[name="style"]').change(decideShowType);
     });

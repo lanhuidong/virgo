@@ -225,6 +225,7 @@ function drawChart(){
                                 boundaryGap:false,
                                 axisLabel:
                                 {
+                                    rotate:-60,
                                     formatter:'{value}',
                                     textStyle: {
                                         fontFamily: '微软雅黑',
