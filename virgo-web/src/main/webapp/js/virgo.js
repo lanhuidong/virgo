@@ -155,7 +155,8 @@ function drawChart(){
                 var xAxisData = [];
                 var incomeData = [];
                 var payData = [];
-                var max = 0;
+                var maxPay = 0;
+				var maxIn = 0;
                 for(var i in result){
                     xAxisData[i] = result[i]['date'];
                     incomeData[i] = 0;
@@ -169,32 +170,44 @@ function drawChart(){
                             incomeData[i] += parseFloat(item['money']);
                         }
                     }
-                    if(incomeData[i] > max){
-                        max = incomeData[i];
+                    if(incomeData[i] > maxIn){
+                        maxIn = incomeData[i];
                     }
-                    if(payData[i] > max){
-                        max = payData[i];
+                    if(payData[i] > maxPay){
+                        maxPay = payData[i];
                     }
 
                 }
                 var x = 45;
-                if(max < 10000){
+                if(maxPay < 10000){
                     x=45;
-                } else if(max < 100000) {
+                } else if(maxPay < 100000) {
                     x= 55;
-                } else if(max < 10000000){
+                } else if(maxPay < 10000000){
                     x=65;
-                } else if(max < 100000000){
+                } else if(maxPay < 100000000){
                     x = 75;
-                } else if(max < 10000000000){
+                } else if(maxPay < 10000000000){
                     x = 87;
+                }
+				var x2 = 45;
+                if(maxIn < 1000){
+                    x2=45;
+                } else if(maxIn < 10000) {
+                    x2= 55;
+                } else if(maxIn < 1000000){
+                    x2=65;
+                } else if(maxIn < 10000000){
+                    x2 = 75;
+                } else if(maxIn < 1000000000){
+                    x2 = 87;
                 }
                 myChart = echarts.init(document.getElementById('chart'));
                 var option={
                         grid:{
                             x:x,
                             y:40,
-                            x2:35,
+                            x2:x2,
                             y2:100
                         },
                         legend:
