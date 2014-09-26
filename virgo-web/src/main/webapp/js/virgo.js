@@ -156,7 +156,7 @@ function drawChart(){
                 var incomeData = [];
                 var payData = [];
                 var maxPay = 0;
-				var maxIn = 0;
+                var maxIn = 0;
                 for(var i in result){
                     xAxisData[i] = result[i]['date'];
                     incomeData[i] = 0;
@@ -179,27 +179,21 @@ function drawChart(){
 
                 }
                 var x = 45;
-                if(maxPay < 10000){
-                    x=45;
-                } else if(maxPay < 100000) {
-                    x= 55;
-                } else if(maxPay < 10000000){
-                    x=65;
-                } else if(maxPay < 100000000){
-                    x = 75;
-                } else if(maxPay < 10000000000){
-                    x = 87;
-                }
-				var x2 = 45;
+                var x2 = 45;
                 if(maxIn < 1000){
+                    x=45;
                     x2=45;
                 } else if(maxIn < 10000) {
+                    x= 55;
                     x2= 55;
                 } else if(maxIn < 1000000){
+                    x=65;
                     x2=65;
                 } else if(maxIn < 10000000){
+                    x = 75;
                     x2 = 75;
                 } else if(maxIn < 1000000000){
+                    x = 87;
                     x2 = 87;
                 }
                 myChart = echarts.init(document.getElementById('chart'));
