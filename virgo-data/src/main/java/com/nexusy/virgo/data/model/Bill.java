@@ -1,6 +1,5 @@
 package com.nexusy.virgo.data.model;
 
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
@@ -10,8 +9,6 @@ import java.util.List;
  * @author lan
  * @since 2013-11-15
  */
-@Entity
-@Table(name = "bills")
 public class Bill {
 
     /**
@@ -31,8 +28,6 @@ public class Bill {
 
     private List<BillItem> items;
 
-    @Id
-    @GeneratedValue
     public Long getId() {
         return id;
     }
@@ -41,8 +36,6 @@ public class Bill {
         this.id = id;
     }
 
-    @Temporal(TemporalType.DATE)
-    @Column(nullable = false, updatable = false)
     public Date getDate() {
         return date;
     }
@@ -51,7 +44,6 @@ public class Bill {
         this.date = date;
     }
 
-    @Column(nullable = false, updatable = false)
     public Long getUserId() {
         return userId;
     }
@@ -60,7 +52,6 @@ public class Bill {
         this.userId = userId;
     }
 
-    @OneToMany(mappedBy = "bill", cascade = CascadeType.ALL)
     public List<BillItem> getItems() {
         return items;
     }

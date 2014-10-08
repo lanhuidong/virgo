@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nexusy.virgo.data.mapper.BillMapper">
+    
+    <insert id="saveBill" keyProperty="id" useGeneratedKeys="true">
+        <![CDATA[ INSERT INTO bills(`date`, user_id) VALUES (#{date, typeHandler=org.apache.ibatis.type.DateOnlyTypeHandler}, #{userId}) ]]>
+    </insert>
+
+    <insert id="saveBillItem" keyProperty="id" useGeneratedKeys="true">
+        <![CDATA[ INSERT INTO bill_items(item, money, remark, `type`, bill_id) VALUES (#{item}, #{money}, #{remark}, #{type}, #{billId}) ]]>
+    </insert>
+
+    <delete id="deleteBillItem">
+        <![CDATA[ DELETE bi.* FROM bill_items bi,bills b WHERE bi.bill_id=b.id AND b.user_id=#{userId} AND bi.id=#{id} ]]>
+    </delete>
+
+</mapper>

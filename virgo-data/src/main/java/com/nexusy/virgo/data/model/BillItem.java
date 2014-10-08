@@ -1,17 +1,11 @@
 package com.nexusy.virgo.data.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
-
 /**
  * 账单条目
  *
  * @author lan
  * @since 2013-11-15
  */
-@Entity
-@Table(name = "bill_items")
 public class BillItem {
 
     /**
@@ -22,8 +16,7 @@ public class BillItem {
     /**
      * 账单ID
      */
-    @JsonIgnore
-    private Bill bill;
+    private Long billId;
 
     /**
      * 金额
@@ -45,8 +38,6 @@ public class BillItem {
      */
     private String remark;
 
-    @Id
-    @GeneratedValue
     public Long getId() {
         return id;
     }
@@ -55,14 +46,12 @@ public class BillItem {
         this.id = id;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "bill_id", nullable = false, foreignKey = @ForeignKey(name = "FK_bill_id"))
-    public Bill getBill() {
-        return bill;
+    public Long getBillId() {
+        return billId;
     }
 
-    public void setBill(Bill bill) {
-        this.bill = bill;
+    public void setBillId(Long billId) {
+        this.billId = billId;
     }
 
     public Double getMoney() {
@@ -81,7 +70,6 @@ public class BillItem {
         this.item = item;
     }
 
-    @Enumerated(EnumType.STRING)
     public BillItemType getType() {
         return type;
     }

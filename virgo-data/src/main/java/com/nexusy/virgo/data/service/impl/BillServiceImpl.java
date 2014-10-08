@@ -45,7 +45,7 @@ public class BillServiceImpl extends BaseServiceImpl<Bill, Long> implements Bill
         item.setMoney(bill.getMoney());
         item.setType(bill.getType());
         item.setRemark(bill.getRemark());
-        item.setBill(newBill);
+//        item.setBill(newBill);
 
         items.add(item);
 
@@ -69,10 +69,10 @@ public class BillServiceImpl extends BaseServiceImpl<Bill, Long> implements Bill
     @Override
     public Integer deleteBillItem(Long userId, Long id) {
         BillItem item = universalDao.get(BillItem.class, id);
-        if (item != null && item.getBill().getUserId().equals(userId)) {
+//        if (item != null && item.getBill().getUserId().equals(userId)) {
             universalDao.remove(item);
             return 1;
-        }
-        return 0;
+//        }
+//        return 0;
     }
 }
