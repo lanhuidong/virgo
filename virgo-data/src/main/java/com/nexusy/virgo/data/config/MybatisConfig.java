@@ -41,7 +41,7 @@ public class MybatisConfig {
     }
 
     @Bean
-    public PlatformTransactionManager transactionManager2() {
+    public PlatformTransactionManager transactionManager() {
         return new DataSourceTransactionManager(dataSource);
     }
 }

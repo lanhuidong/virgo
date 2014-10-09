@@ -19,7 +19,7 @@ import java.util.Map;
  * @since 2014-08-01
  */
 @Service
-@Transactional("transactionManager2")
+@Transactional
 public class TodoServiceImpl implements TodoService {
 
     @Autowired

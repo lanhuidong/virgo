@@ -3,7 +3,6 @@ package com.nexusy.virgo.data.model;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -14,8 +13,6 @@ import java.util.Date;
  * @author lan
  * @since 2013-11-15
  */
-@Entity
-@Table(name = "users")
 public class User implements UserDetails {
 
     /**
@@ -53,8 +50,6 @@ public class User implements UserDetails {
      */
     private Date lastLogin;
 
-    @Id
-    @GeneratedValue
     public Long getId() {
         return id;
     }
@@ -63,7 +58,6 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    @Column(nullable = false, updatable = false, length = 20)
     public String getUsername() {
         return username;
     }
@@ -72,7 +66,6 @@ public class User implements UserDetails {
         this.username = username;
     }
 
-    @Column(length = 100)
     public String getPassword() {
         return password;
     }
@@ -81,7 +74,6 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    @Column(length = 100)
     public String getEmail() {
         return email;
     }
@@ -90,7 +82,6 @@ public class User implements UserDetails {
         this.email = email;
     }
 
-    @Column(length = 20)
     public String getPhone() {
         return phone;
     }
@@ -99,7 +90,6 @@ public class User implements UserDetails {
         this.phone = phone;
     }
 
-    @Column(nullable = false)
     public Date getSignTime() {
         return signTime;
     }
@@ -108,7 +98,6 @@ public class User implements UserDetails {
         this.signTime = signTime;
     }
 
-    @Column(nullable = false)
     public Date getLastLogin() {
         return lastLogin;
     }
@@ -118,31 +107,26 @@ public class User implements UserDetails {
     }
 
     @Override
-    @Transient
     public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
-    @Transient
     public boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
-    @Transient
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
     @Override
-    @Transient
     public boolean isEnabled() {
         return true;
     }
 
     @Override
-    @Transient
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> roles = new ArrayList<>();
         roles.add(new GrantedAuthority() {
