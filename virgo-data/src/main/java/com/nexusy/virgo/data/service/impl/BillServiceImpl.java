@@ -1,8 +1,11 @@
 package com.nexusy.virgo.data.service.impl;
 
+import com.nexusy.virgo.data.mapper.BillMapper;
 import com.nexusy.virgo.data.model.Bill;
+import com.nexusy.virgo.data.model.BillItem;
 import com.nexusy.virgo.data.service.BillService;
 import com.nexusy.virgo.data.vo.BillVo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,50 +20,35 @@ import java.util.List;
 @Transactional
 public class BillServiceImpl implements BillService {
 
+    @Autowired
+    private BillMapper billMapper;
+
     @Override
     public void saveBillItem(BillVo bill) {
-//        Bill newBill = billDao.findBillByDate(bill.getUserId(), bill.getDate());
-//        if (newBill == null) {
-//            newBill = new Bill();
-//            newBill.setDate(bill.getDate());
-//            newBill.setUserId(bill.getUserId());
-//        }
-//
-//        List<BillItem> items = new ArrayList<>(1);
-//
-//        BillItem item = new BillItem();
-//        item.setItem(bill.getItem());
-//        item.setMoney(bill.getMoney());
-//        item.setType(bill.getType());
-//        item.setRemark(bill.getRemark());
-//        item.setBill(newBill);
-//
-//        items.add(item);
-//
-//        newBill.setItems(items);
-//
-//        billDao.merge(newBill);
+        Bill newBill = billMapper.findBillByDate(bill.getUserId(), bill.getDate());
+        if (newBill == null) {
+            newBill = new Bill();
+            newBill.setDate(bill.getDate());
+            newBill.setUserId(bill.getUserId());
+            billMapper.saveBill(newBill);
+        }
+
+        BillItem item = new BillItem();
+        item.setItem(bill.getItem());
+        item.setMoney(bill.getMoney());
+        item.setType(bill.getType());
+        item.setRemark(bill.getRemark());
+        item.setBillId(newBill.getId());
+        billMapper.saveBillItem(item);
     }
 
     @Override
     public List<Bill> findBillsByDate(Long userId, Date from, Date to, Integer firstResult, Integer maxResults) {
-        List<Bill> bills = null;
-//        List<Long> ids = billDao.findBillsByDate(userId, from, to, firstResult, maxResults);
-//        if (ids.isEmpty()) {
-//            bills = Collections.emptyList();
-//        } else {
-//            bills = billDao.findBillsWithBillItems(ids);
-//        }
-        return bills;
+        return billMapper.findBillsWithBillItems(userId, from, to);
     }
 
     @Override
     public Integer deleteBillItem(Long userId, Long id) {
-//        BillItem item = universalDao.get(BillItem.class, id);
-//        if (item != null && item.getBill().getUserId().equals(userId)) {
-//            universalDao.remove(item);
-        return 1;
-//        }
-//        return 0;
+        return billMapper.deleteBillItem(userId, id);
     }
 }

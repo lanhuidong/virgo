@@ -12,6 +12,27 @@
         <![CDATA[ INSERT INTO bill_items(item, money, remark, `type`, bill_id) VALUES (#{item}, #{money}, #{remark}, #{type}, #{billId}) ]]>
     </insert>
 
+    <select id="findBillByDate" resultType="com.nexusy.virgo.data.model.Bill">
+        <![CDATA[ SELECT * FROM bills WHERE user_id=#{userId} AND `date`=#{date, typeHandler=org.apache.ibatis.type.DateOnlyTypeHandler} ]]>
+    </select>
+
+    <resultMap id="bills" type="com.nexusy.virgo.data.model.Bill">
+        <result property="id" column="id" />
+        <result property="date" column="date" />
+        <result property="userId" column="user_id" />
+        <collection property="items" ofType="com.nexusy.virgo.data.model.BillItem">
+            <result property="id" column="bid" />
+            <result property="billId" column="bill_id" />
+            <result property="money" column="money" />
+            <result property="item" column="item" />
+            <result property="type" column="type" />
+            <result property="remark" column="remark" />
+        </collection>
+    </resultMap>
+    <select id="findBillsWithBillItems" resultMap="bills">
+        <![CDATA[ SELECT b.*, bi.*, bi.id as bid FROM bills b, bill_items bi WHERE b.id=bi.bill_id AND user_id=#{userId} AND `date`>=#{from, typeHandler=org.apache.ibatis.type.DateOnlyTypeHandler} AND `date`<=#{to, typeHandler=org.apache.ibatis.type.DateOnlyTypeHandler} ]]>
+    </select>
+
     <delete id="deleteBillItem">
         <![CDATA[ DELETE bi.* FROM bill_items bi,bills b WHERE bi.bill_id=b.id AND b.user_id=#{userId} AND bi.id=#{id} ]]>
     </delete>
