@@ -32,7 +32,7 @@ public class SignupController {
         int code;
         if (result.hasErrors()) {
             code = 1;
-        } else if (userService.chechUsername(user.getJ_username())) {
+        } else if (userService.checkUsername(user.getJ_username())) {
             code = 2;
         } else {
             User newUser = new User();
@@ -50,6 +50,6 @@ public class SignupController {
     @RequestMapping("/signup/{username}")
     @ResponseBody
     public boolean checkUsername(@PathVariable String username) {
-        return userService.chechUsername(username);
+        return userService.checkUsername(username);
     }
 }

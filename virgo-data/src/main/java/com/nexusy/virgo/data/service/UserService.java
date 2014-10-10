@@ -25,7 +25,7 @@ public interface UserService {
     /**
      * 检查用户名是否存在，已存在返回true,否则返回false
      */
-    boolean chechUsername(String username);
+    boolean checkUsername(String username);
 
     void save(Long userId, BasicInfo info);
 }
