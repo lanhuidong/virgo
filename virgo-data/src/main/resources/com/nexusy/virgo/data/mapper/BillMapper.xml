@@ -17,11 +17,11 @@
     </select>
 
     <resultMap id="bills" type="com.nexusy.virgo.data.model.Bill">
-        <result property="id" column="id" />
+        <id property="id" column="id" />
         <result property="date" column="date" />
         <result property="userId" column="user_id" />
         <collection property="items" ofType="com.nexusy.virgo.data.model.BillItem">
-            <result property="id" column="bid" />
+            <id property="id" column="bid" />
             <result property="billId" column="bill_id" />
             <result property="money" column="money" />
             <result property="item" column="item" />

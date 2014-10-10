@@ -4,10 +4,12 @@ import com.nexusy.virgo.data.DataAppTest;
 import com.nexusy.virgo.data.model.Bill;
 import com.nexusy.virgo.data.model.BillItem;
 import com.nexusy.virgo.data.model.BillItemType;
+import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -49,9 +51,15 @@ public class BillMapperTest extends DataAppTest {
     }
 
     @Test
-    public void testFindBillsWithBillItems(){
-        List<Bill> bills = billMapper.findBillsWithBillItems(1L, new Date(), new Date());
-        System.out.println(bills.size());
+    public void testFindBillsWithBillItems() {
+        try {
+            Date from = DateUtils.parseDate("2013-11-22", "yyyy-MM-dd");
+            Date to = DateUtils.parseDate("2013-11-29", "yyyy-MM-dd");
+            List<Bill> bills = billMapper.findBillsWithBillItems(1L, from, to);
+            System.out.println(bills.size());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
