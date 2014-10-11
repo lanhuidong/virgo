@@ -1,5 +1,8 @@
 package com.nexusy.virgo.data.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.nexusy.virgo.data.util.DateJsonSerializer;
+
 import java.util.Date;
 import java.util.List;
 
@@ -36,6 +39,7 @@ public class Bill {
         this.id = id;
     }
 
+    @JsonSerialize(using = DateJsonSerializer.class)
     public Date getDate() {
         return date;
     }
