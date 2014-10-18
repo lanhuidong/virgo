@@ -131,24 +131,31 @@ function stringLength(input, min, max){
 
 //查询账单
 function queryBill(){
-    $.post('/bill', $('#query-form').serialize(), function(data){
+    var year = $('#year').val();
+    var month = $('#month').val();
+    var from = year+'-'+month+'-01';
+    var newnew_date = new Date(year,month,1);
+    var days = (new Date(newnew_date.getTime()-1000*60*60*24)).getDate();
+    var to = year+'-'+month+'-'+days;
+    var params = 'from='+from+'&to='+to;
+    $.post('/bill', params, function(data){
         $('table').find('tbody').remove();
         $('table').find('tfoot').remove();
         $('table').append(data);
         $('.view-item').click(toggleBillItem);
         $('.del-item').click(deleteBillItem);
-        drawChart();
+        drawChart(params);
     });
 }
 
-function drawChart(){
+function drawChart(params){
     if(myChart){
         myChart.clear();
         myChart.dispose();
     }
     $.ajax({
         url:'/api/bill',
-        data:$('#query-form').serialize(),
+        data:params,
         type:'post',
         success:function(result){
             if(result.length > 0){

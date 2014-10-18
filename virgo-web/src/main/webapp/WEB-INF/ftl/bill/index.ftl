@@ -1,16 +1,23 @@
 <@c.html title="我的账本-记账本">
+    <style>
+        .ui-datepicker-calendar{display:none}
+    </style>
     <div class="row">
         <form role="form" id="query-form" class="form-horizontal" action="/bill" method="post">
             <div class="form-group">
                 <div class="col-xs-4 col-sm-2">
-                    <input type="text" name="from" class="form-control datepicker" style="cursor:pointer" readonly="readonly" value="${dateRange.from?string('yyyy-MM-dd')}" />
+                    <select id="year" name="year" class="form-control input-sm">
+                        <#list years as y>
+                            <option value="${y}" <#if y=year>selected="selected"</#if>>${y}年</option>
+                        </#list>
+                    </select>
                 </div>
-                <label class="col-xs-1 col-sm-1 control-label" style="width:10px;margin-left:-12px">到</label>
-                <div class="col-xs-4 col-sm-2">
-                    <input type="text" name="to" class="form-control datepicker" style="cursor:pointer" readonly="readonly" value="${dateRange.to?string('yyyy-MM-dd')}" />
-                </div>
-                <div class="col-xs-2 col-sm-1">
-                    <button id="query-button" type="button" class="btn btn-primary">查询</button>
+                <div class="col-xs-4 col-sm-1">
+                    <select id="month" name="month" class="form-control input-sm">
+                        <#list 1..12 as m>
+                            <option value="${m}" <#if m=month>selected="selected"</#if>>${m}月</option>
+                        </#list>
+                    </select>
                 </div>
             </div>
         </form>
@@ -44,9 +51,8 @@
     $(function(){
         $('header').find('li').removeClass('active');
         $('header').find('li:eq(2)').addClass('active');
-        $('.datepicker').datepicker();
         queryBill();
-        $('#query-button').click(queryBill);
+        $('#year,#month').change(queryBill);
         $('#chart').css({"width":$('#table').width()+"px"});
         decideShowType();
         $('input[name="style"]').change(decideShowType);

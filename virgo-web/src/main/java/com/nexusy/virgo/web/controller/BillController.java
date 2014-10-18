@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -34,7 +36,18 @@ public class BillController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView index(DateRange range) {
-        return new ModelAndView("/bill/index");
+        Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int startYear = year +20;
+        List<Integer> years = new ArrayList<>(50);
+        for(int i = 0; i < 50; i++){
+            years.add(startYear-i);
+        }
+        ModelAndView mav = new ModelAndView("/bill/index");
+        mav.addObject("year", year);
+        mav.addObject("years", years);
+        mav.addObject("month", c.get(Calendar.MONTH)+1);
+        return mav;
     }
 
     @RequestMapping(method = RequestMethod.POST)
