@@ -30,7 +30,7 @@
         </label>
         <div class="clearfix"></div>
         <div id="table" class="table-responsive">
-            <table class="table table-striped table-hover">
+            <table id="bill-table" class="table table-striped table-hover">
                 <thead>
                 <tr>
                     <th width="15%">日期</th>

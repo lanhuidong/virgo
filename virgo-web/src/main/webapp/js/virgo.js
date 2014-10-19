@@ -138,207 +138,260 @@ function queryBill(){
     var days = (new Date(newnew_date.getTime()-1000*60*60*24)).getDate();
     var to = year+'-'+month+'-'+days;
     var params = 'from='+from+'&to='+to;
-    $.post('/bill', params, function(data){
-        $('table').find('tbody').remove();
-        $('table').find('tfoot').remove();
-        $('table').append(data);
-        $('.view-item').click(toggleBillItem);
-        $('.del-item').click(deleteBillItem);
-        drawChart(params);
+    $.post('/api/bill', params, function(data){
+        drawTable(data);
+        drawChart(data);
     });
 }
 
-function drawChart(params){
+function drawTable(data){
+    $('#bill-table').find('tbody').remove();
+    $('#bill-table').find('tfoot').remove();
+    if(data.length > 0){
+        $('#bill-table').append('<tbody></tbody>');
+        var totalPay = 0;
+        var totalIncome = 0;
+        for(var i in data){
+            var bill = data[i];
+            var pay = 0;
+            var income = 0;
+
+            var table = $('<tr style="display:none"><td colspan="5" style="padding:0;border:none"><table class="table" style="margin:0;background:#FCF8E3"><tbody></tbody></table></td></tr>');
+            for(var j in bill['items']){
+                var item = bill['items'][j];
+                var itemTr = $('<tr></tr>');
+                $(itemTr).append('<td width="15%">'+item['item']+'</td>');
+                var money = parseFloat(item['money']);
+                if(item['type']=='PAY'){
+                    pay += money;
+                    $(itemTr).append('<td width="25%" class="text-right text-danger">'+money.toFixed(2)+'</td>');
+                } else {
+                    income += money;
+                    $(itemTr).append('<td width="25%" class="text-right text-success">'+money.toFixed(2)+'</td>');
+                }
+                $(itemTr).append('<td width="50%" class="text-center" colspan="2">'+item['remark']+'</td>');
+                $(itemTr).append('<td width="10%" class="text-center text-info"><label id="'+item['id']+'" bid="'+bill['id']+'" class="del-item" style="cursor:pointer">删除</label></td>');
+                $(table).find('tbody').append(itemTr);
+            }
+            var tr = $('<tr id="'+bill['id']+'"></tr>');
+            $(tr).append('<td>'+bill['date']+'</td>');
+            $(tr).append('<td class="text-right text-danger pay">'+pay.toFixed(2)+'</td>');
+            $(tr).append('<td class="text-right text-success income">'+income.toFixed(2)+'</td>');
+            if(pay > income){
+                $(tr).append('<td class="text-danger text-right money">'+(pay-income).toFixed(2)+'</td>');
+            } else {
+                $(tr).append('<td class="text-right text-success money">'+(income-pay).toFixed(2)+'</td>');
+            }
+            $(tr).append('<td class="text-center text-info view-item" style="cursor:pointer">查看</td>');
+            $('#bill-table > tbody').append(tr);
+
+            $('tbody').append(table);
+            totalPay += pay;
+            totalIncome += income;
+        }
+        $('#bill-table').append('<tfoot></tfoot>');
+        var trFoot = $('<tr></tr>');
+        $(trFoot).append('<th>结算</th>');
+        $(trFoot).append('<th id="total-pay" class="text-right text-danger">'+totalPay.toFixed(2)+'</th>');
+        $(trFoot).append('<th id="total-income" class="text-right text-success">'+totalIncome.toFixed(2)+'</th>');
+        if(totalPay > totalIncome){
+            $(trFoot).append('<th id="total-money" class="text-danger text-right">'+(totalPay-totalIncome).toFixed(2)+'</th>');
+        } else {
+            $(trFoot).append('<th id="total-money" class="text-right text-success">'+(totalIncome-totalPay).toFixed(2)+'</th>');
+        }
+        $(trFoot).append('<th></th>');
+        $('#bill-table > tfoot').append(trFoot);
+        $('.view-item').click(toggleBillItem);
+        $('.del-item').click(deleteBillItem);
+    } else {
+        $('table').append('<tbody><tr><td class="text-center" colspan="5">暂无数据</td></tr></tbody>');
+    }
+}
+
+function drawChart(result){
     if(myChart){
         myChart.clear();
         myChart.dispose();
     }
-    $.ajax({
-        url:'/api/bill',
-        data:params,
-        type:'post',
-        success:function(result){
-            if(result.length > 0){
-                var xAxisData = [];
-                var incomeData = [];
-                var payData = [];
-                var maxPay = 0;
-                var maxIn = 0;
-                for(var i in result){
-                    xAxisData[i] = result[i]['date'];
-                    incomeData[i] = 0;
-                    payData[i] = 0;
-                    var items = result[i]['items'];
-                    for(var j in items){
-                        var item = items[j];
-                        if(item['type']=='PAY'){
-                            payData[i] += parseFloat(item['money']);
-                        } else {
-                            incomeData[i] += parseFloat(item['money']);
+    if(result.length > 0){
+        var xAxisData = [];
+        var incomeData = [];
+        var payData = [];
+        var maxPay = 0;
+        var maxIn = 0;
+        for(var i in result){
+            xAxisData[i] = result[i]['date'];
+            incomeData[i] = 0;
+            payData[i] = 0;
+            var items = result[i]['items'];
+            for(var j in items){
+                var item = items[j];
+                if(item['type']=='PAY'){
+                    payData[i] += parseFloat(item['money']);
+                } else {
+                    incomeData[i] += parseFloat(item['money']);
+                }
+            }
+            if(incomeData[i] > maxIn){
+                maxIn = incomeData[i];
+            }
+            if(payData[i] > maxPay){
+                maxPay = payData[i];
+            }
+
+        }
+        var x = 45;
+        var x2 = 45;
+        if(maxIn < 1000){
+            x=45;
+            x2=45;
+        } else if(maxIn < 10000) {
+            x= 55;
+            x2= 55;
+        } else if(maxIn < 1000000){
+            x=65;
+            x2=65;
+        } else if(maxIn < 10000000){
+            x = 75;
+            x2 = 75;
+        } else if(maxIn < 1000000000){
+            x = 87;
+            x2 = 87;
+        }
+        myChart = echarts.init(document.getElementById('chart'));
+        var option={
+                grid:{
+                    x:x,
+                    y:40,
+                    x2:x2,
+                    y2:100
+                },
+                legend:
+                {
+                    y:'bottom',
+                    data:['支出', '收入']
+                },
+                color:['#a94442','#3c763d'],
+                toolbox: {
+                    show : true,
+                    padding : [0,40,0,0],
+                    feature : {
+                        magicType : {show: true, type: ['line', 'bar']},
+                        saveAsImage : {show: true}
+                    }
+                },
+                tooltip:{
+                    trigger:'axis',
+                    formatter: function(v) {
+                        return v[0][1] + '<br/>'
+                               + v[0][0] + ' : ' + v[0][2] + '元<br/>'
+                               + v[1][0] + ' : ' + v[1][2] + '元';
+                    }
+                },
+                xAxis:[
+                    {
+                        type:'category',
+                        boundaryGap:false,
+                        axisLabel:
+                        {
+                            rotate:-60,
+                            formatter:'{value}',
+                            textStyle: {
+                                fontFamily: '微软雅黑',
+                                fontSize: 12,
+                                fontStyle: 'normal',
+                                fontWeight: 'bold'
+                            }
+                        },
+                        data:xAxisData
+                    }
+                ],
+                yAxis:[
+                    {
+                        name:'支出',
+                        nameTextStyle:{
+                            fontFamily: '微软雅黑',
+                            fontSize: 12,
+                            fontStyle: 'normal',
+                            fontWeight: 'bold',
+                            color: '#a94442'
+                        },
+                        type:'value',
+                        boundaryGap:[0, 0],
+                        axisLine: {
+                            lineStyle:
+                            {
+                                color: '#a94442'
+                            }
+                        },
+                        axisLabel:
+                        {
+                            formatter:'￥{value}',
+                            textStyle: {
+                                fontFamily: '微软雅黑',
+                                fontSize: 12,
+                                fontStyle: 'normal',
+                                fontWeight: 'bold',
+                                color: '#a94442'
+                            }
+                        }
+                    },
+                    {
+                        name:'收入',
+                        nameTextStyle:{
+                            fontFamily: '微软雅黑',
+                            fontSize: 12,
+                            fontStyle: 'normal',
+                            fontWeight: 'bold',
+                            color: '#3c763d'
+                        },
+                        position:'right',
+                        type:'value',
+                        boundaryGap:[0, 0],
+                        axisLine: {
+                            lineStyle:
+                            {
+                                color: '#3c763d'
+                            }
+                        },
+                        axisLabel:
+                        {
+                            formatter:'￥{value}',
+                            textStyle: {
+                                fontFamily: '微软雅黑',
+                                fontSize: 12,
+                                fontStyle: 'normal',
+                                fontWeight: 'bold',
+                                color: '#3c763d'
+                            }
                         }
                     }
-                    if(incomeData[i] > maxIn){
-                        maxIn = incomeData[i];
+                ],
+                series:[
+                    {
+                        name:'支出',
+                        type:'line',
+                        data:payData
+                    },
+                    {
+                        name:'收入',
+                        yAxisIndex:1,
+                        type:'line',
+                        data:incomeData
                     }
-                    if(payData[i] > maxPay){
-                        maxPay = payData[i];
-                    }
-
-                }
-                var x = 45;
-                var x2 = 45;
-                if(maxIn < 1000){
-                    x=45;
-                    x2=45;
-                } else if(maxIn < 10000) {
-                    x= 55;
-                    x2= 55;
-                } else if(maxIn < 1000000){
-                    x=65;
-                    x2=65;
-                } else if(maxIn < 10000000){
-                    x = 75;
-                    x2 = 75;
-                } else if(maxIn < 1000000000){
-                    x = 87;
-                    x2 = 87;
-                }
-                myChart = echarts.init(document.getElementById('chart'));
-                var option={
-                        grid:{
-                            x:x,
-                            y:40,
-                            x2:x2,
-                            y2:100
-                        },
-                        legend:
-                        {
-                            y:'bottom',
-                            data:['支出', '收入']
-                        },
-                        color:['#a94442','#3c763d'],
-                        toolbox: {
-                            show : true,
-                            padding : [0,40,0,0],
-                            feature : {
-                                magicType : {show: true, type: ['line', 'bar']},
-                                saveAsImage : {show: true}
-                            }
-                        },
-                        tooltip:{
-                            trigger:'axis',
-                            formatter: function(v) {
-                                return v[0][1] + '<br/>'
-                                       + v[0][0] + ' : ' + v[0][2] + '元<br/>'
-                                       + v[1][0] + ' : ' + v[1][2] + '元';
-                            }
-                        },
-                        xAxis:[
-                            {
-                                type:'category',
-                                boundaryGap:false,
-                                axisLabel:
-                                {
-                                    rotate:-60,
-                                    formatter:'{value}',
-                                    textStyle: {
-                                        fontFamily: '微软雅黑',
-                                        fontSize: 12,
-                                        fontStyle: 'normal',
-                                        fontWeight: 'bold'
-                                    }
-                                },
-                                data:xAxisData
-                            }
-                        ],
-                        yAxis:[
-                            {
-                                name:'支出',
-                                nameTextStyle:{
-                                    fontFamily: '微软雅黑',
-                                    fontSize: 12,
-                                    fontStyle: 'normal',
-                                    fontWeight: 'bold',
-                                    color: '#a94442'
-                                },
-                                type:'value',
-                                boundaryGap:[0, 0],
-                                axisLine: {
-                                    lineStyle:
-                                    {
-                                        color: '#a94442'
-                                    }
-                                },
-                                axisLabel:
-                                {
-                                    formatter:'￥{value}',
-                                    textStyle: {
-                                        fontFamily: '微软雅黑',
-                                        fontSize: 12,
-                                        fontStyle: 'normal',
-                                        fontWeight: 'bold',
-                                        color: '#a94442'
-                                    }
-                                }
-                            },
-                            {
-                                name:'收入',
-                                nameTextStyle:{
-                                    fontFamily: '微软雅黑',
-                                    fontSize: 12,
-                                    fontStyle: 'normal',
-                                    fontWeight: 'bold',
-                                    color: '#3c763d'
-                                },
-                                position:'right',
-                                type:'value',
-                                boundaryGap:[0, 0],
-                                axisLine: {
-                                    lineStyle:
-                                    {
-                                        color: '#3c763d'
-                                    }
-                                },
-                                axisLabel:
-                                {
-                                    formatter:'￥{value}',
-                                    textStyle: {
-                                        fontFamily: '微软雅黑',
-                                        fontSize: 12,
-                                        fontStyle: 'normal',
-                                        fontWeight: 'bold',
-                                        color: '#3c763d'
-                                    }
-                                }
-                            }
-                        ],
-                        series:[
-                            {
-                                name:'支出',
-                                type:'line',
-                                data:payData
-                            },
-                            {
-                                name:'收入',
-                                yAxisIndex:1,
-                                type:'line',
-                                data:incomeData
-                            }
-                        ]
-                    }
-                    myChart.setOption(option);
-            } else {
-                myChart = echarts.init(document.getElementById('chart'));
-                myChart.showLoading({
-                    text : '暂无数据',
-                    effect : 'dynamicLine',
-                    textStyle : {
-                        fontSize : 30
-                    }
-                });
+                ]
             }
-        }
-    });
+            myChart.setOption(option);
+    } else {
+        myChart = echarts.init(document.getElementById('chart'));
+        myChart.showLoading({
+            text : '暂无数据',
+            effect : 'dynamicLine',
+            textStyle : {
+                fontSize : 30
+            }
+        });
+    }
 }
 
 function decideShowType(){
