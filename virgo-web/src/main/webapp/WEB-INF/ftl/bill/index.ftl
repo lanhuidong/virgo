@@ -1,7 +1,4 @@
 <@c.html title="我的账本-记账本">
-    <style>
-        .ui-datepicker-calendar{display:none}
-    </style>
     <div class="row">
         <form role="form" id="query-form" class="form-horizontal" action="/bill" method="post">
             <div class="form-group">
