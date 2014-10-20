@@ -1,12 +1,10 @@
 package com.nexusy.virgo.web.controller;
 
-import com.nexusy.virgo.data.model.Bill;
 import com.nexusy.virgo.data.model.User;
 import com.nexusy.virgo.data.service.BillService;
 import com.nexusy.virgo.data.vo.BillVo;
 import com.nexusy.virgo.web.security.VirgoSecurityContext;
 import com.nexusy.virgo.web.util.DateRange;
-import com.nexusy.virgo.web.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -47,17 +45,6 @@ public class BillController {
         mav.addObject("year", year);
         mav.addObject("years", years);
         mav.addObject("month", c.get(Calendar.MONTH)+1);
-        return mav;
-    }
-
-    @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView query(DateRange range, Integer pageNo, Integer pageSize) {
-        ModelAndView mav = new ModelAndView("/bill/bill");
-        Page page = new Page(pageNo, pageSize);
-        User user = VirgoSecurityContext.getCurrentUser();
-        List<Bill> bills = billService.findBillsByDate(user.getId(), range.getFrom(), range.getTo(), page.getFirstResult(), page.getPageSize());
-        mav.addObject("bills", bills);
-        mav.addObject("page", page);
         return mav;
     }
 
