@@ -145,10 +145,10 @@ function queryBill(){
 }
 
 function drawTable(data){
-    $('#bill-table').find('tbody').remove();
-    $('#bill-table').find('tfoot').remove();
+    $('#bill-tbody').remove();
+    $('#bill-tfoot').remove();
     if(data.length > 0){
-        $('#bill-table').append('<tbody></tbody>');
+        $('#bill-table').append('<tbody id="bill-tbody"></tbody>');
         var totalPay = 0;
         var totalIncome = 0;
         for(var i in data){
@@ -156,7 +156,10 @@ function drawTable(data){
             var pay = 0;
             var income = 0;
 
+            var tr = $('<tr id="'+bill['id']+'"></tr>');
+            $('#bill-table > tbody').append(tr);
             var table = $('<tr style="display:none"><td colspan="5" style="padding:0;border:none"><table class="table" style="margin:0;background:#FCF8E3"><tbody></tbody></table></td></tr>');
+            $('#bill-table > tbody').append(table);
             for(var j in bill['items']){
                 var item = bill['items'][j];
                 var itemTr = $('<tr></tr>');
@@ -173,7 +176,6 @@ function drawTable(data){
                 $(itemTr).append('<td width="10%" class="text-center text-info"><label id="'+item['id']+'" bid="'+bill['id']+'" class="del-item" style="cursor:pointer">删除</label></td>');
                 $(table).find('tbody').append(itemTr);
             }
-            var tr = $('<tr id="'+bill['id']+'"></tr>');
             $(tr).append('<td>'+bill['date']+'</td>');
             $(tr).append('<td class="text-right text-danger pay">'+pay.toFixed(2)+'</td>');
             $(tr).append('<td class="text-right text-success income">'+income.toFixed(2)+'</td>');
@@ -183,13 +185,11 @@ function drawTable(data){
                 $(tr).append('<td class="text-right text-success money">'+(income-pay).toFixed(2)+'</td>');
             }
             $(tr).append('<td class="text-center text-info view-item" style="cursor:pointer">查看</td>');
-            $('#bill-table > tbody').append(tr);
 
-            $('tbody').append(table);
             totalPay += pay;
             totalIncome += income;
         }
-        $('#bill-table').append('<tfoot></tfoot>');
+        $('#bill-table').append('<tfoot id="bill-tfoot"></tfoot>');
         var trFoot = $('<tr></tr>');
         $(trFoot).append('<th>结算</th>');
         $(trFoot).append('<th id="total-pay" class="text-right text-danger">'+totalPay.toFixed(2)+'</th>');
@@ -204,7 +204,7 @@ function drawTable(data){
         $('.view-item').click(toggleBillItem);
         $('.del-item').click(deleteBillItem);
     } else {
-        $('table').append('<tbody><tr><td class="text-center" colspan="5">暂无数据</td></tr></tbody>');
+        $('table').append('<tbody id="bill-tbody"><tr><td class="text-center" colspan="5">暂无数据</td></tr></tbody>');
     }
 }
 

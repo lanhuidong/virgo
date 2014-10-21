@@ -37,7 +37,7 @@
                     <th width="10%" class="text-center">明细</th>
                 </tr>
                 </thead>
-                <tbody><tr><td class="text-center" colspan="5">正在加载数据</td></tr></tbody>
+                <tbody id="bill-tbody"><tr><td class="text-center" colspan="5">正在加载数据</td></tr></tbody>
             </table>
         </div>
         <div id="chart" style="height:500px;display:none"></div>
@@ -49,7 +49,8 @@
         $('header').find('li').removeClass('active');
         $('header').find('li:eq(2)').addClass('active');
         queryBill();
-        $('#year,#month').change(queryBill);
+        $('#year').change(queryBill);
+        $('#month').change(queryBill);
         $('#chart').css({"width":$('#table').width()+"px"});
         decideShowType();
         $('input[name="style"]').change(decideShowType);
