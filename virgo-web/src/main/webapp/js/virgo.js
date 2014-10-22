@@ -214,6 +214,10 @@ function drawChart(result){
         myChart.dispose();
     }
     if(result.length > 0){
+        var rotate = 0;
+        if(result.length > 7){
+            rotate = -60;
+        }
         var xAxisData = [];
         var incomeData = [];
         var payData = [];
@@ -238,24 +242,25 @@ function drawChart(result){
             if(payData[i] > maxPay){
                 maxPay = payData[i];
             }
+            payData[i]=-payData[i];
 
         }
         var x = 45;
         var x2 = 45;
         if(maxIn < 1000){
-            x=45;
+            x=53;
             x2=45;
         } else if(maxIn < 10000) {
-            x= 55;
+            x= 63;
             x2= 55;
         } else if(maxIn < 1000000){
-            x=65;
+            x=73;
             x2=65;
         } else if(maxIn < 10000000){
-            x = 75;
+            x = 83;
             x2 = 75;
         } else if(maxIn < 1000000000){
-            x = 87;
+            x = 95;
             x2 = 87;
         }
         myChart = echarts.init(document.getElementById('chart'));
@@ -269,9 +274,9 @@ function drawChart(result){
                 legend:
                 {
                     y:'bottom',
-                    data:['支出', '收入']
+                    data:['收入', '支出']
                 },
-                color:['#a94442','#3c763d'],
+                color:['#3c763d','#a94442'],
                 toolbox: {
                     show : true,
                     padding : [0,40,0,0],
@@ -288,13 +293,14 @@ function drawChart(result){
                                + v[1][0] + ' : ' + v[1][2] + '元';
                     }
                 },
+                calculable:true,
                 xAxis:[
                     {
                         type:'category',
                         boundaryGap:false,
                         axisLabel:
                         {
-                            rotate:-60,
+                            rotate:rotate,
                             formatter:'{value}',
                             textStyle: {
                                 fontFamily: '微软雅黑',
@@ -308,22 +314,7 @@ function drawChart(result){
                 ],
                 yAxis:[
                     {
-                        name:'支出',
-                        nameTextStyle:{
-                            fontFamily: '微软雅黑',
-                            fontSize: 12,
-                            fontStyle: 'normal',
-                            fontWeight: 'bold',
-                            color: '#a94442'
-                        },
                         type:'value',
-                        boundaryGap:[0, 0],
-                        axisLine: {
-                            lineStyle:
-                            {
-                                color: '#a94442'
-                            }
-                        },
                         axisLabel:
                         {
                             formatter:'￥{value}',
@@ -331,53 +322,21 @@ function drawChart(result){
                                 fontFamily: '微软雅黑',
                                 fontSize: 12,
                                 fontStyle: 'normal',
-                                fontWeight: 'bold',
-                                color: '#a94442'
-                            }
-                        }
-                    },
-                    {
-                        name:'收入',
-                        nameTextStyle:{
-                            fontFamily: '微软雅黑',
-                            fontSize: 12,
-                            fontStyle: 'normal',
-                            fontWeight: 'bold',
-                            color: '#3c763d'
-                        },
-                        position:'right',
-                        type:'value',
-                        boundaryGap:[0, 0],
-                        axisLine: {
-                            lineStyle:
-                            {
-                                color: '#3c763d'
-                            }
-                        },
-                        axisLabel:
-                        {
-                            formatter:'￥{value}',
-                            textStyle: {
-                                fontFamily: '微软雅黑',
-                                fontSize: 12,
-                                fontStyle: 'normal',
-                                fontWeight: 'bold',
-                                color: '#3c763d'
+                                fontWeight: 'bold'
                             }
                         }
                     }
                 ],
                 series:[
                     {
+                        name:'收入',
+                        type:'line',
+                        data:incomeData
+                    },
+                    {
                         name:'支出',
                         type:'line',
                         data:payData
-                    },
-                    {
-                        name:'收入',
-                        yAxisIndex:1,
-                        type:'line',
-                        data:incomeData
                     }
                 ]
             }
