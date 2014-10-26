@@ -141,6 +141,7 @@ function queryBill(){
     $.post('/api/bill', params, function(data){
         drawTable(data);
         drawChart(data);
+        drawPie(data);
     });
 }
 
@@ -206,6 +207,136 @@ function drawTable(data){
     } else {
         $('table').append('<tbody id="bill-tbody"><tr><td class="text-center" colspan="5">暂无数据</td></tr></tbody>');
     }
+}
+
+function drawPie(data){
+    if(incomePie){
+        incomePie.clear();
+        incomePie.dispose();
+    }
+    if(payPie){
+            payPie.clear();
+            payPie.dispose();
+    }
+    if(data.length > 0){
+        var incomeTags={};
+        var payTags={}
+        for(var i in data){
+            var items = data[i]['items'];
+            for(var j in items){
+                var item = items[j];
+                if(item['type']=='PAY'){
+                    if(payTags[item['item']]){
+                        payTags[item['item']] += parseFloat(item['money']);
+                    } else {
+                        payTags[item['item']] = parseFloat(item['money']);
+                    }
+                } else {
+                    if(incomeTags[item['item']]){
+                        incomeTags[item['item']] += parseFloat(item['money']);
+                    } else {
+                        incomeTags[item['item']] = parseFloat(item['money']);
+                    }
+                }
+            }
+        }
+        incomePie=echarts.init(document.getElementById('incomePie'));
+        var incomeTagsArr = [];
+        var incomeData = [];
+        var i = 0;
+        for(var tag in incomeTags){
+            incomeTagsArr[i]=tag;
+            var obj = {value:incomeTags[tag],name:tag};
+            incomeData[i]=obj;
+            i++;
+        }
+        var incomeOption = {
+            legend: {
+                orient:'vertical',
+                x:'left',
+                data:incomeTagsArr
+            },
+            toolbox: {
+                show : true,
+                feature : {
+                    saveAsImage : {show: true}
+                }
+            },
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            calculable : true,
+            series : [
+                {
+                    name:'收入',
+                    type:'pie',
+                    radius : '55%',
+                    center: ['50%', '50%'],
+                    data:incomeData
+                }
+            ]
+        };
+        incomePie.setOption(incomeOption);
+
+        payPie=echarts.init(document.getElementById('payPie'));
+        var payTagsArr = [];
+        var payData = [];
+        var i = 0;
+        for(var tag in payTags){
+            payTagsArr[i]=tag;
+            var obj = {value:payTags[tag],name:tag};
+            payData[i]=obj;
+            i++;
+        }
+        var payOption = {
+            legend: {
+                orient:'vertical',
+                x:'left',
+                data:payTagsArr
+            },
+            toolbox: {
+                show : true,
+                feature : {
+                    saveAsImage : {show: true}
+                }
+            },
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            calculable : true,
+            series : [
+                {
+                    name:'支出',
+                    type:'pie',
+                    radius : '55%',
+                    center: ['50%', '50%'],
+                    data:payData
+                }
+            ]
+        };
+        payPie.setOption(payOption);
+    } else {
+        incomePie = echarts.init(document.getElementById('incomePie'));
+        incomePie.showLoading({
+            text : '暂无数据',
+            effect : 'dynamicLine',
+            textStyle : {
+                fontSize : 30
+            }
+        });
+        payPie = echarts.init(document.getElementById('payPie'));
+        payPie.showLoading({
+            text : '暂无数据',
+            effect : 'dynamicLine',
+            textStyle : {
+                fontSize : 30
+            }
+        });
+    }
+
+
 }
 
 function drawChart(result){
@@ -357,10 +488,16 @@ function decideShowType(){
     var showType = $('input[name="style"]:checked').val();
     if(showType=='table'){
         $('#chart').hide();
+        $('#pie').hide();
         $('#table').show();
+    } else if(showType=='chart') {
+        $('#table').hide();
+        $('#pie').hide();
+        $('#chart').show();
     } else {
         $('#table').hide();
-        $('#chart').show();
+        $('#chart').hide();
+        $('#pie').show();
     }
 }
 

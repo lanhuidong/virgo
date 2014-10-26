@@ -18,12 +18,15 @@
                 </div>
             </div>
         </form>
-        <label class="col-xs-3 col-sm-1">类型</label>
+        <label>类型：</label>
         <label class="radio-inline">
             <input type="radio" name="style" value="table" checked="checked" /> 表格
         </label>
         <label class="radio-inline">
-            <input type="radio" name="style" value="chart" /> 图表
+            <input type="radio" name="style" value="chart" /> 折线表
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="style" value="pie" /> 饼图
         </label>
         <div class="clearfix"></div>
         <div id="table" class="table-responsive">
@@ -41,17 +44,24 @@
             </table>
         </div>
         <div id="chart" style="height:500px;display:none"></div>
+        <div id="pie" style="height:500px;display:none">
+            <div id="incomePie" class="col-xs-6" style="height:500px"></div>
+            <div id="payPie" class="col-xs-6" style="height:500px"></div>
+        </div>
     </div>
     <script type="text/javascript" src="/js/echarts-plain.js"></script>
     <script type="text/javascript">
     var myChart;
+    var incomePie;
+    var payPie;
     $(function(){
+        $('#chart').css({"width":$('#table').width()+"px"});
+        $('#incomePie,#payPie').css({"width":$('#table').width()/2+"px"});
         $('header').find('li').removeClass('active');
         $('header').find('li:eq(2)').addClass('active');
         queryBill();
-        $('#year').change(queryBill);
         $('#month').change(queryBill);
-        $('#chart').css({"width":$('#table').width()+"px"});
+        $('#year').change(queryBill);
         decideShowType();
         $('input[name="style"]').change(decideShowType);
     });
