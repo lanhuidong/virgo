@@ -221,6 +221,8 @@ function drawPie(data){
     if(data.length > 0){
         var incomeTags={};
         var payTags={}
+        var day = data[0]['date'];
+        var title = day.substring(0,4)+'年'+day.substring(5,7)+'月';
         for(var i in data){
             var items = data[i]['items'];
             for(var j in items){
@@ -251,6 +253,10 @@ function drawPie(data){
             i++;
         }
         var incomeOption = {
+            title : {
+                text: title+'收入',
+                x:'center'
+            },
             legend: {
                 orient:'vertical',
                 x:'left',
@@ -290,6 +296,10 @@ function drawPie(data){
             i++;
         }
         var payOption = {
+            title : {
+                text: title+'支出',
+                x:'center'
+            },
             legend: {
                 orient:'vertical',
                 x:'left',
