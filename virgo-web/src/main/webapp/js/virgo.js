@@ -247,10 +247,22 @@ function drawPie(data){
         var incomeData = [];
         var i = 0;
         for(var tag in incomeTags){
-            incomeTagsArr[i]=tag;
             var obj = {value:incomeTags[tag],name:tag};
             incomeData[i]=obj;
             i++;
+        }
+        incomeData.sort(function(a,b){return b.value-a.value});
+        var otherIncome = 0;
+        for(var count in incomeData){
+            if(count > 5){
+                otherIncome += incomeData[count].value;
+            } else {
+                incomeTagsArr[count]=incomeData[count].name;
+            }
+        }
+        if(otherIncome>0){
+            incomeTagsArr[6]='其他';
+            incomeData[6]={value:otherIncome,name:'其他'};
         }
         var incomeOption = {
             title : {
@@ -279,7 +291,7 @@ function drawPie(data){
                     type:'pie',
                     radius : '55%',
                     center: ['50%', '50%'],
-                    data:incomeData
+                    data:incomeData.slice(0,incomeTagsArr.length)
                 }
             ]
         };
@@ -290,10 +302,22 @@ function drawPie(data){
         var payData = [];
         var i = 0;
         for(var tag in payTags){
-            payTagsArr[i]=tag;
             var obj = {value:payTags[tag],name:tag};
             payData[i]=obj;
             i++;
+        }
+        payData.sort(function(a,b){return b.value-a.value});
+        var otherPay = 0;
+        for(var count in payData){
+            if(count > 5){
+                otherPay += payData[count].value;
+            } else {
+                payTagsArr[count]=payData[count].name;
+            }
+        }
+        if(otherPay>0){
+            payTagsArr[6]='其他';
+            payData[6]={value:otherPay,name:'其他'};
         }
         var payOption = {
             title : {
@@ -322,7 +346,7 @@ function drawPie(data){
                     type:'pie',
                     radius : '55%',
                     center: ['50%', '50%'],
-                    data:payData
+                    data:payData.slice(0,payTagsArr.length)
                 }
             ]
         };
