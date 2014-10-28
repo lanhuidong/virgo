@@ -27,7 +27,7 @@ def commonslangVersion = '3.3.2'
 allprojects {
     apply plugin: 'java'
     group = 'com.virgo'
-    version = '2.0.1'
+    version = '2.2.1'
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
 }
