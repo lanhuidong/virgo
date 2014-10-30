@@ -210,13 +210,13 @@ function drawTable(data){
 }
 
 function drawPie(data){
-    if(incomePie){
-        incomePie.clear();
-        incomePie.dispose();
+    if(incomePieChart){
+        incomePieChart.clear();
+        incomePieChart.dispose();
     }
-    if(payPie){
-            payPie.clear();
-            payPie.dispose();
+    if(payPieChart){
+        payPieChart.clear();
+        payPieChart.dispose();
     }
     if(data.length > 0){
         var incomeTags={};
@@ -242,7 +242,7 @@ function drawPie(data){
                 }
             }
         }
-        incomePie=echarts.init(document.getElementById('incomePie'));
+        incomePieChart=echarts.init(document.getElementById('incomePie'));
         var incomeTagsArr = [];
         var incomeData = [];
         var i = 0;
@@ -295,9 +295,9 @@ function drawPie(data){
                 }
             ]
         };
-        incomePie.setOption(incomeOption);
+        incomePieChart.setOption(incomeOption);
 
-        payPie=echarts.init(document.getElementById('payPie'));
+        payPieChart=echarts.init(document.getElementById('payPie'));
         var payTagsArr = [];
         var payData = [];
         var i = 0;
@@ -350,18 +350,18 @@ function drawPie(data){
                 }
             ]
         };
-        payPie.setOption(payOption);
+        payPieChart.setOption(payOption);
     } else {
-        incomePie = echarts.init(document.getElementById('incomePie'));
-        incomePie.showLoading({
+        incomePieChart = echarts.init(document.getElementById('incomePie'));
+        incomePieChart.showLoading({
             text : '暂无数据',
             effect : 'dynamicLine',
             textStyle : {
                 fontSize : 30
             }
         });
-        payPie = echarts.init(document.getElementById('payPie'));
-        payPie.showLoading({
+        payPieChart = echarts.init(document.getElementById('payPie'));
+        payPieChart.showLoading({
             text : '暂无数据',
             effect : 'dynamicLine',
             textStyle : {

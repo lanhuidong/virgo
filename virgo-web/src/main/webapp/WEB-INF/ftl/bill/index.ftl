@@ -52,8 +52,8 @@
     <script type="text/javascript" src="/js/echarts-plain.js"></script>
     <script type="text/javascript">
     var myChart;
-    var incomePie;
-    var payPie;
+    var incomePieChart;
+    var payPieChart;
     $(function(){
         $('#chart').css({"width":$('#table').width()+"px"});
         $('#incomePie,#payPie').css({"width":$('#table').width()/2+"px"});
