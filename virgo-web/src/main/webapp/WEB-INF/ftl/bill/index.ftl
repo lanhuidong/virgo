@@ -56,7 +56,12 @@
     var payPieChart;
     $(function(){
         $('#chart').css({"width":$('#table').width()+"px"});
-        $('#incomePie,#payPie').css({"width":$('#table').width()/2+"px"});
+        var width = $('#table').width();
+        if(width < 800){
+            $('#incomePie,#payPie').css({"width":width+"px"});
+        } else {
+            $('#incomePie,#payPie').css({"width":width/2+"px"});
+        }
         $('header').find('li').removeClass('active');
         $('header').find('li:eq(2)').addClass('active');
         queryBill();
