@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         ads:adSize="BANNER"
-        ads:adUnitId="a1532512d7b3f8c"
+        ads:adUnitId="ca-app-pub-1574471489124243/7800678462"
         ads:loadAdOnCreate="true"
         ads:testDevices="TEST_EMULATOR"
         android:gravity="center" />
