@@ -116,16 +116,7 @@ public class BillAddActivity extends Activity {
                 billAddTask = new BillAddTask();
                 billAddTask.execute(dateString, itemString, moneyString, typeString, remarkString);
             }
-        });
-        
-//        back = (Button) findViewById(R.id.back);
-//        back.setOnClickListener(new OnClickListener() {
-//            
-//            @Override
-//            public void onClick(View v) {
-//                finish();
-//            }
-//        });
+        }); 
     }
 
     @Override
