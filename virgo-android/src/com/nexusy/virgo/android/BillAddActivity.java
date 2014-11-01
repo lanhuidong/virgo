@@ -38,6 +38,7 @@ public class BillAddActivity extends Activity {
     private EditText date;
     private EditText item;
     private EditText money;
+    private EditText remark;
     private RadioGroup type;
     private AtomicInteger lock = new AtomicInteger();
 
@@ -81,6 +82,7 @@ public class BillAddActivity extends Activity {
 
         item = (EditText) findViewById(R.id.item);
         money = (EditText) findViewById(R.id.money);
+        remark = (EditText) findViewById(R.id.remark);
         type = (RadioGroup) findViewById(R.id.type);
 
         add = (Button) findViewById(R.id.add);
@@ -101,6 +103,7 @@ public class BillAddActivity extends Activity {
                 if (moneyString == null || "".equals(moneyString)) {
                     Toast.makeText(BillAddActivity.this, R.string.moneyempty, Toast.LENGTH_SHORT).show();
                 }
+                String remarkString = remark.getText().toString().trim();
                 int id = type.getCheckedRadioButtonId();
                 String typeString;
                 if (id == R.id.pay) {
@@ -109,7 +112,7 @@ public class BillAddActivity extends Activity {
                     typeString = BillItemType.INCOME.toString();
                 }
                 billAddTask = new BillAddTask();
-                billAddTask.execute(dateString, itemString, moneyString, typeString);
+                billAddTask.execute(dateString, itemString, moneyString, typeString, remarkString);
             }
         });
         
@@ -185,6 +188,7 @@ public class BillAddActivity extends Activity {
             params.put("item", arg0[1]);
             params.put("money", arg0[2]);
             params.put("type", arg0[3]);
+            params.put("remark", arg0[4]);
             return new DataParser().parseHttpResponseToString(VirgoHttpClient.post(UrlConstants.ADD_BILL_URL, params));
         }
 
