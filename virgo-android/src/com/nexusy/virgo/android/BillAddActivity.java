@@ -15,6 +15,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -34,6 +35,8 @@ public class BillAddActivity extends Activity {
     private String TAG = BillAddActivity.class.getName();
 
     private BillAddTask billAddTask;
+    
+    private float x;
 
     private EditText date;
     private EditText item;
@@ -43,7 +46,6 @@ public class BillAddActivity extends Activity {
     private AtomicInteger lock = new AtomicInteger();
 
     private Button add;
-    private Button back;
 
     private DatePickerDialog dialog;
 
@@ -116,14 +118,14 @@ public class BillAddActivity extends Activity {
             }
         });
         
-        back = (Button) findViewById(R.id.back);
-        back.setOnClickListener(new OnClickListener() {
-            
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+//        back = (Button) findViewById(R.id.back);
+//        back.setOnClickListener(new OnClickListener() {
+//            
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
     }
 
     @Override
@@ -158,6 +160,24 @@ public class BillAddActivity extends Activity {
     protected void onStop() {
         super.onStop();
         Log.i(TAG, "onStop");
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+        case MotionEvent.ACTION_DOWN:
+            x = event.getX();
+            break;
+        case MotionEvent.ACTION_UP:
+            float tmp = event.getX();
+            if(tmp - x > 200){
+                finish();
+            }
+            break;
+        default:
+            break;
+        }
+        return super.onTouchEvent(event);
     }
 
     private class BillAddTask extends AsyncTask<String, Void, String> {
