@@ -11,21 +11,16 @@ import org.apache.http.HttpResponse;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
+import android.view.View.OnTouchListener;
 import android.widget.ExpandableListView;
-import android.widget.LinearLayout;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
 
@@ -40,23 +35,16 @@ import com.nexusy.virgo.android.model.BillItemType;
 public class MainActivity extends Activity {
 
     private String TAG = MainActivity.class.getName();
-
-    private Button add;
-    private Button query;
-    private LinearLayout queryPanel;
-    private LinearLayout addPanel;
-    private Button search;
-
-    private EditText from;
-    private EditText to;
+    
+    private Calendar from;
+    private Calendar to;
 
     private TextView totalIncomeTV;
     private TextView totalPayTV;
     private double totalIncome;
     private double totalPay;
 
-    private DatePickerDialog dialogFrom;
-    private DatePickerDialog dialogTo;
+    private float x;
 
     private Dialog loadingDialog;
 
@@ -80,112 +68,76 @@ public class MainActivity extends Activity {
         totalIncomeTV = (TextView) findViewById(R.id.total_income);
         totalPayTV = (TextView) findViewById(R.id.total_pay);
 
-        add = (Button) findViewById(R.id.add_button);
-        add.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, BillAddActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        queryPanel = (LinearLayout) findViewById(R.id.query_panel);
-        addPanel = (LinearLayout) findViewById(R.id.add_panel);
-
-        query = (Button) findViewById(R.id.query_button);
-        query.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                queryPanel.setVisibility(View.VISIBLE);
-                addPanel.setVisibility(View.GONE);
-            }
-        });
-
-        final Calendar cFrom = Calendar.getInstance();
-        final Calendar cTo = Calendar.getInstance();
-        cFrom.set(Calendar.DATE, 1);
-
-        from = (EditText) findViewById(R.id.from);
-        to = (EditText) findViewById(R.id.to);
-
-        from.setText(String.format("%1$tF", cFrom.getTime()));
-        to.setText(String.format("%1$tF", cTo.getTime()));
-
-        from.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                if (dialogFrom == null) {
-                    String[] fromString = from.getText().toString().split("-");
-                    dialogFrom = new DatePickerDialog(MainActivity.this, new OnDateSetListener() {
-
-                        @Override
-                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                            from.setText(year + "-" + String.format("%02d", (monthOfYear + 1)) + "-"
-                                    + String.format("%02d", dayOfMonth));
-                        }
-                    }, Integer.valueOf(fromString[0]), Integer.valueOf(fromString[1]) - 1, Integer
-                            .valueOf(fromString[2]));
-                }
-                dialogFrom.show();
-            }
-        });
-
-        to.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                if (dialogTo == null) {
-                    String[] toString = to.getText().toString().split("-");
-                    dialogTo = new DatePickerDialog(MainActivity.this, new OnDateSetListener() {
-
-                        @Override
-                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                            to.setText(year + "-" + String.format("%02d", (monthOfYear + 1)) + "-"
-                                    + String.format("%02d", dayOfMonth));
-                        }
-                    }, Integer.valueOf(toString[0]), Integer.valueOf(toString[1]) - 1, Integer.valueOf(toString[2]));
-                }
-                dialogTo.show();
-            }
-        });
-
-        search = (Button) findViewById(R.id.search);
-        search.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                queryPanel.setVisibility(View.GONE);
-                addPanel.setVisibility(View.VISIBLE);
-                String fromDate = from.getText().toString();
-                String toDate = to.getText().toString();
-                loadingDialog = new Dialog(MainActivity.this, R.style.dialog);
-                loadingDialog.setContentView(R.layout.loading_dialog);
-                TextView tv = (TextView) loadingDialog.findViewById(R.id.dialog_content);
-                tv.setText(R.string.loading);
-                loadingDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-                loadingDialog.setCanceledOnTouchOutside(false);
-                loadingDialog.show();
-                new QueryBillTask().execute(fromDate, toDate);
-            }
-        });
-
         elv = (ExpandableListView) findViewById(R.id.bills);
         adapter = new BillAdapter(MainActivity.this, billsMap, R.layout.bills,
                 new String[] { "date", "income", "pay" },
                 new int[] { R.id.bill_date, R.id.bill_income, R.id.bill_pay }, billMap, R.layout.bill, new String[] {
                         "item", "money" }, new int[] { R.id.bill_item, R.id.bill_money });
         elv.setAdapter(adapter);
+        elv.setOnTouchListener(new OnTouchListener() {
+            
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                boolean result = false;
+                switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    x = event.getX();
+                    break;
+                case MotionEvent.ACTION_UP:
+                    float tmp = event.getX();
+                    if(x - tmp > 200){
+                        from.add(Calendar.MONTH, 1);
+                        to.set(Calendar.DATE, 1);
+                        to.add(Calendar.MONTH, 2);    
+                        to.add(Calendar.DATE, -1);
+                        String fromString = String.format("%1$tF", from.getTime());
+                        String toString = String.format("%1$tF", to.getTime());
+                        loadingDialog = new Dialog(MainActivity.this, R.style.dialog);
+                        loadingDialog.setContentView(R.layout.loading_dialog);
+                        TextView tv = (TextView) loadingDialog.findViewById(R.id.dialog_content);
+                        tv.setText(R.string.loading);
+                        loadingDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                        loadingDialog.setCanceledOnTouchOutside(false);
+                        loadingDialog.show();
+                        new QueryBillTask().execute(fromString, toString);
+                        result = true;
+                    } else if(tmp -x > 200){
+                        from.add(Calendar.MONTH, -1);
+                        to.set(Calendar.DATE, 1); 
+                        to.add(Calendar.DATE, -1);             
+                        String fromString = String.format("%1$tF", from.getTime());
+                        String toString = String.format("%1$tF", to.getTime());
+                        loadingDialog = new Dialog(MainActivity.this, R.style.dialog);
+                        loadingDialog.setContentView(R.layout.loading_dialog);
+                        TextView tv = (TextView) loadingDialog.findViewById(R.id.dialog_content);
+                        tv.setText(R.string.loading);
+                        loadingDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                        loadingDialog.setCanceledOnTouchOutside(false);
+                        loadingDialog.show();
+                        new QueryBillTask().execute(fromString, toString);
+                        result = true;
+                    }
+                    break;
+                default:
+                    break;
+                }
+                return result;
+            }
+        });
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         Log.i(TAG, "onStart");
-        String fromDate = from.getText().toString();
-        String toDate = to.getText().toString();
+        from = Calendar.getInstance();
+        from.set(Calendar.DATE, 1);
+        to = Calendar.getInstance();
+        to.set(Calendar.DATE, 1);
+        to.set(Calendar.MONTH, to.get(Calendar.MONTH)+1);
+        to.add(Calendar.DATE, -1);
+        String fromString = String.format("%1$tF", from.getTime());
+        String toString = String.format("%1$tF", to.getTime());
         loadingDialog = new Dialog(MainActivity.this, R.style.dialog);
         loadingDialog.setContentView(R.layout.loading_dialog);
         TextView tv = (TextView) loadingDialog.findViewById(R.id.dialog_content);
@@ -193,7 +145,7 @@ public class MainActivity extends Activity {
         loadingDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         loadingDialog.setCanceledOnTouchOutside(false);
         loadingDialog.show();
-        new QueryBillTask().execute(fromDate, toDate);
+        new QueryBillTask().execute(fromString, toString);
     }
 
     @Override
@@ -222,6 +174,39 @@ public class MainActivity extends Activity {
     protected void onStop() {
         super.onStop();
         Log.i(TAG, "onStop");
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+        case MotionEvent.ACTION_DOWN:
+            x = event.getY();
+            break;
+        case MotionEvent.ACTION_UP:
+            float tmp = event.getY();
+            if(x - tmp > 200){
+                from.set(Calendar.MONTH, from.get(Calendar.MONTH)-1);
+                to.set(Calendar.MONTH, to.get(Calendar.MONTH)-1);                
+            } else if(tmp -x > 200){
+                from.set(Calendar.MONTH, from.get(Calendar.MONTH)+1);
+                to.set(Calendar.MONTH, to.get(Calendar.MONTH)+1);                
+            }
+            String fromString = String.format("%1$tF", from.getTime());
+            String toString = String.format("%1$tF", to.getTime());
+            loadingDialog = new Dialog(MainActivity.this, R.style.dialog);
+            loadingDialog.setContentView(R.layout.loading_dialog);
+            TextView tv = (TextView) loadingDialog.findViewById(R.id.dialog_content);
+            tv.setText(R.string.loading);
+            loadingDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            loadingDialog.setCanceledOnTouchOutside(false);
+            loadingDialog.show();
+            System.out.println(fromString+"-"+toString);
+            new QueryBillTask().execute(fromString, toString);
+            break;
+        default:
+            break;
+        }
+        return super.onTouchEvent(event);
     }
 
     private class QueryBillTask extends AsyncTask<String, Void, Boolean> {

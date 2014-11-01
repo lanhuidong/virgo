@@ -5,82 +5,6 @@
     tools:context=".MainActivity" >
 
     <LinearLayout
-        android:id="@+id/header"
-        android:layout_width="match_parent"
-        android:layout_height="47dip"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/border"
-        android:orientation="horizontal"
-        android:gravity="center_vertical" >
-
-        <LinearLayout
-            android:id="@+id/add_panel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="visible" >
-
-            <Button
-                android:id="@+id/add_button"
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:gravity="center"
-                android:text="@string/add" />
-
-            <TextView
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/app_name"
-                android:textSize="20sp" />
-
-            <Button
-                android:id="@+id/query_button"
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:gravity="center"
-                android:text="@string/query" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/query_panel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone" >
-
-            <EditText
-                android:id="@+id/from"
-                android:layout_width="0dip"
-                android:layout_height="40dip"
-                android:layout_weight="2"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:inputType="date" />
-
-            <EditText
-                android:id="@+id/to"
-                android:layout_width="0dip"
-                android:layout_height="40dip"
-                android:layout_weight="2"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:inputType="date" />
-
-            <Button
-                android:id="@+id/search"
-                android:layout_width="0dip"
-                android:layout_height="40dip"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/query" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/footer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -134,7 +58,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/footer"
-        android:layout_below="@id/header"
         android:background="@android:color/background_light"
         android:groupIndicator="@android:color/transparent"
         android:paddingLeft="@dimen/activity_horizontal_margin"
