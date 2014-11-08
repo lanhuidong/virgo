@@ -247,7 +247,7 @@ function drawPie(data){
         var incomeData = [];
         var i = 0;
         for(var tag in incomeTags){
-            var obj = {value:incomeTags[tag],name:tag};
+            var obj = {value:incomeTags[tag].toFixed(2),name:tag};
             incomeData[i]=obj;
             i++;
         }
@@ -262,7 +262,7 @@ function drawPie(data){
         }
         if(otherIncome>0){
             incomeTagsArr[6]='其他';
-            incomeData[6]={value:otherIncome,name:'其他'};
+            incomeData[6]={value:otherIncome.toFixed(2),name:'其他'};
         }
         var incomeOption = {
             title : {
@@ -302,7 +302,7 @@ function drawPie(data){
         var payData = [];
         var i = 0;
         for(var tag in payTags){
-            var obj = {value:payTags[tag],name:tag};
+            var obj = {value:payTags[tag].toFixed(2),name:tag};
             payData[i]=obj;
             i++;
         }
@@ -317,7 +317,7 @@ function drawPie(data){
         }
         if(otherPay>0){
             payTagsArr[6]='其他';
-            payData[6]={value:otherPay,name:'其他'};
+            payData[6]={value:otherPay.toFixed(2),name:'其他'};
         }
         var payOption = {
             title : {

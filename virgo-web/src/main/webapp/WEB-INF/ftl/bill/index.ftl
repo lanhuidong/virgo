@@ -23,7 +23,7 @@
             <input type="radio" name="style" value="table" checked="checked" /> 表格
         </label>
         <label class="radio-inline">
-            <input type="radio" name="style" value="chart" /> 折线表
+            <input type="radio" name="style" value="chart" /> 折线图
         </label>
         <label class="radio-inline">
             <input type="radio" name="style" value="pie" /> 饼图
