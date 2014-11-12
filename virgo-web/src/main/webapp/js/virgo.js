@@ -255,7 +255,7 @@ function drawPie(data){
         var otherIncome = 0;
         for(var count in incomeData){
             if(count > 5){
-                otherIncome += incomeData[count].value;
+                otherIncome += parseFloat(incomeData[count].value);
             } else {
                 incomeTagsArr[count]=incomeData[count].name;
             }
@@ -310,7 +310,7 @@ function drawPie(data){
         var otherPay = 0;
         for(var count in payData){
             if(count > 5){
-                otherPay += payData[count].value;
+                otherPay += parseFloat(payData[count].value);
             } else {
                 payTagsArr[count]=payData[count].name;
             }
