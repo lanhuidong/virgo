@@ -135,7 +135,7 @@ function queryBill(){
     var month = $('#month').val();
     var from = year+'-'+month+'-01';
     var newnew_date = new Date(year,month,1);
-    var days = (new Date(newnew_date.getTime()-1000*60*60*24)).getDate();
+    var days = new Date(newnew_date.getTime()-1000*60*60*24).getDate();
     var to = year+'-'+month+'-'+days;
     var params = 'from='+from+'&to='+to;
     $.post('/api/bill', params, function(data){
@@ -290,7 +290,7 @@ function drawPie(data){
                     name:'收入',
                     type:'pie',
                     radius : '55%',
-                    center: ['50%', '50%'],
+                    center: ['50%', '60%'],
                     data:incomeData.slice(0,incomeTagsArr.length)
                 }
             ]
@@ -345,7 +345,7 @@ function drawPie(data){
                     name:'支出',
                     type:'pie',
                     radius : '55%',
-                    center: ['50%', '50%'],
+                    center: ['50%', '60%'],
                     data:payData.slice(0,payTagsArr.length)
                 }
             ]
@@ -396,9 +396,9 @@ function drawChart(result){
             for(var j in items){
                 var item = items[j];
                 if(item['type']=='PAY'){
-                    payData[i] += parseFloat(item['money']);
+                    payData[i] += item['money'];
                 } else {
-                    incomeData[i] += parseFloat(item['money']);
+                    incomeData[i] += item['money'];
                 }
             }
             if(incomeData[i] > maxIn){
@@ -407,7 +407,8 @@ function drawChart(result){
             if(payData[i] > maxPay){
                 maxPay = payData[i];
             }
-            payData[i]=-payData[i];
+            incomeData[i]=incomeData[i].toFixed(2);
+            payData[i]=(-payData[i]).toFixed(2);
 
         }
         var x = 45;
@@ -455,7 +456,7 @@ function drawChart(result){
                     formatter: function(v) {
                         return v[0][1] + '<br/>'
                                + v[0][0] + ' : ' + v[0][2] + '元<br/>'
-                               + v[1][0] + ' : ' + v[1][2] + '元';
+                               + v[1][0] + ' : ' + (-v[1][2]).toFixed(2) + '元';
                     }
                 },
                 calculable:true,
