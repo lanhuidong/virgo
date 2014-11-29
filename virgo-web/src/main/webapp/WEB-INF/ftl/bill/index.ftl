@@ -2,20 +2,16 @@
     <div class="row">
         <form role="form" id="query-form" class="form-horizontal" action="/bill" method="post">
             <div class="form-group">
-                <div class="col-xs-4 col-sm-2">
-                    <select id="year" name="year" class="form-control input-sm">
+                    <select id="year" name="year" class="form-control input-sm pull-left" style="width:89px;margin-left:15px">
                         <#list years as y>
                             <option value="${y}" <#if y=year>selected="selected"</#if>>${y}年</option>
                         </#list>
                     </select>
-                </div>
-                <div class="col-xs-4 col-sm-1">
-                    <select id="month" name="month" class="form-control input-sm">
+                    <select id="month" name="month" class="form-control input-sm pull-left" style="width:72px;margin-left:5px">
                         <#list 1..12 as m>
                             <option value="${m}" <#if m=month>selected="selected"</#if>>${m}月</option>
                         </#list>
                     </select>
-                </div>
             </div>
         </form>
         <label>类型：</label>
