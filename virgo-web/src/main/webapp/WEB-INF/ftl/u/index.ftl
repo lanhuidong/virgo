@@ -1,7 +1,7 @@
 <@c.html title="${user.username}的主页-记账本">
     <div class="row">
         <div class="col-xs-3 text-center">
-            <img src="/img/xxx.jpg" class="img-rounded" width="100" height="100" />
+            <img src="/img/avatar.png" class="img-rounded" width="100" height="100" />
             <div class="center-block">${user.username}</div>
         </div>
         <div class="col-xs-9">
