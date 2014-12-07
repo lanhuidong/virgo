@@ -1,4 +1,4 @@
-<@c.html title="${user.username}的主页-记账本">
+<@c.html title="${user.username}的主页-记账本" init="initUserIndex">
     <div class="row">
         <div class="col-xs-3 text-center">
             <img src="/img/avatar.png" class="img-rounded" width="100" height="100" />
@@ -61,12 +61,4 @@
             </form>
         </div>
     </div>
-    <script type="text/javascript">
-    $(function(){
-        $('header').find('li').removeClass('active');
-        $('header').find('li:eq(1)').addClass('active');
-        $('#edit').click(editProfile);
-        $('#modify').click(modifyPassword);
-    });
-    </script>
 </@c.html>

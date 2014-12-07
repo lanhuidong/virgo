@@ -1,4 +1,4 @@
-<@c.html title="添加任务-记事本">
+<@c.html title="添加任务-记事本" init="initTodoAdd">
     <div class="row">
         <form id="todo-form" class="form-horizontal" role="form" method="post" action="/todo/add">
             <div class="form-group">
@@ -33,12 +33,4 @@
             </div>
         </form>
     </div>
-    <script type="text/javascript">
-    $(function(){
-        $('header').find('li').removeClass('active');
-        $('header').find('li:eq(5)').addClass('active');
-        $('#addTodo').click(addTodo);
-        $('.datepicker').datepicker();
-    });
-    </script>
 </@c.html>

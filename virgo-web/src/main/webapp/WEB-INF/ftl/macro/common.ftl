@@ -1,4 +1,4 @@
-<#macro html title>
+<#macro html title init>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,11 +8,6 @@
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="/css/bootstrap-theme.min.css" />
     <link rel="stylesheet" type="text/css" href="/css/virgo.css" />
-    <script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="/js/jquery-ui-1.10.3.custom.min.js"></script>
-    <script type="text/javascript" src="/js/jquery.ui.datepicker-zh-CN.js"></script>
-    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/js/virgo.js"></script>
 </head>
 
 <body>
@@ -103,6 +98,16 @@
     </div>
     <div class="container text-center">&copy;2013-${.now?string('yyyy')}&nbsp;&nbsp;Lan.&nbsp;&nbsp;All rights reserved.&nbsp;&nbsp;v2.2.1</div>
     <div class="virgo-tip"><span></span></div>
+    <script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.ui.datepicker-zh-CN.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/virgo.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            ${init}();
+        });
+    </script>
 </body>
 </html>
 </#macro>

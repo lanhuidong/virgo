@@ -9,6 +9,59 @@ $(function(){
     });
 });
 
+function initIndex(){
+    $('header').find('li').removeClass('active');
+    $('header').find('li:eq(0)').addClass('active');
+    $('#sign-btn').click(signup);
+    $('#login-form').submit(login);
+    $('#regusername').blur(validateUsername);
+    $('#regpassword').blur(validatePassword);
+}
+
+function initUserIndex(){
+    $('header').find('li').removeClass('active');
+    $('header').find('li:eq(1)').addClass('active');
+    $('#edit').click(editProfile);
+    $('#modify').click(modifyPassword);
+}
+
+function initBillIndex(){
+    $('#chart').css({"width":$('#table').width()+"px"});
+    var width = $('#table').width();
+    if(width < 800){
+        $('#incomePie,#payPie').css({"width":width+"px"});
+    } else {
+        $('#incomePie,#payPie').css({"width":width/2+"px"});
+    }
+    $('header').find('li').removeClass('active');
+    $('header').find('li:eq(2)').addClass('active');
+    queryBill();
+    $('#month').change(queryBill);
+    $('#year').change(queryBill);
+    decideShowType();
+    $('input[name="style"]').change(decideShowType);
+}
+
+function initBillAdd(){
+    $('header').find('li').removeClass('active');
+    $('header').find('li:eq(3)').addClass('active');
+    $('#addBill').click(addBill);
+    $('.datepicker').datepicker();
+}
+
+function initTodoAdd(){
+    $('header').find('li').removeClass('active');
+    $('header').find('li:eq(5)').addClass('active');
+    $('#addTodo').click(addTodo);
+    $('.datepicker').datepicker();
+}
+
+function initTodoIndex(){
+    $('header').find('li').removeClass('active');
+    $('header').find('li:eq(4)').addClass('active');
+    queryTodos();
+}
+
 //首页
 function validateUsername(event, uncheck){
     var result = true;

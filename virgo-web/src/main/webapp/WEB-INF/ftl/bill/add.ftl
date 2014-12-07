@@ -1,4 +1,4 @@
-<@c.html title="记账-记账本">
+<@c.html title="记账-记账本" init="initBillAdd">
     <div class="row">
         <form id="bill-form" class="form-horizontal" role="form" method="post" action="/bill/add">
             <div class="form-group">
@@ -45,12 +45,4 @@
             </div>
         </form>
     </div>
-    <script type="text/javascript">
-    $(function(){
-        $('header').find('li').removeClass('active');
-        $('header').find('li:eq(3)').addClass('active');
-        $('#addBill').click(addBill);
-        $('.datepicker').datepicker();
-    });
-    </script>
 </@c.html>

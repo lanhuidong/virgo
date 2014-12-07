@@ -1,4 +1,4 @@
-<@c.html title="我的账本-记账本">
+<@c.html title="我的账本-记账本" init="initBillIndex">
     <div class="row">
         <form role="form" id="query-form" class="form-horizontal" action="/bill" method="post">
             <div class="form-group">
@@ -50,21 +50,5 @@
     var myChart;
     var incomePieChart;
     var payPieChart;
-    $(function(){
-        $('#chart').css({"width":$('#table').width()+"px"});
-        var width = $('#table').width();
-        if(width < 800){
-            $('#incomePie,#payPie').css({"width":width+"px"});
-        } else {
-            $('#incomePie,#payPie').css({"width":width/2+"px"});
-        }
-        $('header').find('li').removeClass('active');
-        $('header').find('li:eq(2)').addClass('active');
-        queryBill();
-        $('#month').change(queryBill);
-        $('#year').change(queryBill);
-        decideShowType();
-        $('input[name="style"]').change(decideShowType);
-    });
     </script>
 </@c.html>
