@@ -4,11 +4,70 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity" >
 
+    <RelativeLayout
+        android:id="@+id/billTitleBar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/title_bar_bg"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/app_name"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/nav"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/title_bar_bg"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/bill"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/bill"
+            android:textColor="@android:color/holo_orange_light"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/add"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" 
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/add"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/user"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/user"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"  />
+    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/footer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@id/nav"
         android:background="@android:color/background_light"
         android:gravity="center_vertical"
         android:orientation="horizontal"
@@ -58,6 +117,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/footer"
+        android:layout_below="@id/billTitleBar"
         android:background="@android:color/background_light"
         android:groupIndicator="@android:color/transparent"
         android:paddingLeft="@dimen/activity_horizontal_margin"
