@@ -155,6 +155,7 @@ public class MainActivity extends Activity {
             VirgoApplication app = (VirgoApplication) getApplication();
             app.addActivity(this);
         }
+        loadingDialog.dismiss();
         Log.i(TAG, "onDestroy");
     }
 

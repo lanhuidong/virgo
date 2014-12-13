@@ -142,6 +142,12 @@ public class LoginActivity extends Activity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dialog.dismiss();
+    }
+
     private class LoginTask extends AsyncTask<String, Void, String> {
 
         @Override

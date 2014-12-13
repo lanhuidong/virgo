@@ -30,7 +30,7 @@
     <string name="moneyempty">金额不能为空</string>
     <string name="adding">正在添加，请稍后……</string>
     <string name="loading">数据加载中，请稍后……</string>
-    <string name="web">网页版-https://bill.nexusy.com</string>
+    <string name="web">网页版-http://bill.nexusy.com</string>
     <string name="copyright">&#169;2014- lan ALl Rights Reserved.</string>
 
 </resources>
