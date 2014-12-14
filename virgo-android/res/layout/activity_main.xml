@@ -5,7 +5,7 @@
     tools:context=".MainActivity" >
 
     <RelativeLayout
-        android:id="@+id/billTitleBar"
+        android:id="@+id/title_bar"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_alignParentTop="true"
@@ -30,7 +30,7 @@
         android:orientation="horizontal" >
 
         <TextView
-            android:id="@+id/bill"
+            android:id="@+id/menu_bill"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -41,7 +41,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/add"
+            android:id="@+id/menu_add"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1" 
@@ -52,7 +52,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/user"
+            android:id="@+id/menu_user"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -117,7 +117,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/footer"
-        android:layout_below="@id/billTitleBar"
+        android:layout_below="@id/title_bar"
         android:background="@android:color/background_light"
         android:groupIndicator="@android:color/transparent"
         android:paddingLeft="@dimen/activity_horizontal_margin"

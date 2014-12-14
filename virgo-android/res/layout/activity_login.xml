@@ -7,7 +7,7 @@
     tools:context=".LoginActivity" >
 
     <RelativeLayout
-        android:id="@+id/loginTitleBar"
+        android:id="@+id/title_bar"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_alignParentTop="true"
@@ -27,7 +27,7 @@
         android:id="@+id/adView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/loginTitleBar"
+        android:layout_below="@id/title_bar"
         ads:adSize="BANNER"
         ads:adUnitId="ca-app-pub-1574471489124243/7800678462"
         ads:loadAdOnCreate="true"
