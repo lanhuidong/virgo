@@ -9,7 +9,6 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -144,10 +143,6 @@ public class LoginActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-            VirgoApplication app = (VirgoApplication) getApplication();
-            app.clear();
-        }
     }
 
     @Override
@@ -184,6 +179,8 @@ public class LoginActivity extends Activity {
                     editor.commit();
                 }
                 Intent intent = new Intent(LoginActivity.this, ListActivity.class);
+                VirgoApplication app = (VirgoApplication) getApplication();
+                app.setUsername(usernameEditText.getText().toString().trim());
                 finish();
                 startActivity(intent);
             } else {

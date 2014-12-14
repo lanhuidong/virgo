@@ -27,6 +27,8 @@ public class UserActivity extends Activity {
 
     private EditText oldPasswordEt;
     private EditText newPasswordEt;
+    
+    private TextView accountTv;
 
     private Button modifyBtn;
 
@@ -36,7 +38,10 @@ public class UserActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-
+        
+        VirgoApplication app = (VirgoApplication) getApplication();
+        accountTv = (TextView) findViewById(R.id.account);
+        accountTv.setText(app.getUsername());
         menuList = (TextView) findViewById(R.id.menu_list);
         menuList.setOnClickListener(new OnClickListener() {
 
