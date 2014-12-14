@@ -72,6 +72,7 @@ public class UserActivity extends Activity {
                     return;
                 }
                 if (newPassword.length() < 6 || newPassword.length() > 20) {
+                    Toast.makeText(UserActivity.this, R.string.password_length, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 dialog = new Dialog(UserActivity.this, R.style.dialog);

@@ -25,6 +25,7 @@ import com.nexusy.virgo.android.http.DataParser;
 import com.nexusy.virgo.android.http.UrlConstants;
 import com.nexusy.virgo.android.http.VirgoHttpClient;
 import com.nexusy.virgo.android.util.NetworkUtil;
+import com.nexusy.virgo.android.util.StringUtils;
 
 public class LoginActivity extends Activity {
 
@@ -55,11 +56,11 @@ public class LoginActivity extends Activity {
             public void onClick(View v) {
                 String username = usernameEditText.getText().toString().trim();
                 String password = passwordEditText.getText().toString().trim();
-                if (username == null || "".equals(username)) {
+                if (StringUtils.isBlank(username)) {
                     Toast.makeText(LoginActivity.this, R.string.username, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (password == null || "".equals(password)) {
+                if (StringUtils.isBlank(password)) {
                     Toast.makeText(LoginActivity.this, R.string.password, Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -93,6 +94,14 @@ public class LoginActivity extends Activity {
                     Toast.makeText(LoginActivity.this, R.string.password, Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if (username.length() < 4 || username.length() > 20) {
+                    Toast.makeText(LoginActivity.this, R.string.username_length, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(password.length() < 6 || password.length() > 20){
+                    Toast.makeText(LoginActivity.this, R.string.password_length, Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (!NetworkUtil.isConnected(LoginActivity.this)) {
                     Toast.makeText(LoginActivity.this, R.string.networkunavailable, Toast.LENGTH_SHORT).show();
                     return;
@@ -111,16 +120,15 @@ public class LoginActivity extends Activity {
         usernameEditText = (EditText) findViewById(R.id.username);
         passwordEditText = (EditText) findViewById(R.id.password);
         remember = (CheckBox) findViewById(R.id.remember);
-        
+
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         String username = prefs.getString("username", "");
         String password = prefs.getString("password", "");
-        if(!"".equals(username)&&  !"".equals(password)){
+        if (!"".equals(username) && !"".equals(password)) {
             usernameEditText.setText(username);
             passwordEditText.setText(password);
             remember.setChecked(true);
         }
-
 
         copyright = (TextView) findViewById(R.id.copyright);
         String cr = copyright.getText().toString();
