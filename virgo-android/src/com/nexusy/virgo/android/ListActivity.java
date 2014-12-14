@@ -69,6 +69,7 @@ public class ListActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ListActivity.this, BillActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
             }
         });
@@ -78,6 +79,7 @@ public class ListActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ListActivity.this, UserActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
             }
         });

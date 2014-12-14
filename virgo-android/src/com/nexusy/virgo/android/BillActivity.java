@@ -62,6 +62,7 @@ public class BillActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(BillActivity.this, ListActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
             }
         });
@@ -71,6 +72,7 @@ public class BillActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(BillActivity.this, UserActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
             }
         });
