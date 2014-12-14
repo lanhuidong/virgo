@@ -2,6 +2,10 @@
 <resources>
 
     <string name="app_name">记账本</string>
+    <string name="version">账本 - V2.0.0</string>
+    <string name="copyright">&#169;2014- lan ALl Rights Reserved.</string>
+    <string name="web">网页版-http://bill.nexusy.com</string>
+    
     <string name="username">请输入用户名</string>
     <string name="password">请输入密码</string>
     <string name="username_length">用户名必须在4&#8211;20个字符之间</string>
@@ -33,8 +37,6 @@
     <string name="moneyempty">金额不能为空</string>
     <string name="adding">正在添加，请稍后……</string>
     <string name="loading">数据加载中，请稍后……</string>
-    <string name="web">网页版-http://bill.nexusy.com</string>
-    <string name="copyright">&#169;2014- lan ALl Rights Reserved.</string>
     <string name="old_password">旧密码</string>
     <string name="new_password">新密码</string>
     <string name="account">用户名</string>

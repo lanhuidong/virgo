@@ -70,23 +70,29 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/title_bar"
         android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:textSize="18sp" />
 
     <EditText
         android:id="@+id/old_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/account"
         android:hint="@string/old_password"
         android:inputType="textPassword"
-        android:layout_below="@id/account" />
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin" />
 
     <EditText
         android:id="@+id/new_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/old_password"
         android:hint="@string/new_password"
         android:inputType="textPassword"
-        android:layout_below="@id/old_password" />
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin" />
 
     <Button
         android:id="@+id/modify"

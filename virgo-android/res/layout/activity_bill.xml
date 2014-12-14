@@ -68,7 +68,9 @@
         android:id="@+id/item1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/title_bar" >
+        android:layout_below="@id/title_bar"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin" >
 
         <TextView
             android:layout_width="0dip"
@@ -81,7 +83,7 @@
             android:id="@+id/date"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:focusable="false"
             android:focusableInTouchMode="false"
             android:inputType="date" />
@@ -91,20 +93,24 @@
         android:id="@+id/item2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/item1" >
+        android:layout_below="@id/item1"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin" >
 
         <TextView
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
             android:text="@string/item" />
 
         <EditText
             android:id="@+id/item"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:inputType="text" />
     </LinearLayout>
 
@@ -112,7 +118,9 @@
         android:id="@+id/item3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/item2" >
+        android:layout_below="@id/item2"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin" >
 
         <TextView
             android:layout_width="0dip"
@@ -125,7 +133,7 @@
             android:id="@+id/money"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:inputType="numberDecimal" />
     </LinearLayout>
 
@@ -133,7 +141,9 @@
         android:id="@+id/item4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/item3" >
+        android:layout_below="@id/item3"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin" >
 
         <TextView
             android:layout_width="0dip"
@@ -146,7 +156,7 @@
             android:id="@+id/remark"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:inputType="text" />
     </LinearLayout>
 
@@ -155,7 +165,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/item4"
-        android:layout_gravity="center" >
+        android:layout_gravity="center"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin" >
 
         <TextView
             android:layout_width="0dip"
@@ -168,7 +180,7 @@
             android:id="@+id/type"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:checkedButton="@+id/pay"
             android:orientation="horizontal" >
 
