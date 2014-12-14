@@ -181,11 +181,6 @@ public class BillActivity extends Activity {
 
         @Override
         protected String doInBackground(String... arg0) {
-            try {
-                Thread.sleep(1000*5);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             Map<String, String> params = new HashMap<String, String>();
             params.put("date", arg0[0]);
             params.put("item", arg0[1]);

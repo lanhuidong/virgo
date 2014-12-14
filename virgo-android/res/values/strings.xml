@@ -39,5 +39,8 @@
     <string name="modify">修改</string>
     <string name="last_month">上月</string>
     <string name="next_month">下月</string>
+    <string name="modifying">正在修改密码，请稍候…</string>
+    <string name="modify_password_success">修改密码成功</string>
+    <string name="modify_password_fail">修改密码失败</string>
 
 </resources>
