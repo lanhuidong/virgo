@@ -37,8 +37,7 @@
     <string name="new_password">新密码</string>
     <string name="account">用户名</string>
     <string name="modify">修改</string>
-    <string name="title_activity_user">UserActivity</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="last_month">上月</string>
+    <string name="next_month">下月</string>
 
 </resources>

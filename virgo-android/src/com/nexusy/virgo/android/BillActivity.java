@@ -12,10 +12,8 @@ import android.app.Dialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -33,10 +31,11 @@ import com.nexusy.virgo.android.model.BillItemType;
 public class BillActivity extends Activity {
 
     private String TAG = BillActivity.class.getName();
+    
+    private TextView menuList;
+    private TextView menuUser;
 
     private BillAddTask billAddTask;
-    
-    private float x;
 
     private EditText date;
     private EditText item;
@@ -56,10 +55,25 @@ public class BillActivity extends Activity {
         super.onCreate(savedInstanceState);
         Log.i(TAG, "onCreate");
         setContentView(R.layout.activity_bill);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-            VirgoApplication app = (VirgoApplication) getApplication();
-            app.addActivity(this);
-        }
+        
+        menuList = (TextView) findViewById(R.id.menu_list);
+        menuList.setOnClickListener(new OnClickListener() {
+            
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BillActivity.this, ListActivity.class);
+                startActivity(intent);
+            }
+        });
+        menuUser = (TextView) findViewById(R.id.menu_user);
+        menuUser.setOnClickListener(new OnClickListener() {
+            
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BillActivity.this, UserActivity.class);
+                startActivity(intent);
+            }
+        });
 
         date = (EditText) findViewById(R.id.date);
         final Calendar c = Calendar.getInstance();
@@ -122,10 +136,6 @@ public class BillActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-            VirgoApplication app = (VirgoApplication) getApplication();
-            app.removeActivity(this);
-        }
         Log.i(TAG, "onDestroy");
     }
 
@@ -151,24 +161,6 @@ public class BillActivity extends Activity {
     protected void onStop() {
         super.onStop();
         Log.i(TAG, "onStop");
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()) {
-        case MotionEvent.ACTION_DOWN:
-            x = event.getX();
-            break;
-        case MotionEvent.ACTION_UP:
-            float tmp = event.getX();
-            if(tmp - x > 200){
-                finish();
-            }
-            break;
-        default:
-            break;
-        }
-        return super.onTouchEvent(event);
     }
 
     private class BillAddTask extends AsyncTask<String, Void, String> {
@@ -210,9 +202,6 @@ public class BillActivity extends Activity {
             lock.compareAndSet(1, 0);
             if ("timeout".equals(result)) {
                 Intent intent = new Intent(BillActivity.this, LoginActivity.class);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                }
                 startActivity(intent);
                 return;
             }

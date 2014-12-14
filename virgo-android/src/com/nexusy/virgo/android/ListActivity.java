@@ -9,17 +9,15 @@ import java.util.Map;
 
 import org.apache.http.HttpResponse;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
@@ -38,13 +36,17 @@ public class ListActivity extends Activity {
     
     private Calendar from;
     private Calendar to;
+    
+    private Button prevBtn;
+    private Button nextBtn;
+    
+    private TextView menuBill;
+    private TextView menuUser;
 
     private TextView totalIncomeTV;
     private TextView totalPayTV;
     private double totalIncome;
     private double totalPay;
-
-    private float x;
 
     private Dialog loadingDialog;
 
@@ -60,10 +62,67 @@ public class ListActivity extends Activity {
         super.onCreate(savedInstanceState);
         Log.i(TAG, "onCreate");
         setContentView(R.layout.activity_list);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-            VirgoApplication app = (VirgoApplication) getApplication();
-            app.addActivity(this);
-        }
+        
+        menuBill = (TextView) findViewById(R.id.menu_bill);
+        menuBill.setOnClickListener(new OnClickListener() {
+            
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ListActivity.this, BillActivity.class);
+                startActivity(intent);
+            }
+        });
+        menuUser = (TextView) findViewById(R.id.menu_user);
+        menuUser.setOnClickListener(new OnClickListener() {
+            
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ListActivity.this, UserActivity.class);
+                startActivity(intent);
+            }
+        });
+       
+        prevBtn = (Button) findViewById(R.id.prev_btn);
+        prevBtn.setOnClickListener(new OnClickListener() {
+            
+            @Override
+            public void onClick(View v) {
+                from.add(Calendar.MONTH, -1);
+                to.set(Calendar.DATE, 1); 
+                to.add(Calendar.DATE, -1);             
+                String fromString = String.format("%1$tF", from.getTime());
+                String toString = String.format("%1$tF", to.getTime());
+                loadingDialog = new Dialog(ListActivity.this, R.style.dialog);
+                loadingDialog.setContentView(R.layout.loading_dialog);
+                TextView tv = (TextView) loadingDialog.findViewById(R.id.dialog_content);
+                tv.setText(R.string.loading);
+                loadingDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                loadingDialog.setCanceledOnTouchOutside(false);
+                loadingDialog.show();
+                new QueryBillTask().execute(fromString, toString); 
+            }
+        });
+        nextBtn = (Button) findViewById(R.id.next_btn);
+        nextBtn.setOnClickListener(new OnClickListener() {
+            
+            @Override
+            public void onClick(View v) {
+                from.add(Calendar.MONTH, 1);
+                to.set(Calendar.DATE, 1);
+                to.add(Calendar.MONTH, 2);    
+                to.add(Calendar.DATE, -1);
+                String fromString = String.format("%1$tF", from.getTime());
+                String toString = String.format("%1$tF", to.getTime());
+                loadingDialog = new Dialog(ListActivity.this, R.style.dialog);
+                loadingDialog.setContentView(R.layout.loading_dialog);
+                TextView tv = (TextView) loadingDialog.findViewById(R.id.dialog_content);
+                tv.setText(R.string.loading);
+                loadingDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                loadingDialog.setCanceledOnTouchOutside(false);
+                loadingDialog.show();
+                new QueryBillTask().execute(fromString, toString);
+            }
+        });
 
         totalIncomeTV = (TextView) findViewById(R.id.total_income);
         totalPayTV = (TextView) findViewById(R.id.total_pay);
@@ -74,56 +133,6 @@ public class ListActivity extends Activity {
                 new int[] { R.id.bill_date, R.id.bill_income, R.id.bill_pay }, billMap, R.layout.bill, new String[] {
                         "item", "money" }, new int[] { R.id.bill_item, R.id.bill_money });
         elv.setAdapter(adapter);
-        elv.setOnTouchListener(new OnTouchListener() {
-            
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                boolean result = false;
-                switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    x = event.getX();
-                    break;
-                case MotionEvent.ACTION_UP:
-                    float tmp = event.getX();
-                    if(x - tmp > 200){
-                        from.add(Calendar.MONTH, 1);
-                        to.set(Calendar.DATE, 1);
-                        to.add(Calendar.MONTH, 2);    
-                        to.add(Calendar.DATE, -1);
-                        String fromString = String.format("%1$tF", from.getTime());
-                        String toString = String.format("%1$tF", to.getTime());
-                        loadingDialog = new Dialog(ListActivity.this, R.style.dialog);
-                        loadingDialog.setContentView(R.layout.loading_dialog);
-                        TextView tv = (TextView) loadingDialog.findViewById(R.id.dialog_content);
-                        tv.setText(R.string.loading);
-                        loadingDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-                        loadingDialog.setCanceledOnTouchOutside(false);
-                        loadingDialog.show();
-                        new QueryBillTask().execute(fromString, toString);
-                        result = true;
-                    } else if(tmp -x > 200){
-                        from.add(Calendar.MONTH, -1);
-                        to.set(Calendar.DATE, 1); 
-                        to.add(Calendar.DATE, -1);             
-                        String fromString = String.format("%1$tF", from.getTime());
-                        String toString = String.format("%1$tF", to.getTime());
-                        loadingDialog = new Dialog(ListActivity.this, R.style.dialog);
-                        loadingDialog.setContentView(R.layout.loading_dialog);
-                        TextView tv = (TextView) loadingDialog.findViewById(R.id.dialog_content);
-                        tv.setText(R.string.loading);
-                        loadingDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-                        loadingDialog.setCanceledOnTouchOutside(false);
-                        loadingDialog.show();
-                        new QueryBillTask().execute(fromString, toString);
-                        result = true;
-                    }
-                    break;
-                default:
-                    break;
-                }
-                return result;
-            }
-        });
     }
 
     @Override
@@ -151,11 +160,6 @@ public class ListActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-            VirgoApplication app = (VirgoApplication) getApplication();
-            app.addActivity(this);
-        }
-        loadingDialog.dismiss();
         Log.i(TAG, "onDestroy");
     }
 
@@ -175,39 +179,6 @@ public class ListActivity extends Activity {
     protected void onStop() {
         super.onStop();
         Log.i(TAG, "onStop");
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()) {
-        case MotionEvent.ACTION_DOWN:
-            x = event.getY();
-            break;
-        case MotionEvent.ACTION_UP:
-            float tmp = event.getY();
-            if(x - tmp > 200){
-                from.set(Calendar.MONTH, from.get(Calendar.MONTH)-1);
-                to.set(Calendar.MONTH, to.get(Calendar.MONTH)-1);                
-            } else if(tmp -x > 200){
-                from.set(Calendar.MONTH, from.get(Calendar.MONTH)+1);
-                to.set(Calendar.MONTH, to.get(Calendar.MONTH)+1);                
-            }
-            String fromString = String.format("%1$tF", from.getTime());
-            String toString = String.format("%1$tF", to.getTime());
-            loadingDialog = new Dialog(ListActivity.this, R.style.dialog);
-            loadingDialog.setContentView(R.layout.loading_dialog);
-            TextView tv = (TextView) loadingDialog.findViewById(R.id.dialog_content);
-            tv.setText(R.string.loading);
-            loadingDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-            loadingDialog.setCanceledOnTouchOutside(false);
-            loadingDialog.show();
-            System.out.println(fromString+"-"+toString);
-            new QueryBillTask().execute(fromString, toString);
-            break;
-        default:
-            break;
-        }
-        return super.onTouchEvent(event);
     }
 
     private class QueryBillTask extends AsyncTask<String, Void, Boolean> {
@@ -265,7 +236,6 @@ public class ListActivity extends Activity {
             return true;
         }
 
-        @TargetApi(Build.VERSION_CODES.HONEYCOMB)
         @Override
         protected void onPostExecute(Boolean result) {
             loadingDialog.dismiss();
@@ -276,9 +246,6 @@ public class ListActivity extends Activity {
                 totalPayTV.setText(nf.format(totalPay));
             } else {
                 Intent intent = new Intent(ListActivity.this, LoginActivity.class);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                }
                 startActivity(intent);
                 finish();
             }
