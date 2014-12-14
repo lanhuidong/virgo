@@ -175,7 +175,7 @@ public class LoginActivity extends Activity {
                     editor.remove("password");
                     editor.commit();
                 }
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                Intent intent = new Intent(LoginActivity.this, ListActivity.class);
                 finish();
                 startActivity(intent);
             } else {

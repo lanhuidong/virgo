@@ -33,5 +33,12 @@
     <string name="loading">数据加载中，请稍后……</string>
     <string name="web">网页版-http://bill.nexusy.com</string>
     <string name="copyright">&#169;2014- lan ALl Rights Reserved.</string>
+    <string name="old_password">旧密码</string>
+    <string name="new_password">新密码</string>
+    <string name="account">用户名</string>
+    <string name="modify">修改</string>
+    <string name="title_activity_user">UserActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 
 </resources>
