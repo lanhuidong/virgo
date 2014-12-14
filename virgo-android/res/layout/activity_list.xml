@@ -10,8 +10,18 @@
         android:layout_height="48dp"
         android:layout_alignParentTop="true"
         android:background="@drawable/title_bar_bg"
-        android:orientation="vertical" >
+        android:orientation="horizontal" >
 
+        <Button
+            android:id="@+id/prev_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="@string/last_month"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:background="@drawable/prev" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -19,6 +29,17 @@
             android:text="@string/app_name"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
+        <Button
+            android:id="@+id/next_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="@string/next_month"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:background="@drawable/next" />
     </RelativeLayout>
 
     <LinearLayout
@@ -26,11 +47,11 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/title_bar_bg"
+        android:background="@drawable/menu_bar_bg"
         android:orientation="horizontal" >
 
         <TextView
-            android:id="@+id/menu_bill"
+            android:id="@+id/menu_list"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -41,7 +62,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/menu_add"
+            android:id="@+id/menu_bill"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1" 
