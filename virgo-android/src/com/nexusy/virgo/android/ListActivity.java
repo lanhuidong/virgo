@@ -198,9 +198,9 @@ public class ListActivity extends Activity {
             billsMap.clear();
             billMap.clear();
             Map<String, Object> header = new HashMap<String, Object>();
-            header.put("date", "日期");
-            header.put("income", "收入");
-            header.put("pay", "支出");
+            header.put("date", ListActivity.this.getText(R.string.date));
+            header.put("income", ListActivity.this.getText(R.string.income));
+            header.put("pay", ListActivity.this.getText(R.string.pay));
             billsMap.add(header);
             List<Map<String, Object>> headerChild = new ArrayList<Map<String, Object>>();
             billMap.add(headerChild);
