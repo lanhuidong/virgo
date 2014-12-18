@@ -49,19 +49,6 @@ function initBillAdd(){
     $('.datepicker').datepicker();
 }
 
-function initTodoAdd(){
-    $('header').find('li').removeClass('active');
-    $('header').find('li:eq(5)').addClass('active');
-    $('#addTodo').click(addTodo);
-    $('.datepicker').datepicker();
-}
-
-function initTodoIndex(){
-    $('header').find('li').removeClass('active');
-    $('header').find('li:eq(4)').addClass('active');
-    queryTodos();
-}
-
 //首页
 function validateUsername(event, uncheck){
     var result = true;
@@ -760,42 +747,4 @@ function modifyPassword(){
             $('#modify').click(modifyPassword)
         });
     }
-}
-
-
-//添加任务
-function addTodo(){
-    $('#addTodo').unbind('click');
-    if(stringLength($('#todo'), 1, 20)){
-        $.post('add', $('#todo-form').serialize(), function(data){
-            if(data){
-                $('#todo').val('');
-                $('#add-tip').text('保存成功');
-            } else {
-                $('#add-tip').text('保存失败');
-            }
-            setTimeout(function(){$('#add-tip').text('');},3000);
-            $('#addTodo').click(addTodo);
-        });
-    } else {
-        $('#addTodo').click(addTodo);
-    }
-}
-
-//查询任务
-function queryTodos(){
-    $.post('/todo',function(data){
-        $('#todos').html(data);
-        $('#todos').find('button').click(finishTodo);
-    });
-}
-
-//结束任务
-function finishTodo(){
-    var id = $(this).attr('todoId');
-    $.post('/todo/finish', {id:id}, function(data){
-        if(data){
-            window.location.reload();
-        }
-    });
 }

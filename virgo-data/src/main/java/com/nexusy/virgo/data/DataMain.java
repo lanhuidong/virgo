@@ -2,7 +2,6 @@ package com.nexusy.virgo.data;
 
 import com.nexusy.virgo.data.config.DataSourceConfig;
 import com.nexusy.virgo.data.config.MybatisConfig;
-import com.nexusy.virgo.data.service.TodoService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -14,6 +13,5 @@ public class DataMain {
 
     public static void main(String[] args) {
         ApplicationContext ctx = new AnnotationConfigApplicationContext(DataSourceConfig.class, MybatisConfig.class);
-        TodoService todoService = ctx.getBean(TodoService.class);
     }
 }
