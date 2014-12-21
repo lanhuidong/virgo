@@ -8,8 +8,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -19,7 +19,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,8 +32,8 @@ public class BillActivity extends Activity {
 
     private String TAG = BillActivity.class.getName();
     
-    private LinearLayout menuList;
-    private LinearLayout menuUser;
+    private Button menuList;
+    private Button menuUser;
 
     private BillAddTask billAddTask;
 
@@ -57,7 +56,7 @@ public class BillActivity extends Activity {
         Log.i(TAG, "onCreate");
         setContentView(R.layout.activity_bill);
         
-        menuList = (LinearLayout) findViewById(R.id.menu_list);
+        menuList = (Button) findViewById(R.id.menu_list);
         menuList.setOnClickListener(new OnClickListener() {
             
             @Override
@@ -67,7 +66,7 @@ public class BillActivity extends Activity {
                 startActivity(intent);
             }
         });
-        menuUser = (LinearLayout) findViewById(R.id.menu_user);
+        menuUser = (Button) findViewById(R.id.menu_user);
         menuUser.setOnClickListener(new OnClickListener() {
             
             @Override
@@ -201,12 +200,15 @@ public class BillActivity extends Activity {
             if ("timeout".equals(result)) {
                 Intent intent = new Intent(BillActivity.this, LoginActivity.class);
                 startActivity(intent);
+                finish();
                 return;
             }
             if ("true".equals(result)) {
                 item.setText("");
                 money.setText("");
                 Toast.makeText(BillActivity.this, R.string.billsuccess, Toast.LENGTH_LONG).show();
+                VirgoApplication app = (VirgoApplication) getApplication();
+                app.setChanged(true);
             } else {
                 Toast.makeText(BillActivity.this, R.string.billfailed, Toast.LENGTH_LONG).show();
             }

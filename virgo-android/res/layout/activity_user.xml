@@ -27,89 +27,50 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
-        android:baselineAligned="false"
         android:background="@drawable/menu_bar_bg"
+        android:baselineAligned="false"
         android:orientation="horizontal"
         android:paddingBottom="4dp"
         android:paddingTop="4dp" >
 
-        <LinearLayout
+        <Button
             android:id="@+id/menu_list"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dip"
             android:layout_height="40dp"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:orientation="vertical" >
+            android:background="@android:color/transparent"
+            android:drawableTop="@drawable/list_grey"
+            android:text="@string/bill"
+            android:textColor="@color/menu_grey"
+            android:textSize="12sp" />
 
-            <ImageView
-                android:layout_width="26dp"
-                android:layout_height="26dp"
-                android:layout_gravity="center"
-                android:background="@drawable/list_grey"
-                android:gravity="center"
-                android:textColor="@color/menu_grey"
-                android:duplicateParentState="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textSize="12sp"
-                android:text="@string/bill"
-                android:textColor="@color/menu_grey"
-                android:duplicateParentState="true" />
-        </LinearLayout>
-
-        <LinearLayout
+        <Button
             android:id="@+id/menu_bill"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dip"
             android:layout_height="40dp"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:orientation="vertical" >
+            android:background="@android:color/transparent"
+            android:drawableTop="@drawable/bill_grey"
+            android:text="@string/add"
+            android:textColor="@color/menu_grey"
+            android:textSize="12sp" />
 
-            <ImageView
-                android:layout_width="26dp"
-                android:layout_height="26dp"
-                android:layout_gravity="center"
-                android:background="@drawable/bill_grey"
-                android:gravity="center"
-                android:textColor="@color/menu_grey"
-                android:duplicateParentState="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textSize="12sp"
-                android:text="@string/add"
-                android:textColor="@color/menu_grey" 
-                android:duplicateParentState="true"/>
-        </LinearLayout>
-
-        <LinearLayout
+        <Button
             android:id="@+id/menu_user"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dip"
             android:layout_height="40dp"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:orientation="vertical" >
-
-            <ImageView
-                android:layout_width="26dp"
-                android:layout_height="26dp"
-                android:layout_gravity="center"
-                android:background="@drawable/me_green"
-                android:gravity="center"
-                android:textColor="@color/menu_green"
-                android:duplicateParentState="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textSize="12sp"
-                android:text="@string/user"
-                android:textColor="@color/menu_green"
-                android:duplicateParentState="true" />
-        </LinearLayout>
+            android:background="@android:color/transparent"
+            android:drawableTop="@drawable/me_green"
+            android:text="@string/user"
+            android:textColor="@color/menu_green"
+            android:textSize="12sp" />
     </LinearLayout>
 
     <TextView

@@ -19,7 +19,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ExpandableListView;
-import android.widget.LinearLayout;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
 
@@ -34,15 +33,15 @@ import com.nexusy.virgo.android.model.BillItemType;
 public class ListActivity extends Activity {
 
     private String TAG = ListActivity.class.getName();
-    
+
     private Calendar from;
     private Calendar to;
-    
+
     private Button prevBtn;
     private Button nextBtn;
-    
-    private LinearLayout menuBill;
-    private LinearLayout menuUser;
+
+    private Button menuBill;
+    private Button menuUser;
 
     private TextView totalIncomeTV;
     private TextView totalPayTV;
@@ -64,9 +63,12 @@ public class ListActivity extends Activity {
         Log.i(TAG, "onCreate");
         setContentView(R.layout.activity_list);
         
-        menuBill = (LinearLayout) findViewById(R.id.menu_bill);
+        VirgoApplication app = (VirgoApplication) getApplication();
+        app.setChanged(true);
+
+        menuBill = (Button) findViewById(R.id.menu_bill);
         menuBill.setOnClickListener(new OnClickListener() {
-            
+
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ListActivity.this, BillActivity.class);
@@ -74,9 +76,9 @@ public class ListActivity extends Activity {
                 startActivity(intent);
             }
         });
-        menuUser = (LinearLayout) findViewById(R.id.menu_user);
+        menuUser = (Button) findViewById(R.id.menu_user);
         menuUser.setOnClickListener(new OnClickListener() {
-            
+
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ListActivity.this, UserActivity.class);
@@ -84,15 +86,15 @@ public class ListActivity extends Activity {
                 startActivity(intent);
             }
         });
-       
+
         prevBtn = (Button) findViewById(R.id.prev_btn);
         prevBtn.setOnClickListener(new OnClickListener() {
-            
+
             @Override
             public void onClick(View v) {
                 from.add(Calendar.MONTH, -1);
-                to.set(Calendar.DATE, 1); 
-                to.add(Calendar.DATE, -1);             
+                to.set(Calendar.DATE, 1);
+                to.add(Calendar.DATE, -1);
                 String fromString = String.format("%1$tF", from.getTime());
                 String toString = String.format("%1$tF", to.getTime());
                 loadingDialog = new Dialog(ListActivity.this, R.style.dialog);
@@ -102,17 +104,17 @@ public class ListActivity extends Activity {
                 loadingDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                 loadingDialog.setCanceledOnTouchOutside(false);
                 loadingDialog.show();
-                new QueryBillTask().execute(fromString, toString); 
+                new QueryBillTask().execute(fromString, toString);
             }
         });
         nextBtn = (Button) findViewById(R.id.next_btn);
         nextBtn.setOnClickListener(new OnClickListener() {
-            
+
             @Override
             public void onClick(View v) {
                 from.add(Calendar.MONTH, 1);
                 to.set(Calendar.DATE, 1);
-                to.add(Calendar.MONTH, 2);    
+                to.add(Calendar.MONTH, 2);
                 to.add(Calendar.DATE, -1);
                 String fromString = String.format("%1$tF", from.getTime());
                 String toString = String.format("%1$tF", to.getTime());
@@ -141,23 +143,27 @@ public class ListActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.i(TAG, "onStart");
-        from = Calendar.getInstance();
-        from.set(Calendar.DATE, 1);
-        to = Calendar.getInstance();
-        to.set(Calendar.DATE, 1);
-        to.set(Calendar.MONTH, to.get(Calendar.MONTH)+1);
-        to.add(Calendar.DATE, -1);
-        String fromString = String.format("%1$tF", from.getTime());
-        String toString = String.format("%1$tF", to.getTime());
-        loadingDialog = new Dialog(ListActivity.this, R.style.dialog);
-        loadingDialog.setContentView(R.layout.loading_dialog);
-        TextView tv = (TextView) loadingDialog.findViewById(R.id.dialog_content);
-        tv.setText(R.string.loading);
-        loadingDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        loadingDialog.setCanceledOnTouchOutside(false);
-        loadingDialog.show();
-        new QueryBillTask().execute(fromString, toString);
+        VirgoApplication app = (VirgoApplication) getApplication();
+        if (app.isChanged()) {
+            app.setChanged(false);
+            Log.i(TAG, "onStart");
+            from = Calendar.getInstance();
+            from.set(Calendar.DATE, 1);
+            to = Calendar.getInstance();
+            to.set(Calendar.DATE, 1);
+            to.set(Calendar.MONTH, to.get(Calendar.MONTH) + 1);
+            to.add(Calendar.DATE, -1);
+            String fromString = String.format("%1$tF", from.getTime());
+            String toString = String.format("%1$tF", to.getTime());
+            loadingDialog = new Dialog(ListActivity.this, R.style.dialog);
+            loadingDialog.setContentView(R.layout.loading_dialog);
+            TextView tv = (TextView) loadingDialog.findViewById(R.id.dialog_content);
+            tv.setText(R.string.loading);
+            loadingDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            loadingDialog.setCanceledOnTouchOutside(false);
+            loadingDialog.show();
+            new QueryBillTask().execute(fromString, toString);
+        }
     }
 
     @Override

@@ -3,11 +3,6 @@ package com.nexusy.virgo.android;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.nexusy.virgo.android.http.DataParser;
-import com.nexusy.virgo.android.http.UrlConstants;
-import com.nexusy.virgo.android.http.VirgoHttpClient;
-import com.nexusy.virgo.android.util.StringUtils;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
@@ -17,14 +12,18 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nexusy.virgo.android.http.DataParser;
+import com.nexusy.virgo.android.http.UrlConstants;
+import com.nexusy.virgo.android.http.VirgoHttpClient;
+import com.nexusy.virgo.android.util.StringUtils;
+
 public class UserActivity extends Activity {
 
-    private LinearLayout menuList;
-    private LinearLayout menuBill;
+    private Button menuList;
+    private Button menuBill;
 
     private EditText oldPasswordEt;
     private EditText newPasswordEt;
@@ -43,7 +42,7 @@ public class UserActivity extends Activity {
         VirgoApplication app = (VirgoApplication) getApplication();
         accountTv = (TextView) findViewById(R.id.account);
         accountTv.setText(app.getUsername());
-        menuList = (LinearLayout) findViewById(R.id.menu_list);
+        menuList = (Button) findViewById(R.id.menu_list);
         menuList.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -53,7 +52,7 @@ public class UserActivity extends Activity {
                 startActivity(intent);
             }
         });
-        menuBill = (LinearLayout) findViewById(R.id.menu_bill);
+        menuBill = (Button) findViewById(R.id.menu_bill);
         menuBill.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -126,6 +125,7 @@ public class UserActivity extends Activity {
             if ("timeout".equals(result)) {
                 Intent intent = new Intent(UserActivity.this, LoginActivity.class);
                 startActivity(intent);
+                finish();
                 return;
             }
             if ("true".equals(result)) {
