@@ -19,6 +19,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,8 +33,8 @@ public class BillActivity extends Activity {
 
     private String TAG = BillActivity.class.getName();
     
-    private TextView menuList;
-    private TextView menuUser;
+    private LinearLayout menuList;
+    private LinearLayout menuUser;
 
     private BillAddTask billAddTask;
 
@@ -56,7 +57,7 @@ public class BillActivity extends Activity {
         Log.i(TAG, "onCreate");
         setContentView(R.layout.activity_bill);
         
-        menuList = (TextView) findViewById(R.id.menu_list);
+        menuList = (LinearLayout) findViewById(R.id.menu_list);
         menuList.setOnClickListener(new OnClickListener() {
             
             @Override
@@ -66,7 +67,7 @@ public class BillActivity extends Activity {
                 startActivity(intent);
             }
         });
-        menuUser = (TextView) findViewById(R.id.menu_user);
+        menuUser = (LinearLayout) findViewById(R.id.menu_user);
         menuUser.setOnClickListener(new OnClickListener() {
             
             @Override

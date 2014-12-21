@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
 
@@ -40,8 +41,8 @@ public class ListActivity extends Activity {
     private Button prevBtn;
     private Button nextBtn;
     
-    private TextView menuBill;
-    private TextView menuUser;
+    private LinearLayout menuBill;
+    private LinearLayout menuUser;
 
     private TextView totalIncomeTV;
     private TextView totalPayTV;
@@ -63,7 +64,7 @@ public class ListActivity extends Activity {
         Log.i(TAG, "onCreate");
         setContentView(R.layout.activity_list);
         
-        menuBill = (TextView) findViewById(R.id.menu_bill);
+        menuBill = (LinearLayout) findViewById(R.id.menu_bill);
         menuBill.setOnClickListener(new OnClickListener() {
             
             @Override
@@ -73,7 +74,7 @@ public class ListActivity extends Activity {
                 startActivity(intent);
             }
         });
-        menuUser = (TextView) findViewById(R.id.menu_user);
+        menuUser = (LinearLayout) findViewById(R.id.menu_user);
         menuUser.setOnClickListener(new OnClickListener() {
             
             @Override

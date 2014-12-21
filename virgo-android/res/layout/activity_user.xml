@@ -27,41 +27,89 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
+        android:baselineAligned="false"
         android:background="@drawable/menu_bar_bg"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:paddingBottom="4dp"
+        android:paddingTop="4dp" >
 
-        <TextView
+        <LinearLayout
             android:id="@+id/menu_list"
             android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_height="40dp"
             android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/bill"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:orientation="vertical" >
 
-        <TextView
+            <ImageView
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_gravity="center"
+                android:background="@drawable/list_grey"
+                android:gravity="center"
+                android:textColor="@color/menu_grey"
+                android:duplicateParentState="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="12sp"
+                android:text="@string/bill"
+                android:textColor="@color/menu_grey"
+                android:duplicateParentState="true" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/menu_bill"
             android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_height="40dp"
             android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/add"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:orientation="vertical" >
 
-        <TextView
+            <ImageView
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_gravity="center"
+                android:background="@drawable/bill_grey"
+                android:gravity="center"
+                android:textColor="@color/menu_grey"
+                android:duplicateParentState="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="12sp"
+                android:text="@string/add"
+                android:textColor="@color/menu_grey" 
+                android:duplicateParentState="true"/>
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/menu_user"
             android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_height="40dp"
             android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/user"
-            android:textColor="@android:color/holo_orange_light"
-            android:textSize="18sp" />
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_gravity="center"
+                android:background="@drawable/me_green"
+                android:gravity="center"
+                android:textColor="@color/menu_green"
+                android:duplicateParentState="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="12sp"
+                android:text="@string/user"
+                android:textColor="@color/menu_green"
+                android:duplicateParentState="true" />
+        </LinearLayout>
     </LinearLayout>
 
     <TextView
@@ -72,6 +120,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:textSize="18sp" />
 
     <EditText
@@ -79,20 +128,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/account"
-        android:hint="@string/old_password"
-        android:inputType="textPassword"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin" />
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:hint="@string/old_password"
+        android:inputType="textPassword" />
 
     <EditText
         android:id="@+id/new_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/old_password"
-        android:hint="@string/new_password"
-        android:inputType="textPassword"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin" />
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:hint="@string/new_password"
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/modify"

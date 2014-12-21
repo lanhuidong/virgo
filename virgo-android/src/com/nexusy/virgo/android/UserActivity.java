@@ -17,13 +17,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class UserActivity extends Activity {
 
-    private TextView menuList;
-    private TextView menuBill;
+    private LinearLayout menuList;
+    private LinearLayout menuBill;
 
     private EditText oldPasswordEt;
     private EditText newPasswordEt;
@@ -42,7 +43,7 @@ public class UserActivity extends Activity {
         VirgoApplication app = (VirgoApplication) getApplication();
         accountTv = (TextView) findViewById(R.id.account);
         accountTv.setText(app.getUsername());
-        menuList = (TextView) findViewById(R.id.menu_list);
+        menuList = (LinearLayout) findViewById(R.id.menu_list);
         menuList.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -52,7 +53,7 @@ public class UserActivity extends Activity {
                 startActivity(intent);
             }
         });
-        menuBill = (TextView) findViewById(R.id.menu_bill);
+        menuBill = (LinearLayout) findViewById(R.id.menu_bill);
         menuBill.setOnClickListener(new OnClickListener() {
 
             @Override

@@ -18,10 +18,12 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/prev"
             android:text="@string/last_month"
             android:textColor="@android:color/white"
-            android:textSize="20sp"
-            android:background="@drawable/prev" />
+            android:textSize="20sp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -29,17 +31,19 @@
             android:text="@string/app_name"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
+
         <Button
             android:id="@+id/next_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:background="@android:color/transparent"
+            android:drawableRight="@drawable/next"
             android:text="@string/next_month"
             android:textColor="@android:color/white"
-            android:textSize="20sp"
-            android:background="@drawable/next" />
+            android:textSize="20sp" />
     </RelativeLayout>
 
     <LinearLayout
@@ -47,41 +51,89 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
+        android:baselineAligned="false"
         android:background="@drawable/menu_bar_bg"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:paddingBottom="4dp"
+        android:paddingTop="4dp" >
 
-        <TextView
+        <LinearLayout
             android:id="@+id/menu_list"
             android:layout_width="0dip"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_weight="1"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="@string/bill"
-            android:textColor="@android:color/holo_orange_light"
-            android:textSize="18sp" />
+            android:orientation="vertical" >
 
-        <TextView
+            <ImageView
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_gravity="center"
+                android:background="@drawable/list_green"
+                android:gravity="center"
+                android:textColor="@color/menu_green"
+                android:duplicateParentState="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="12sp"
+                android:text="@string/bill"
+                android:textColor="@color/menu_green"
+                android:duplicateParentState="true" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/menu_bill"
             android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" 
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="@string/add"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:orientation="vertical" >
 
-        <TextView
+            <ImageView
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_gravity="center"
+                android:background="@drawable/bill_grey"
+                android:gravity="center"
+                android:textColor="@color/menu_grey"
+                android:duplicateParentState="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="12sp"
+                android:text="@string/add"
+                android:textColor="@color/menu_grey"
+                android:duplicateParentState="true" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/menu_user"
             android:layout_width="0dip"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_weight="1"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="@string/user"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"  />
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_gravity="center"
+                android:background="@drawable/me_grey"
+                android:gravity="center"
+                android:textColor="@color/menu_grey"
+                android:duplicateParentState="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="12sp"
+                android:text="@string/user"
+                android:textColor="@color/menu_grey"
+                android:duplicateParentState="true" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
