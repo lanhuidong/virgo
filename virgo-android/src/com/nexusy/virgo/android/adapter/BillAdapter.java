@@ -101,11 +101,11 @@ public class BillAdapter extends SimpleExpandableListAdapter {
                     try {
                         groupMap.put(
                                 "income",
-                                nf.format(Double.valueOf(((String) groupMap.get("income")).substring(1))
-                                        - Double.valueOf(((String) billItem.get("money")).substring(1))));
+                                nf.format(Double.valueOf(nf.parse((String) groupMap.get("income")).toString())
+                                        - Double.valueOf(nf.parse((String) billItem.get("money")).toString())));
                         TextView tv = (TextView) activity.findViewById(R.id.total_income);
-                        tv.setText(nf.format(Double.valueOf(tv.getText().toString().substring(1))
-                                - Double.valueOf(((String) billItem.get("money")).substring(1))));
+                        tv.setText(nf.format(Double.valueOf(nf.parse(tv.getText().toString()).toString())
+                                - Double.valueOf(nf.parse((String) billItem.get("money")).toString())));
 
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -115,11 +115,11 @@ public class BillAdapter extends SimpleExpandableListAdapter {
                     try {
                         groupMap.put(
                                 "pay",
-                                nf.format(Double.valueOf(((String) groupMap.get("pay")).substring(1))
-                                        - Double.valueOf(((String) billItem.get("money")).substring(1))));
+                                nf.format(Double.valueOf(nf.parse((String) groupMap.get("pay")).toString())
+                                        - Double.valueOf(nf.parse((String) billItem.get("money")).toString())));
                         TextView tv = (TextView) activity.findViewById(R.id.total_pay);
-                        tv.setText(nf.format(Double.valueOf(tv.getText().toString().substring(1))
-                                - Double.valueOf(((String) billItem.get("money")).substring(1))));
+                        tv.setText(nf.format(Double.valueOf(nf.parse(tv.getText().toString()).toString())
+                                - Double.valueOf(nf.parse((String) billItem.get("money")).toString())));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
