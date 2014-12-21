@@ -206,6 +206,7 @@ public class BillActivity extends Activity {
             if ("true".equals(result)) {
                 item.setText("");
                 money.setText("");
+                remark.setText("");
                 Toast.makeText(BillActivity.this, R.string.billsuccess, Toast.LENGTH_LONG).show();
                 VirgoApplication app = (VirgoApplication) getApplication();
                 app.setChanged(true);
