@@ -9,7 +9,7 @@ idea {
 
 def springVersion = '4.0.6.RELEASE'
 def springSecurityVersion = '3.2.0.RELEASE'
-def tomcatVersion = '7.0.55'
+def tomcatVersion = '8.0.21'
 def logbackVersion = '1.1.2'
 def slf4jVersion = '1.7.7'
 def easymockVersion = '3.2'
@@ -78,13 +78,13 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "org.gradle.api.plugins:gradle-tomcat-plugin:1.2.4"
+        classpath "com.bmuschko:gradle-tomcat-plugin:2.1"
     }
 }
 
 project(':virgo-web') {
     apply plugin: 'war'
-    apply plugin: 'tomcat'
+    apply plugin: 'com.bmuschko.tomcat'
 
     tomcatRun {
         httpPort = 80
