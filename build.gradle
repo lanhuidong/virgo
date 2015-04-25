@@ -9,7 +9,6 @@ idea {
 
 def springVersion = '4.0.6.RELEASE'
 def springSecurityVersion = '3.2.0.RELEASE'
-def tomcatVersion = '8.0.21'
 def logbackVersion = '1.1.2'
 def slf4jVersion = '1.7.7'
 def easymockVersion = '3.2'
@@ -27,7 +26,7 @@ def commonslangVersion = '3.3.2'
 allprojects {
     apply plugin: 'java'
     group = 'com.virgo'
-    version = '2.2.2'
+    version = '2.2.3'
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
 }
@@ -78,30 +77,26 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "com.bmuschko:gradle-tomcat-plugin:2.1"
+        classpath 'org.akhikhl.gretty:gretty:+'
     }
 }
 
 project(':virgo-web') {
     apply plugin: 'war'
-    apply plugin: 'com.bmuschko.tomcat'
+    repositories {
+        jcenter()
+    }
+    apply plugin: 'org.akhikhl.gretty'
 
-    tomcatRun {
-        httpPort = 80
-        contextPath = ""
+    gretty {
+        servletContainer = 'jetty9'
+        httpPort = 8080
+        contextPath = ''
     }
 
     dependencies {
-        tomcat "org.apache.tomcat.embed:tomcat-embed-core:$tomcatVersion",
-                "org.apache.tomcat.embed:tomcat-embed-logging-juli:$tomcatVersion"
-        tomcat("org.apache.tomcat.embed:tomcat-embed-jasper:$tomcatVersion") {
-            exclude group: 'org.eclipse.jdt.core.compiler', module: 'ecj'
-        }
-
         compile "org.springframework:spring-webmvc:$springVersion"
         compile "org.freemarker:freemarker:$freemarkVersion"
-        providedCompile "org.apache.tomcat:tomcat-servlet-api:$tomcatVersion"
-        providedCompile "org.apache.tomcat:tomcat-jsp-api:$tomcatVersion"
         testCompile "com.jayway.jsonpath:json-path:$jsonpathVersion"
         compile project(':virgo-data')
     }
