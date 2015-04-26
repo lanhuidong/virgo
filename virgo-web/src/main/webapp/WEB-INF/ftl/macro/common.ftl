@@ -30,9 +30,6 @@
                     </li>
                     <#if user??>
                     <li>
-                        <a href="/u/">我的主页</a>
-                    </li>
-                    <li>
                         <a href="/bill">账本</a>
                     </li>
                     <li>

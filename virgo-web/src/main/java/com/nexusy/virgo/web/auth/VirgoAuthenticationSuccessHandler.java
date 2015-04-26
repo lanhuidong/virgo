@@ -31,7 +31,7 @@ public class VirgoAuthenticationSuccessHandler implements AuthenticationSuccessH
         String fromSignup = request.getParameter("fromSignup");
         User user = VirgoSecurityContext.getCurrentUser();
         if (fromSignup != null) {
-            response.sendRedirect("/u/");
+            response.sendRedirect("/bill");
         } else {
             userService.updateLoginTime(user.getId(), new Date());
             response.setHeader("Content-Type", "application/json");

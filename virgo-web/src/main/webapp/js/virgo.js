@@ -20,7 +20,7 @@ function initIndex(){
 
 function initUserIndex(){
     $('header').find('li').removeClass('active');
-    $('header').find('li:eq(1)').addClass('active');
+    $('header').find('li:eq(3)').addClass('active');
     $('#edit').click(editProfile);
     $('#modify').click(modifyPassword);
 }
@@ -34,7 +34,7 @@ function initBillIndex(){
         $('#incomePie,#payPie').css({"width":width/2+"px"});
     }
     $('header').find('li').removeClass('active');
-    $('header').find('li:eq(2)').addClass('active');
+    $('header').find('li:eq(1)').addClass('active');
     queryBill();
     $('#month').change(queryBill);
     $('#year').change(queryBill);
@@ -44,7 +44,7 @@ function initBillIndex(){
 
 function initBillAdd(){
     $('header').find('li').removeClass('active');
-    $('header').find('li:eq(3)').addClass('active');
+    $('header').find('li:eq(2)').addClass('active');
     $('#addBill').click(addBill);
     $('.datepicker').datepicker();
 }
@@ -119,7 +119,7 @@ function signup(){
 function login(){
     $.post('/login', $('#login-form').serialize(),function(data){
         if(data==0){
-            window.location.href='/'
+            window.location.href='/bill'
         } else {
             $('#login-error').text('用户名或者密码错误');
         }
