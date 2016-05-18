@@ -132,7 +132,7 @@ public class User implements UserDetails {
         roles.add(new GrantedAuthority() {
             @Override
             public String getAuthority() {
-                return "user";
+                return "ROLE_USER";
             }
         });
         return roles;

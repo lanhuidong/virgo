@@ -52,11 +52,11 @@
                             <form role="form" id="login-form" method="post" action="/login">
                                 <div class="form-group">
                                     <label for="username">用户名</label>
-                                    <input type="text" class="form-control" name="j_username" id="username" placeholder="请输入用户名" />
+                                    <input type="text" class="form-control" name="username" id="username" placeholder="请输入用户名" />
                                 </div>
                                 <div class="form-group">
                                     <label for="password">密&nbsp;&nbsp;&nbsp;&nbsp;码</label>
-                                    <input type="password" class="form-control" name="j_password" id="password" placeholder="请输入密码" />
+                                    <input type="password" class="form-control" name="password" id="password" placeholder="请输入密码" />
                                 </div>
                                 <button type="submit" class="btn btn-primary">登录</button><label id="login-error" class="text-danger virgo-input-error"></label>
                             </form>
@@ -69,11 +69,11 @@
                                 <input type="hidden" value="1" name="fromSignup" />
                                 <div class="form-group" id="sign-username-fg">
                                     <label for="regusername">用户名</label><label id="sign-username-error" class="text-danger virgo-input-error"></label>
-                                    <input type="text" class="form-control" name="j_username" id="regusername" placeholder="4-20个字符" />
+                                    <input type="text" class="form-control" name="username" id="regusername" placeholder="4-20个字符" />
                                 </div>
                                 <div class="form-group" id="sign-password-fg">
                                     <label for="regpassword">密&nbsp;&nbsp;&nbsp;&nbsp;码</label><label id="sign-password-error" class="text-danger virgo-input-error"></label>
-                                    <input type="password" class="form-control" name="j_password" id="regpassword" placeholder="6-20个字符" />
+                                    <input type="password" class="form-control" name="password" id="regpassword" placeholder="6-20个字符" />
                                 </div>
                                 <button type="submit" id="sign-btn" class="btn btn-primary">注册</button>
                             </form>

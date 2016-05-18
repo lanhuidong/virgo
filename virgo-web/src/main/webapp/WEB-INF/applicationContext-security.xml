@@ -3,11 +3,11 @@
              xmlns:context="http://www.springframework.org/schema/context"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://www.springframework.org/schema/beans
-           http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+           http://www.springframework.org/schema/beans/spring-beans.xsd
            http://www.springframework.org/schema/context
-           http://www.springframework.org/schema/context/spring-context-4.0.xsd
+           http://www.springframework.org/schema/context/spring-context.xsd
            http://www.springframework.org/schema/security
-           http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+           http://www.springframework.org/schema/security/spring-security.xsd">
 
     <http pattern="/favicon.ico" security="none"/>
     <http pattern="/signup/**" security="none"/>
@@ -15,16 +15,17 @@
     <http pattern="/js/**" security="none"/>
     <http pattern="/img/**" security="none"/>
     <http pattern="/fonts/**" security="none"/>
-    <http use-expressions="true" access-denied-page="/403">
+    <http use-expressions="true">
         <!-- 注意intercept-url的顺序 -->
         <intercept-url pattern="/" access="permitAll"/>
-        <intercept-url pattern="/admin/**" access="hasAnyRole('admin')"/>
-        <intercept-url pattern="/**" access="hasAnyRole('user')"/>
+        <intercept-url pattern="/admin/**" access="hasAnyRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/**" access="hasAnyRole('ROLE_USER')"/>
         <form-login login-page="/" login-processing-url="/login"
                     authentication-failure-handler-ref="virgoAuthenticationFailureHandler"
                     authentication-success-handler-ref="virgoAuthenticationSuccessHandler"
                     always-use-default-target="true"/>
         <logout logout-url="/logout" logout-success-url="/"/>
+        <csrf disabled="true" />
     </http>
 
     <authentication-manager alias="authenticationManager">
