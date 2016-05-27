@@ -23,9 +23,9 @@
         <form-login login-page="/" login-processing-url="/login"
                     authentication-failure-handler-ref="virgoAuthenticationFailureHandler"
                     authentication-success-handler-ref="virgoAuthenticationSuccessHandler"
-                    always-use-default-target="true"/>
+                    always-use-default-target="true" username-parameter="j_username" password-parameter="j_password"/>
         <logout logout-url="/logout" logout-success-url="/"/>
-        <csrf disabled="true" />
+        <csrf disabled="true"/>
     </http>
 
     <authentication-manager alias="authenticationManager">

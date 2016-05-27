@@ -32,12 +32,12 @@ public class SignupController {
         int code;
         if (result.hasErrors()) {
             code = 1;
-        } else if (userService.checkUsername(user.getUsername())) {
+        } else if (userService.checkUsername(user.getJ_username())) {
             code = 2;
         } else {
             User newUser = new User();
-            newUser.setUsername(user.getUsername());
-            newUser.setPassword(user.getPassword());
+            newUser.setUsername(user.getJ_username());
+            newUser.setPassword(user.getJ_password());
             Date date = new Date();
             newUser.setSignTime(date);
             newUser.setLastLogin(date);
