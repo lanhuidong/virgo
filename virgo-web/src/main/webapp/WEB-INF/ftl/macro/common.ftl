@@ -4,9 +4,9 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>${title?html}</title>
-    <link rel="stylesheet" type="text/css" href="/css/redmond/jquery-ui-1.10.3.custom.min.css" />
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" type="text/css" href="/css/redmond/jquery-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css?v=3.3.6" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-theme.min.css?v=3.3.6" />
     <link rel="stylesheet" type="text/css" href="/css/virgo.css" />
 </head>
 
@@ -90,9 +90,9 @@
     <div class="container text-center">&copy;2013-${.now?string('yyyy')}&nbsp;&nbsp;Lan.&nbsp;&nbsp;All rights reserved.&nbsp;&nbsp;v2.2.3</div>
     <div class="virgo-tip"><span></span></div>
     <script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="/js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="/js/jquery.ui.datepicker-zh-CN.js"></script>
-    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js?v=3.3.6"></script>
     <script type="text/javascript" src="/js/virgo.js"></script>
     <script type="text/javascript">
         $(function(){

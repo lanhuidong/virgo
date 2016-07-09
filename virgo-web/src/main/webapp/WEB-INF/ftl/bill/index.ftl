@@ -45,7 +45,7 @@
             <div id="payPie" class="col-xs-6" style="height:500px"></div>
         </div>
     </div>
-    <script type="text/javascript" src="/js/echarts-plain.js"></script>
+    <script type="text/javascript" src="/js/echarts-all.js?v=2.2.1"></script>
     <script type="text/javascript">
     var myChart;
     var incomePieChart;
