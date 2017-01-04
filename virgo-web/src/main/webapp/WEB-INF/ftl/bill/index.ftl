@@ -3,11 +3,13 @@
         <form role="form" id="query-form" class="form-horizontal" action="/bill" method="post">
             <div class="form-group">
                     <select id="year" name="year" class="form-control input-sm pull-left" style="width:89px;margin-left:15px">
+                        <option value="-1">全部</option>
                         <#list years as y>
                             <option value="${y}" <#if y=year>selected="selected"</#if>>${y}年</option>
                         </#list>
                     </select>
                     <select id="month" name="month" class="form-control input-sm pull-left" style="width:72px;margin-left:5px">
+                        <option value="-1">全部</option>
                         <#list 1..12 as m>
                             <option value="${m}" <#if m=month>selected="selected"</#if>>${m}月</option>
                         </#list>

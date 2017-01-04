@@ -1,6 +1,5 @@
 package com.nexusy.virgo.web.util;
 
-import com.nexusy.virgo.data.util.VirgoDateUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -16,9 +15,6 @@ public class DateRange {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     public Date getFrom() {
-        if (from == null) {
-            from = VirgoDateUtils.getFirstDay();
-        }
         return from;
     }
 
@@ -28,9 +24,6 @@ public class DateRange {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     public Date getTo() {
-        if (to == null) {
-            to = VirgoDateUtils.getDate();
-        }
         return to;
     }
 

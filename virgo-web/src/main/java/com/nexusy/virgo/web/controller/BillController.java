@@ -36,10 +36,10 @@ public class BillController {
     public ModelAndView index(DateRange range) {
         Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
-        int startYear = year +20;
+        int startYear = 2013;
         List<Integer> years = new ArrayList<>(50);
         for(int i = 0; i < 50; i++){
-            years.add(startYear-i);
+            years.add(startYear + i);
         }
         ModelAndView mav = new ModelAndView("/bill/index");
         mav.addObject("year", year);

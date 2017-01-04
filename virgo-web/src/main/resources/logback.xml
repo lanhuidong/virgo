@@ -21,6 +21,14 @@
         </encoder>
     </appender>
 
+    <logger name="org.springframework" level="INFO" additivity="false">
+        <appender-ref ref="FILE"/>
+    </logger>
+
+    <logger name="com.zaxxer" level="INFO" additivity="false">
+        <appender-ref ref="FILE"/>
+    </logger>
+
     <logger name="com.nexusy.virgo.web" level="DEBUG" additivity="false">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE"/>

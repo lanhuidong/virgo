@@ -171,13 +171,23 @@ function stringLength(input, min, max){
 
 //查询账单
 function queryBill(){
-    var year = $('#year').val();
-    var month = $('#month').val();
-    var from = year+'-'+month+'-01';
-    var newnew_date = new Date(year,month,1);
-    var days = new Date(newnew_date.getTime()-1000*60*60*24).getDate();
-    var to = year+'-'+month+'-'+days;
-    var params = 'from='+from+'&to='+to;
+    var year = parseInt($('#year').val());
+    var month = parseInt($('#month').val());
+    var params = '';
+    if(year == -1){
+        $('#month').val(-1);
+    }
+    if(year != -1 && month == -1) {
+        var from = year+'-01-01';
+        var to = year+'-12-31';
+        params = 'from='+from+'&to='+to;
+    } else if(year != -1 && month != -1) {
+        var from = year+'-'+month+'-01';
+        var newnew_date = new Date(year,month,1);
+        var days = new Date(newnew_date.getTime()-1000*60*60*24).getDate();
+        var to = year+'-'+month+'-'+days;
+        params = 'from='+from+'&to='+to;
+    }
     $.post('/api/bill', params, function(data){
         drawTable(data);
         drawChart(data);

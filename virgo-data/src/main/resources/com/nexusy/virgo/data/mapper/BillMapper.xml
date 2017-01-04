@@ -30,7 +30,11 @@
         </collection>
     </resultMap>
     <select id="findBillsWithBillItems" resultMap="bills">
-        <![CDATA[ SELECT b.*, bi.*, bi.id as bid FROM bills b, bill_items bi WHERE b.id=bi.bill_id AND user_id=#{userId} AND `date`>=#{from, typeHandler=org.apache.ibatis.type.DateOnlyTypeHandler} AND `date`<=#{to, typeHandler=org.apache.ibatis.type.DateOnlyTypeHandler} ORDER BY `date` ]]>
+        <![CDATA[ SELECT b.*, bi.*, bi.id as bid FROM bills b, bill_items bi WHERE b.id=bi.bill_id AND user_id=#{userId} ]]>
+        <if test="from != null and to != null">
+        <![CDATA[AND `date`>=#{from, typeHandler=org.apache.ibatis.type.DateOnlyTypeHandler} AND `date`<=#{to, typeHandler=org.apache.ibatis.type.DateOnlyTypeHandler}]]>
+        </if>
+        <![CDATA[ORDER BY `date` ]]>
     </select>
 
     <delete id="deleteBillItem">
