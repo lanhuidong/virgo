@@ -419,10 +419,6 @@ function drawChart(result){
         myChart.dispose();
     }
     if(result.length > 0){
-        var rotate = 0;
-        if(result.length > 7){
-            rotate = -60;
-        }
         var xAxisData = [];
         var incomeData = [];
         var payData = [];
@@ -493,20 +489,16 @@ function drawChart(result){
                 },
                 tooltip:{
                     trigger:'axis',
-                    formatter: function(v) {
-                        return v[0][1] + '<br/>'
-                               + v[0][0] + ' : ' + v[0][2] + '元<br/>'
-                               + v[1][0] + ' : ' + (-v[1][2]).toFixed(2) + '元';
+                    axisPointer : {
+                        type : 'shadow'
                     }
                 },
-                calculable:true,
                 xAxis:[
                     {
                         type:'category',
                         boundaryGap:false,
                         axisLabel:
                         {
-                            rotate:rotate,
                             formatter:'{value}',
                             textStyle: {
                                 fontFamily: '微软雅黑',
@@ -537,11 +529,15 @@ function drawChart(result){
                     {
                         name:'收入',
                         type:'line',
+                        smooth:true,
+                        stack: '总量',
                         data:incomeData
                     },
                     {
                         name:'支出',
                         type:'line',
+                        smooth:true,
+                        stack: '总量',
                         data:payData
                     }
                 ]
