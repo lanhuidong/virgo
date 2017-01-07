@@ -26,7 +26,7 @@ def commonslangVersion = '3.4'
 allprojects {
     apply plugin: 'java'
     group = 'com.nexusy.virgo'
-    version = '2.2.3'
+    version = '3.0.0'
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
 }
