@@ -440,28 +440,42 @@ function drawChart(result, year, month){
         var payData = [];
         var maxPay = 0;
         var maxIn = 0;
+        var currentTime;
+        var idx = -1;
         for(var i in result){
-            xAxisData[i] = result[i]['date'];
-            incomeData[i] = 0;
-            payData[i] = 0;
+            if(year == -1 && month == -1){
+                currentTime = result[i]['date'].substring(0, 4);
+            } else if(year != -1 && month ==-1) {
+                currentTime = result[i]['date'].substring(0, 7);
+            } else {
+                currentTime = result[i]['date'];
+            }
+            var length = xAxisData.length;
+            if(length == 0 || xAxisData[length - 1] != currentTime){
+                xAxisData.push(currentTime);
+                incomeData.push(0);
+                payData.push(0);
+                idx++;
+            }
             var items = result[i]['items'];
             for(var j in items){
                 var item = items[j];
                 if(item['type']=='PAY'){
-                    payData[i] += item['money'];
+                    payData[idx] += item['money'];
                 } else {
-                    incomeData[i] += item['money'];
+                    incomeData[idx] += item['money'];
                 }
             }
-            if(incomeData[i] > maxIn){
-                maxIn = incomeData[i];
+            if(incomeData[idx] > maxIn){
+                maxIn = incomeData[idx];
             }
-            if(payData[i] > maxPay){
-                maxPay = payData[i];
+            if(payData[idx] > maxPay){
+                maxPay = payData[idx];
             }
+        }
+        for(var i = 0; i <= idx; i++){
             incomeData[i]=incomeData[i].toFixed(2);
             payData[i]=(-payData[i]).toFixed(2);
-
         }
         var x = 45;
         var x2 = 45;
