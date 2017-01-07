@@ -198,64 +198,135 @@ function queryBill(){
 function drawTable(data, year, month){
     $('#bill-tbody').remove();
     $('#bill-tfoot').remove();
-    if(data.length > 0){
-        $('#bill-table').append('<tbody id="bill-tbody"></tbody>');
-        var totalPay = 0;
-        var totalIncome = 0;
-        for(var i in data){
-            var bill = data[i];
-            var pay = 0;
-            var income = 0;
+    if(year != -1 && month != -1){
+        if(data.length > 0){
+            $('#bill-table').append('<tbody id="bill-tbody"></tbody>');
+            var totalPay = 0;
+            var totalIncome = 0;
+            for(var i in data){
+                var bill = data[i];
+                var pay = 0;
+                var income = 0;
 
-            var tr = $('<tr id="'+bill['id']+'"></tr>');
-            $('#bill-table > tbody').append(tr);
-            var table = $('<tr style="display:none"><td colspan="5" style="padding:0;border:none"><table class="table" style="margin:0;background:#FCF8E3"><tbody></tbody></table></td></tr>');
-            $('#bill-table > tbody').append(table);
-            for(var j in bill['items']){
-                var item = bill['items'][j];
-                var itemTr = $('<tr></tr>');
-                $(itemTr).append('<td width="15%">'+item['item']+'</td>');
-                var money = parseFloat(item['money']);
-                if(item['type']=='PAY'){
-                    pay += money;
-                    $(itemTr).append('<td width="25%" class="text-right text-danger">'+money.toFixed(2)+'</td>');
-                } else {
-                    income += money;
-                    $(itemTr).append('<td width="25%" class="text-right text-success">'+money.toFixed(2)+'</td>');
+                var tr = $('<tr id="'+bill['id']+'"></tr>');
+                $('#bill-table > tbody').append(tr);
+                var table = $('<tr style="display:none"><td colspan="5" style="padding:0;border:none"><table class="table" style="margin:0;background:#FCF8E3"><tbody></tbody></table></td></tr>');
+                $('#bill-table > tbody').append(table);
+                for(var j in bill['items']){
+                    var item = bill['items'][j];
+                    var itemTr = $('<tr></tr>');
+                    $(itemTr).append('<td width="15%">'+item['item']+'</td>');
+                    var money = parseFloat(item['money']);
+                    if(item['type']=='PAY'){
+                        pay += money;
+                        $(itemTr).append('<td width="25%" class="text-right text-danger">'+money.toFixed(2)+'</td>');
+                    } else {
+                        income += money;
+                        $(itemTr).append('<td width="25%" class="text-right text-success">'+money.toFixed(2)+'</td>');
+                    }
+                    $(itemTr).append('<td width="50%" class="text-center" colspan="2">'+item['remark']+'</td>');
+                    $(itemTr).append('<td width="10%" class="text-center text-info"><label id="'+item['id']+'" bid="'+bill['id']+'" class="del-item" style="cursor:pointer">删除</label></td>');
+                    $(table).find('tbody').append(itemTr);
                 }
-                $(itemTr).append('<td width="50%" class="text-center" colspan="2">'+item['remark']+'</td>');
-                $(itemTr).append('<td width="10%" class="text-center text-info"><label id="'+item['id']+'" bid="'+bill['id']+'" class="del-item" style="cursor:pointer">删除</label></td>');
-                $(table).find('tbody').append(itemTr);
-            }
-            $(tr).append('<td>'+bill['date']+'</td>');
-            $(tr).append('<td class="text-right text-danger pay">'+pay.toFixed(2)+'</td>');
-            $(tr).append('<td class="text-right text-success income">'+income.toFixed(2)+'</td>');
-            if(pay > income){
-                $(tr).append('<td class="text-danger text-right money">'+(pay-income).toFixed(2)+'</td>');
-            } else {
-                $(tr).append('<td class="text-right text-success money">'+(income-pay).toFixed(2)+'</td>');
-            }
-            $(tr).append('<td class="text-center text-info view-item" style="cursor:pointer">查看</td>');
+                $(tr).append('<td>'+bill['date']+'</td>');
+                $(tr).append('<td class="text-right text-danger pay">'+pay.toFixed(2)+'</td>');
+                $(tr).append('<td class="text-right text-success income">'+income.toFixed(2)+'</td>');
+                if(pay > income){
+                    $(tr).append('<td class="text-danger text-right money">'+(pay-income).toFixed(2)+'</td>');
+                } else {
+                    $(tr).append('<td class="text-right text-success money">'+(income-pay).toFixed(2)+'</td>');
+                }
+                $(tr).append('<td class="text-center text-info view-item" style="cursor:pointer">查看</td>');
 
-            totalPay += pay;
-            totalIncome += income;
-        }
-        $('#bill-table').append('<tfoot id="bill-tfoot"></tfoot>');
-        var trFoot = $('<tr></tr>');
-        $(trFoot).append('<th>结算</th>');
-        $(trFoot).append('<th id="total-pay" class="text-right text-danger">'+totalPay.toFixed(2)+'</th>');
-        $(trFoot).append('<th id="total-income" class="text-right text-success">'+totalIncome.toFixed(2)+'</th>');
-        if(totalPay > totalIncome){
-            $(trFoot).append('<th id="total-money" class="text-danger text-right">'+(totalPay-totalIncome).toFixed(2)+'</th>');
+                totalPay += pay;
+                totalIncome += income;
+            }
+            $('#bill-table').append('<tfoot id="bill-tfoot"></tfoot>');
+            var trFoot = $('<tr></tr>');
+            $(trFoot).append('<th>结算</th>');
+            $(trFoot).append('<th id="total-pay" class="text-right text-danger">'+totalPay.toFixed(2)+'</th>');
+            $(trFoot).append('<th id="total-income" class="text-right text-success">'+totalIncome.toFixed(2)+'</th>');
+            if(totalPay > totalIncome){
+                $(trFoot).append('<th id="total-money" class="text-danger text-right">'+(totalPay-totalIncome).toFixed(2)+'</th>');
+            } else {
+                $(trFoot).append('<th id="total-money" class="text-right text-success">'+(totalIncome-totalPay).toFixed(2)+'</th>');
+            }
+            $(trFoot).append('<th></th>');
+            $('#bill-table > tfoot').append(trFoot);
+            $('.view-item').click(toggleBillItem);
+            $('.del-item').click(deleteBillItem);
         } else {
-            $(trFoot).append('<th id="total-money" class="text-right text-success">'+(totalIncome-totalPay).toFixed(2)+'</th>');
+            $('table').append('<tbody id="bill-tbody"><tr><td class="text-center" colspan="5">暂无数据</td></tr></tbody>');
         }
-        $(trFoot).append('<th></th>');
-        $('#bill-table > tfoot').append(trFoot);
-        $('.view-item').click(toggleBillItem);
-        $('.del-item').click(deleteBillItem);
     } else {
-        $('table').append('<tbody id="bill-tbody"><tr><td class="text-center" colspan="5">暂无数据</td></tr></tbody>');
+        $('#bill-table').append('<tbody id="bill-tbody"></tbody>');
+        if(data.length > 0){
+            var xAxisData = [];
+            var incomeData = [];
+            var payData = [];
+            var maxPay = 0;
+            var maxIn = 0;
+            var currentTime;
+            var idx = -1;
+            for(var i in data){
+                if(year == -1 && month == -1){
+                    currentTime = data[i]['date'].substring(0, 4);
+                } else if(year != -1 && month ==-1) {
+                    currentTime = data[i]['date'].substring(0, 7);
+                } else {
+                    currentTime = data[i]['date'];
+                }
+                var length = xAxisData.length;
+                if(length == 0 || xAxisData[length - 1] != currentTime){
+                    xAxisData.push(currentTime);
+                    incomeData.push(0);
+                    payData.push(0);
+                    idx++;
+                }
+                var items = data[i]['items'];
+                for(var j in items){
+                    var item = items[j];
+                    if(item['type']=='PAY'){
+                        payData[idx] += item['money'];
+                    } else {
+                        incomeData[idx] += item['money'];
+                    }
+                }
+                if(incomeData[idx] > maxIn){
+                    maxIn = incomeData[idx];
+                }
+                if(payData[idx] > maxPay){
+                    maxPay = payData[idx];
+                }
+            }
+            var totalPay = 0;
+            var totalIncome = 0;
+            for(var i = 0; i <= idx; i++){
+                totalPay += payData[i];
+                totalIncome += incomeData[i];
+                if(payData[i] > incomeData[i]){
+                    $('#bill-table > tbody').append('<tr><td>'+xAxisData[i]+'</td><td class="text-right text-danger pay">'
+                    +payData[i].toFixed(2)+'</td><td class="text-right text-success income">'+incomeData[i].toFixed(2)
+                    +'</td><td class="text-danger text-right money">'+(payData[i]-incomeData[i]).toFixed(2)+'</td><td></td></tr>');
+                } else {
+                    $('#bill-table > tbody').append('<tr><td>'+xAxisData[i]+'</td><td class="text-right text-danger pay">'
+                    +payData[i].toFixed(2)+'</td><td class="text-right text-success income">'+incomeData[i].toFixed(2)
+                    +'</td><td class="text-success text-right money">'+(incomeData[i]-payData[i]).toFixed(2)+'</td><td></td></tr>');
+                }
+            }
+            $('#bill-table').append('<tfoot id="bill-tfoot"></tfoot>');
+            var trFoot = $('<tr></tr>');
+            $(trFoot).append('<th>结算</th>');
+            $(trFoot).append('<th id="total-pay" class="text-right text-danger">'+totalPay.toFixed(2)+'</th>');
+            $(trFoot).append('<th id="total-income" class="text-right text-success">'+totalIncome.toFixed(2)+'</th>');
+            if(totalPay > totalIncome){
+                $(trFoot).append('<th id="total-money" class="text-danger text-right">'+(totalPay-totalIncome).toFixed(2)+'</th>');
+            } else {
+                $(trFoot).append('<th id="total-money" class="text-right text-success">'+(totalIncome-totalPay).toFixed(2)+'</th>');
+            }
+            $(trFoot).append('<th></th>');
+            $('#bill-table > tfoot').append(trFoot);
+        }
     }
 }
 
