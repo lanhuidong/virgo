@@ -189,13 +189,13 @@ function queryBill(){
         params = 'from='+from+'&to='+to;
     }
     $.post('/api/bill', params, function(data){
-        drawTable(data);
-        drawChart(data);
-        drawPie(data);
+        drawTable(data, year, month);
+        drawChart(data, year, month);
+        drawPie(data, year, month);
     });
 }
 
-function drawTable(data){
+function drawTable(data, year, month){
     $('#bill-tbody').remove();
     $('#bill-tfoot').remove();
     if(data.length > 0){
@@ -259,7 +259,7 @@ function drawTable(data){
     }
 }
 
-function drawPie(data){
+function drawPie(data, year, month){
     if(incomePieChart){
         incomePieChart.clear();
         incomePieChart.dispose();
@@ -271,8 +271,14 @@ function drawPie(data){
     if(data.length > 0){
         var incomeTags={};
         var payTags={}
-        var day = data[0]['date'];
-        var title = day.substring(0,4)+'年'+day.substring(5,7)+'月';
+        var title;
+        if(year == -1 && month == -1){
+            title = '';
+        } else if(year != -1 && month == -1){
+            title = year + '年';
+        } else if(year != -1 && month != - 1){
+            title = year + '年' + month + '月';
+        }
         for(var i in data){
             var items = data[i]['items'];
             for(var j in items){
@@ -423,7 +429,7 @@ function drawPie(data){
 
 }
 
-function drawChart(result){
+function drawChart(result, year, month){
     if(myChart){
         myChart.clear();
         myChart.dispose();
