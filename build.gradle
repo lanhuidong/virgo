@@ -9,7 +9,7 @@ idea {
 
 def springVersion = '4.2.6.RELEASE'
 def springSecurityVersion = '4.1.0.RELEASE'
-def logbackVersion = '1.1.7'
+def logbackVersion = '1.1.8'
 def slf4jVersion = '1.7.21'
 def easymockVersion = '3.4'
 def junitVersion = '4+'
